@@ -1,3 +1,4 @@
+{% include 'navbar.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +15,8 @@
         }
         .store-images-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Buat tiga kolom */
-            gap: 1rem; /* Jarak antar container */
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
         }
 
         .store-image-container {
@@ -24,12 +25,12 @@
             padding: 0.5rem;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            text-align: center; /* Center text in container */
+            text-align: center;
         }
 
         .store-image {
             width: 100%;
-            max-width: 100%; /* Maksimalkan ukuran gambar dalam container */
+            max-width: 100%;
             aspect-ratio: 4/3;
             object-fit: cover;
             transition: transform 0.3s ease;
@@ -38,16 +39,56 @@
         .store-image:hover {
             transform: scale(1.02);
         }
+
+        /* Style untuk tombol action */
         .action-button {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 999px; /* Bentuk oval */
             font-size: 0.875rem;
+            font-weight: bold;
+            background-color: #34d399;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            gap: 0.5rem;
         }
+
+        .action-button i {
+            font-size: 1rem; /* Ukuran ikon */
+        }
+
         .action-button:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
+
+        /* Style untuk tombol dengan warna berbeda */
+        .action-button-blue {
+            background-color: #3b82f6;
+        }
+
+        .action-button-red {
+            background-color: #ef4444;
+        }
+
+        .action-button-green {
+            background-color: #10b981;
+        }
+
+        .action-button-blue:hover {
+            background-color: #2563eb;
+        }
+
+        .action-button-red:hover {
+            background-color: #dc2626;
+        }
+
+        .action-button-green:hover {
+            background-color: #059669;
+        }
+
         .store-section {
             margin-bottom: 4rem;
             padding-bottom: 4rem;
@@ -98,18 +139,18 @@
                             <a href="tel:{{ store.phone }}" class="text-gray-600">{{ store.phone }}</a>
                         </div>
                         
-                        <a href="{{ store.location_link }}" target="_blank" class="animated-btn inline-block bg-yellow-500 text-white rounded-lg px-4 py-2 hover:bg-yellow-600 shadow-lg">
-                            Lihat Lokasi
+                        <a href="{{ store.location_link }}" target="_blank" class="action-button action-button-green">
+                            <i class="fas fa-map-marker-alt"></i> Lihat Lokasi
                         </a>
                     </div>
 
                     <!-- Admin Actions -->
                     <div class="flex gap-4 mt-4">
-                        <a href="{% url 'merchant:edit_store' store.id %}" class="action-button bg-blue-600 text-white hover:bg-blue-700">
-                            Edit
+                        <a href="{% url 'merchant:edit_store' store.id %}" class="action-button action-button-blue">
+                            <i class="fas fa-edit"></i> Edit
                         </a>
-                        <a href="{% url 'merchant:delete_store' store.id %}" class="action-button bg-red-600 text-white hover:bg-red-700">
-                            Delete
+                        <a href="{% url 'merchant:delete_store' store.id %}" class="action-button action-button-red">
+                            <i class="fas fa-trash-alt"></i> Delete
                         </a>
                     </div>
                 </div>
@@ -121,8 +162,8 @@
 
         <!-- Add Store Button -->
         <div class="text-center mt-8">
-            <a href="{% url 'merchant:add_store' %}" class="action-button bg-green-500 text-white hover:bg-green-600">
-                Add Store
+            <a href="{% url 'merchant:add_store' %}" class="action-button action-button-green">
+                <i class="fas fa-plus"></i> Add Store
             </a>
         </div>
     </div>

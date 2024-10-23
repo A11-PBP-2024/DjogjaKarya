@@ -4,7 +4,7 @@ from merchant.views import store_list, show_xml, show_json, add_store, edit_stor
 app_name = 'merchant'
 
 urlpatterns = [
-    path('', store_list, name='store_list'),
+    path('store-list/', store_list, name='store_list'),
     path('xml/', show_xml, name='show_xml'),
     path('json/', show_json, name='show_json'),
     path('add/', add_store, name='add_store'),
