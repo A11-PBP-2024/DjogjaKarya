@@ -1,0 +1,171 @@
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Toko</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: #333;
+            background-color: #fef9f8;
+        }
+        .store-images-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .store-image-container {
+            background-color: #f9f9f9;
+            border: 1px solid #eaeaea;
+            padding: 0.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .store-image {
+            width: 100%;
+            max-width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .store-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* Style untuk tombol action */
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 999px; /* Bentuk oval */
+            font-size: 0.875rem;
+            font-weight: bold;
+            background-color: #34d399;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            gap: 0.5rem;
+        }
+
+        .action-button i {
+            font-size: 1rem; /* Ukuran ikon */
+        }
+
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Style untuk tombol dengan warna berbeda */
+        .action-button-blue {
+            background-color: #3b82f6;
+        }
+
+        .action-button-red {
+            background-color: #ef4444;
+        }
+
+        .action-button-green {
+            background-color: #10b981;
+        }
+
+        .action-button-blue:hover {
+            background-color: #2563eb;
+        }
+
+        .action-button-red:hover {
+            background-color: #dc2626;
+        }
+
+        .action-button-green:hover {
+            background-color: #059669;
+        }
+
+        .store-section {
+            margin-bottom: 4rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {% for store in stores %}
+        <div class="store-section">
+            <!-- Store Header -->
+            <div class="flex flex-col lg:flex-row justify-between gap-12">
+                <div class="lg:w-2/3">
+                    <h2 class="text-4xl font-bold mb-6">{{ store.name }}</h2>
+                    <p class="text-gray-600 leading-relaxed mb-8">{{store.description}}</p>
+                    
+                    <div class="store-images-container">
+                        {% if store.image1 %}
+                            <div class="store-image-container">
+                                <img src="{{ store.image1 }}" alt="{{ store.name }}" class="store-image">
+                            </div>
+                        {% endif %}
+                        {% if store.image2 %}
+                            <div class="store-image-container">
+                                <img src="{{ store.image2 }}" alt="{{ store.name }}" class="store-image">
+                            </div>
+                        {% endif %}
+                        {% if store.image3 %}
+                            <div class="store-image-container">
+                                <img src="{{ store.image3 }}" alt="{{ store.name }}" class="store-image">
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="lg:w-1/3">
+                    <div class="space-y-6">
+                        <p class="font-medium">{{ store.address }}</p>
+                        
+                        <div>
+                            <p class="font-medium">{{ store.opening_days}}</p>
+                            <p class="text-gray-600">{{ store.opening_hours}}</p>
+                        </div>
+                        
+                        <div>
+                            <p class="font-medium">Phone:</p>
+                            <a href="tel:{{ store.phone }}" class="text-gray-600">{{ store.phone }}</a>
+                        </div>
+                        
+                        <a href="{{ store.location_link }}" target="_blank" class="action-button action-button-green">
+                            <i class="fas fa-map-marker-alt"></i> Lihat Lokasi
+                        </a>
+                    </div>
+
+                    <!-- Admin Actions -->
+                    <div class="flex gap-4 mt-4">
+                        <a href="{% url 'merchant:edit_store' store.id %}" class="action-button action-button-blue">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a href="{% url 'merchant:delete_store' store.id %}" class="action-button action-button-red">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-gray-600">Tidak ada toko yang tersedia saat ini.</p>
+        {% endfor %}
+
+        <!-- Add Store Button -->
+        <div class="text-center mt-8">
+            <a href="{% url 'merchant:add_store' %}" class="action-button action-button-green">
+                <i class="fas fa-plus"></i> Add Store
+            </a>
+        </div>
+    </div>
+</body>
+</html>
