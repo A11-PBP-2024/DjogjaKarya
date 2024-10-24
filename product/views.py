@@ -1,7 +1,8 @@
-# In book/views.py
+
 from django.shortcuts import render
 from product.models import Product, Category
 from django.http import JsonResponse
+import random
 
 def show_product(request):
 
@@ -14,59 +15,25 @@ def show_product(request):
     'products': product,
 }
 
-    return render(request, "all.html", context)
+    return render(request, "category.html", context)
 
-def show_category(request):
-    category = Category.objects.all().values("products")
-    all_products = Product.objects.all()
-    batik = Product.objects.filter(kategori__icontains="Batik")
-    kulit = Product.objects.filter(kategori__icontains="Kerajinan Kulit")
-    perak = Product.objects.filter(kategori__icontains="Perak Kotagede")
-    wayang = Product.objects.filter(kategori__icontains="Kerajinan Wayang")
-    kayu = Product.objects.filter(kategori__icontains="Kerajinan Kayu")
-    anyaman = Product.objects.filter(kategori__icontains="Kerajinan Anyaman")
-    gerabah = Product.objects.filter(kategori__icontains="Kerajinan Gerabah Kasongan")
-    bambu = Product.objects.filter(kategori__icontains="Kerajinan Bambu")
-    tenun = Product.objects.filter(kategori__icontains="Kain Tenun Lurik")
-
-    context = {
-        # 'name':,
-        'categories': category,
-        'books': all_products,
-        'kainBatik':batik,
-        'kerajinanKulit':kulit,
-        'kerajinanPerak':perak,
-        'kerajinanWayang': wayang,
-        'kerajinanKayu': kayu,
-        'kerajinanAnyaman': anyaman,
-        'kerajinanGerabah': gerabah,
-        'kerajinanBambu': bambu,
-        'kerajinanTenun': tenun,
-    }
-
-    return render(request, "capek.html", context)
-    
-
-    
+ 
 def show_detail(request, id):
     selected_product = Product.objects.get(pk=id)
     kategori = selected_product.kategori
-    similar_products = Product.objects.filter(kategori__icontains=kategori).exclude(pk=id)[:6]
+    all_products = Product.objects.filter(kategori__icontains=kategori).exclude(pk=id)
 
-
-    # book_reviews = Review.objects.filter(book=selected_book)
+    if all_products.count() >= 3:
+        similar_products = random.sample(list(all_products), 3)
+    else:
+        similar_products = all_products
 
     context = {
         'product': selected_product,
-        # 'user': request.user.username if request.user.is_authenticated else "Guest",
         'similar_product': similar_products,
-        'kategori': kategori,
-        # 'selected_genres': selected_genres,
-        # 'reviews': book_reviews  # Add this line
     }
+
     return render(request, "detail.html", context)
-
-
 
 def filter_category_ajax(request):
     kategori = request.GET.get('kategori', 'all')
@@ -91,10 +58,9 @@ def filter_category_ajax(request):
 
 
 
-def show_coba(request):
+def show_category(request):
     kategori = request.GET.get('kategori', 'all')
 
-    # Jika kategori adalah 'all', ambil semua produk per kategori
     if kategori == 'all':
         context = {
             'kainBatik': Product.objects.filter(kategori__icontains="Batik"),
@@ -109,11 +75,11 @@ def show_coba(request):
             'selected_kategori': 'all',  # Untuk highlight kategori aktif
         }
     else:
-        # Jika kategori spesifik dipilih, tampilkan hanya produk kategori tersebut
+
         products = Product.objects.filter(kategori__icontains=kategori)
         context = {
-            'books': products,
+            'products': products,
             'selected_kategori': kategori,
         }
 
-    return render(request, 'capek.html', context)
+    return render(request, 'category.html', context)
