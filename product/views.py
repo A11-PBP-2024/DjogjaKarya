@@ -68,47 +68,6 @@ def show_detail(request, id):
 
 
 
-def show_category2(request):
-    # Filter produk berdasarkan kategori
-    kainBatik = list(Product.objects.filter(kategori__icontains='Batik').values())
-    kerajinanKulit = list(Product.objects.filter(kategori__icontains='Kerajinan Kulit').values())
-    kerajinanPerak = list(Product.objects.filter(kategori__icontains='Perak').values())
-    kerajinanWayang = list(Product.objects.filter(kategori__icontains='Wayang').values())
-    kerajinanKayu = list(Product.objects.filter(kategori__icontains='Kayu').values())
-    kerajinanAnyaman = list(Product.objects.filter(kategori__icontains='Anyaman').values())
-    kerajinanGerabah = list(Product.objects.filter(kategori__icontains='Gerabah').values())
-    kerajinanBambu = list(Product.objects.filter(kategori__icontains='Bambu').values())
-    kerajinanTenun = list(Product.objects.filter(kategori__icontains='Tenun').values())
-
-    # Jika request AJAX, kembalikan JSON
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        data = {
-            'kainBatik': kainBatik,
-            'kerajinanKulit': kerajinanKulit,
-            'kerajinanPerak': kerajinanPerak,
-            'kerajinanWayang': kerajinanWayang,
-            'kerajinanKayu': kerajinanKayu,
-            'kerajinanAnyaman': kerajinanAnyaman,
-            'kerajinanGerabah': kerajinanGerabah,
-            'kerajinanBambu': kerajinanBambu,
-            'kerajinanTenun': kerajinanTenun,
-        }
-        return JsonResponse(data)
-
-    # Jika bukan AJAX, render HTML biasa
-    context = {
-        'kainBatik': Product.objects.filter(kategori__icontains='Batik'),
-        'kerajinanKulit': Product.objects.filter(kategori__icontains='Kerajinan Kulit'),
-        'kerajinanPerak': Product.objects.filter(kategori__icontains='Perak'),
-        'kerajinanWayang': Product.objects.filter(kategori__icontains='Wayang'),
-        'kerajinanKayu': Product.objects.filter(kategori__icontains='Kayu'),
-        'kerajinanAnyaman': Product.objects.filter(kategori__icontains='Anyaman'),
-        'kerajinanGerabah': Product.objects.filter(kategori__icontains='Gerabah'),
-        'kerajinanBambu': Product.objects.filter(kategori__icontains='Bambu'),
-        'kerajinanTenun': Product.objects.filter(kategori__icontains='Tenun'),
-    }
-    return render(request, 'fix.html', context)
-
 def filter_category_ajax(request):
     kategori = request.GET.get('kategori', 'all')
 
@@ -130,21 +89,7 @@ def filter_category_ajax(request):
 
     return JsonResponse(data)
 
-# def show_coba(request):
-#     # Ambil kategori dari query string, default ke 'all' kalau tidak ada
-#     kategori = request.GET.get('kategori', 'all')
 
-#     if kategori == 'all':
-#         all_products = Product.objects.all()
-#     else:
-#         all_products = Product.objects.filter(kategori__icontains=kategori)
-
-#     context = {
-#         'books': all_products,  # Produk yang akan ditampilkan
-#         'selected_kategori': kategori,  # Untuk highlight kategori aktif
-#     }
-
-#     return render(request, "capek.html", context)
 
 def show_coba(request):
     kategori = request.GET.get('kategori', 'all')
