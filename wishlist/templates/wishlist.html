@@ -18,14 +18,17 @@
                     <div class="font-bold text-xl mb-2">{{ product.name }}</div>
                     <p class="text-gray-700 text-base">Price: Rp {{ product.harga|floatformat:0 }}</p>
                     <p class="text-gray-700 text-base">Merchant: {{ product.toko }}</p>
-                    <a href="{% url 'merchant:detail' product.toko %}"
-                        class="text-blue-600 hover:text-blue-800">View Store</a>
+
+       
+                    {% if product.merchant_id %}
+                    <a href="{% url 'merchant:detail' product.merchant_id %}" class="text-blue-600 hover:text-blue-800">View Store</a>
+                    {% else %}
+                    <span class="text-gray-500">Merchant details not available</span>
+                    {% endif %}
                 </div>
                 <div class="px-6 py-4 flex justify-between items-center">
-                    <a href="{% url 'wishlist:remove' product.pk %}"
-                        class="bg-red-500 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md">Remove</a>
-                    <a href="{% url 'product:detail' product.pk %}"
-                        class="bg-green-500 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md">View Product</a>
+                    <a href="{% url 'wishlist:remove' product.pk %}" class="bg-red-500 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md">Remove</a>
+                    <a href="{% url 'product:detail' product.pk %}" class="bg-green-500 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md">View Product</a>
                 </div>
             </div>
             {% endfor %}
