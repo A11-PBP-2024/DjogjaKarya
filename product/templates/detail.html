@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+<div class="container p-8">
+    <h2 class="text-3xl font-bold mb-6">{{ product.name }}</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Gambar Produk -->
+        <div class="w-full">
+            <img 
+                src="{{ product.image }}" 
+                alt="{{ product.name }}" 
+                class="rounded-xl object-cover w-full h-80"
+            />
+        </div>
+
+        <!-- Detail Produk -->
+        <div class="flex flex-col justify-between">
+            <div>
+                <p class="text-lg font-semibold text-gray-700">Toko: {{ product.toko }}</p>
+                <p class="text-lg font-bold text-indigo-600">Harga: Rp{{ product.harga }}</p>
+                <!-- <p class="mt-4">{{ product.description }}</p> -->
+            </div>
+
+            <div class="mt-4">
+                <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-500">
+                    ini nanti add to wishlist
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Produk Terkait -->
+    <div class="mt-10">
+        <h3 class="text-2xl font-semibold mb-4">Produk Terkait</h3>
+        <div class="overflow-x-auto whitespace-nowrap">
+            <div class="inline-flex gap-4">
+                {% for product in similar_product %}
+                    {% include 'product_card.html' %}
+                {% empty %}
+                    <p class="text-center text-gray-500 w-full">Tidak ada produk terkait tersedia.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
