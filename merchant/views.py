@@ -11,7 +11,7 @@ def store_list(request):
     context = {
         'stores': stores,
     }
-    return render(request, 'index.html', context)
+    return render(request, 'store_list.html', context)
 
 def show_xml(request):
     data = Store.objects.filter(user=request.user)
