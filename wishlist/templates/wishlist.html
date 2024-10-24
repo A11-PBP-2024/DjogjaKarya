@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block meta %}
+<title>Wishlist | Literasea</title>
+{% endblock meta %}
+{% block content %}
+
+<div class="container mx-auto mt-20 flex flex-col items-center justify-center">
+    <div class="w-full flex flex-col items-center bg-white font-inter">
+        <p class="mt-12 text-4xl font-gabarito font-bold text-[#005b9c]">Your Wishlist</p>
+        <p class="mt-2 text-gray-700">Check out your favorite products and consider purchasing them!</p>
+
+        {% if wishlist|length != 0 %}
+        <div class="text-center">
+            {% for product in wishlist %}
+            <div class="max-w-md w-full md:w-96 lg:w-96 xl:w-96 bg-white shadow-lg rounded-lg overflow-hidden m-5 mx-auto">
+                <img src="{{ product.image }}" class="w-full h-72 object-cover object-center" alt="{{ product.name }}">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2">{{ product.name }}</div>
+                    <p class="text-gray-700 text-base">Price: Rp {{ product.harga|floatformat:0 }}</p>
+                    <p class="text-gray-700 text-base">Merchant: {{ product.toko }}</p>
+
+       
+                    {% if product.merchant_id %}
+                    <a href="{% url 'merchant:detail' product.merchant_id %}" class="text-blue-600 hover:text-blue-800">View Store</a>
+                    {% else %}
+                    <span class="text-gray-500">Merchant details not available</span>
+                    {% endif %}
+                </div>
+                <div class="px-6 py-4 flex justify-between items-center">
+                    <a href="{% url 'wishlist:remove' product.pk %}" class="bg-red-500 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md">Remove</a>
+                    <a href="{% url 'product:detail' product.pk %}" class="bg-green-500 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md">View Product</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="mt-12 text-3xl font-gabarito font-bold text-[#005b9c]">Your Wishlist is Empty 🥲</p>
+        <p class="mt-2 text-gray-700">Explore products and add them to your wishlist!</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}
+{% block script %}
+<script src="/static/js/nav_script.js"></script>
+{% endblock script %}
