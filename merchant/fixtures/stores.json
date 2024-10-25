@@ -1,0 +1,82 @@
+[
+  {
+    "model": "merchant.Store",
+    "pk": 1,
+    "fields": {
+      "name": "Jogja Pasaraya",
+      "description": "Jogja Pasaraya adalah pusat perbelanjaan modern di Yogyakarta, menawarkan berbagai produk seperti fashion, elektronik, dan kebutuhan sehari-hari. Dengan suasana yang bersih dan teratur, tempat ini juga menyediakan pilihan kuliner, menjadikannya ideal untuk berbelanja dan bersantai.",
+      "address": "Jl. Malioboro No.39, Sosromenduran, Gedong Tengen, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55271",
+      "opening_days": "Monday - Sunday",
+      "opening_hours": "8.00 am - 10.00 pm",
+      "phone": "0817-9438-740",
+      "image1": "https://jogjapasaraya.com/wp-content/uploads/2024/02/JOGJA-PASARAYA-770-x-680.webp",
+      "image2": "https://jogjapasaraya.com/wp-content/uploads/2024/03/Oleh-Oleh-Yogyakarta-Jogja-Pasaraya.jpg",
+      "image3": "https://www.bahankain.com/storage/photos/shares/Artikel/Isi%20artikel/JULI%202023/area%20jogja%20pasaraya%20yang%20homy.jpg",
+      "location_link": "https://www.google.com/maps/place/Jogja+Pasaraya/@-7.7949698,110.365348,15z/data=!4m6!3m5!1s0x2e7a59779366cb35:0x3aafac9b4832206c!8m2!3d-7.7949698!4d110.365348!16s%2Fg%2F11kgr0n7sw?entry=tts"
+    }
+  },
+  {
+    "model": "merchant.Store",
+    "pk": 2,
+    "fields": {
+      "name": "Pasar Beringharjo",
+      "description": "Pasar Beringharjo di Yogyakarta adalah pasar tradisional yang terkenal, menawarkan berbagai produk lokal seperti batik, makanan khas, dan kerajinan tangan. Terletak di pusat kota, pasar ini menjadi destinasi wisata budaya yang ramai dan menarik bagi pengunjung.",
+      "address": "Jl. Pabringan 1, Yogyakarta 55122, Indonesia",
+      "opening_days": "Monday - Sunday",
+      "opening_hours": "4.00 am - 9.00 pm",
+      "phone": "(0274) 515-871",
+      "image1": "https://www.bahankain.com/storage/photos/shares/Artikel/Isi%20artikel/JULI%202023/area%20jogja%20pasaraya%20yang%20homy.jpg",
+      "image2": "https://o-cdn-cas.oramiland.com/parenting/images/E00E5DD9-F0F6-4673-8CED-FE43FC1CE.width-800.format-webp.webp",
+      "image3": "https://centertravel.id/wp-content/uploads/2020/11/Sejarah-Pasar-Beringharjo.jpg",
+      "location_link": "https://maps.app.goo.gl/hywKsdW3ARRhLpA47"
+    }
+  },
+  {
+    "model": "merchant.Store",
+    "pk": 3,
+    "fields": {
+      "name": "Hamzah Batik",
+      "description": "Hamzah Batik di Yogyakarta adalah pusat produksi dan penjualan batik terkenal, menawarkan berbagai jenis kain batik berkualitas. Selain menjual produk, tempat ini juga mengadakan workshop dan pelatihan batik, memberikan kesempatan bagi pengunjung untuk belajar tentang seni batik Yogyakarta.",
+      "address": "Jl. Margo Mulyo No.9 (Depan Pasar Bringharjo), Ngupasan, Kecamatan Gondomanan, Daerah Istimewa Yogyakarta 55122",
+      "opening_days": "Monday - Sunday",
+      "opening_hours": "7.00 am - 12.00 am",
+      "phone": "(0274) 588524",
+      "image1": "https://hamzahbatik.co.id/wp-content/uploads/2024/02/hamzah-batik-toko-1-1024x786-1.jpg",
+      "image2": "https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/11/2024/01/17/hamzah-batik-3-2391575486.jpg",
+      "image3": "https://hamzahbatik.co.id/wp-content/uploads/2024/07/mirota-batik-jogja-3-1024x692.jpg",
+      "location_link": "https://maps.app.goo.gl/ursvuLrHRibncXBH8"
+    }
+  },
+  {
+    "model": "merchant.Store",
+    "pk": 4,
+    "fields": {
+      "name": "Desa Wisata Kasongan",
+      "description": "Desa Wisata Kasongan di Yogyakarta terkenal dengan kerajinan gerabah dan keramik. Pengunjung dapat menyaksikan proses pembuatan keramik dan membeli produk unik. Selain itu, desa ini menawarkan suasana pedesaan yang asri, budaya lokal, dan kuliner khas, menjadikannya destinasi menarik bagi wisatawan.",
+      "address": "Jl. Kasongan No.3, Kajen, Bangunjiwo, Kec. Kasihan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55184",
+      "opening_days": "Monday - Sunday",
+      "opening_hours": "8.00 am - 4.00 pm",
+      "phone": "0895-3631-71116",
+      "image1": "https://www.wsrentaljogja.com/wp-content/uploads/2018/10/@naturalanid-600x400.jpg",
+      "image2": "https://www.wsrentaljogja.com/wp-content/uploads/2018/10/@kostubatravel.jpg",
+      "image3": "https://live.staticflickr.com/3905/14915013749_e2904d5a24_b.jpg",
+      "location_link": "https://maps.app.goo.gl/q8uHzjEbDXrCfiZP8"
+    }
+  },
+  {
+    "model": "merchant.Store",
+    "pk": 5,
+    "fields": {
+      "name": "Kotagede Silver",
+      "description": "Kotagede Silver di Yogyakarta adalah pusat kerajinan perak terkenal, menawarkan berbagai produk seperti perhiasan dan barang dekoratif berkualitas tinggi. Pengunjung dapat menyaksikan proses pembuatan perak di bengkel-bengkel kerajinan, menjadikan Kotagede Silver sebagai destinasi menarik untuk merasakan seni perak tradisional Indonesia.",
+      "address": "Jl. Kemasan No.13, Purbayan, Kec. Kotagede, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55173",
+      "opening_days": "Monday - Sunday",
+      "opening_hours": "9.00 am - 5.00 pm",
+      "phone": "0857-0119-0645",
+      "image1": "https://lh3.googleusercontent.com/p/AF1QipN6olt02YZt6_c7RUyfBhU4erMQuii-YTRGPXbe=s1360-w1360-h1020",
+      "image2": "https://lh3.googleusercontent.com/p/AF1QipPTBGp-hF2PwMdE08gcZ7mZV7jPYDKSsTcAzutI=s1360-w1360-h1020",
+      "image3": "https://lh3.googleusercontent.com/p/AF1QipOUaBFee2GKwqpsdCMZWdTglMjrLaMhgokov93x=s1360-w1360-h1020",
+      "location_link": "https://maps.app.goo.gl/v6sRxvVreqSW25Sg7"
+    }
+  }
+]
