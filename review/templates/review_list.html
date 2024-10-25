@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container p-8">
+    <!-- Informasi Produk -->
+    <h2 class="text-3xl font-semibold mb-6">Reviews for {{ product.name }}</h2>
+    
+    <!-- Daftar Review -->
+    <div class="space-y-6">
+        {% if reviews %}
+            {% for review in reviews %}
+                <div class="border-b pb-4 mb-4">
+                    <p class="text-xl font-bold">{{ review.user }}</p>
+                    <p class="text-sm text-gray-600">Rating: {{ review.rating }}/5</p>
+                    <p class="mt-2">{{ review.comment }}</p>
+                    <p class="text-xs text-gray-500 mt-1">{{ review.created_at|date:"F j, Y, g:i a" }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center text-gray-500">There are no reviews for this product yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
