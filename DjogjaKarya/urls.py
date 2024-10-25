@@ -25,4 +25,5 @@ urlpatterns = [
     path('merchant/', include('merchant.urls')),
     path('article/', include('article.urls')),
     path('auth/', include('authentication.urls')),
+    path('reviews/', include('review.urls')),
 ]
