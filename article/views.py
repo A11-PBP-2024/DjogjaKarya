@@ -26,3 +26,7 @@ def show_article(request):
 
     # Rendering the template with the context
     return render(request, "blog.html", context)
+
+
+def detail_blog(request):
+    return render(request, 'detail_blog.html')
