@@ -5,7 +5,7 @@ app_name = 'merchant'
 
 urlpatterns = [
     path('', store_list, name='store_list'),
-    path('', get_stores, name='get_stores'),
+    path('get-stores/', get_stores, name='get_stores'),
     path('add/', add_store, name='add_store'),
     path('edit-store/<int:id>', edit_store, name='edit_store'),
     path('delete/<int:id>', delete_store, name='delete_store'),
