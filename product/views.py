@@ -91,7 +91,7 @@ def edit_product(request, id):
             harga = request.POST.get('harga')
             toko = request.POST.get('toko')
             image = request.FILES.get('image')  
-            k
+            
             product.name = name
             product.kategori = kategori
             product.harga = harga
