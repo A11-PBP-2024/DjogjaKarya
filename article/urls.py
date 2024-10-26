@@ -5,5 +5,6 @@ app_name = 'article'  # This is crucial for using the 'article' namespace
 
 urlpatterns = [
     path('', views.show_article, name='show_article'),
+    path('detail/', views.detail_blog, name='detail_blog'),
     # Add more URL patterns here as needed
 ]
