@@ -1,36 +1,36 @@
 {% extends "base.html" %}
 {% block meta %}
-<title>Wishlist | Literasea</title>
+<title>Wishlist | Djogja Karya</title>
 {% endblock meta %}
 {% block content %}
 
+<!-- wishlist.html -->
 <div class="container mx-auto mt-20 flex flex-col items-center justify-center">
-    <div class="w-full flex flex-col items-center bg-white font-inter">
-        <p class="mt-12 text-4xl font-gabarito font-bold text-[#005b9c]">Your Wishlist</p>
-        <p class="mt-2 text-gray-700">Check out your favorite products and consider purchasing them!</p>
+    <p class="mt-12 text-4xl font-bold text-[#005b9c]">Your Wishlist</p>
+    <p class="mt-2 text-gray-700">Check out your favorite products!</p>
 
-        {% if wishlist|length != 0 %}
-        <div class="text-center">
-            {% for item in wishlist %}
-                <div class="max-w-md w-full md:w-96 lg:w-96 xl:w-96 bg-white shadow-lg rounded-lg overflow-hidden m-5 mx-auto">
-                    <img src="{{ item.product.image }}" class="w-full h-72 object-cover object-center" alt="{{ item.product.name }}">
-                    <div class="px-6 py-4">
-                        <div class="font-bold text-xl mb-2">{{ item.product.name }}</div>
-                        <p class="text-gray-700 text-base">Price: Rp {{ item.product.harga|floatformat:0 }}</p>
-                        <p class="text-gray-700 text-base">Merchant: {{ item.product.toko }}</p>
-                    </div>
-                    <div class="px-6 py-4 flex justify-between items-center">
-                        <a href="{% url 'wishlist:remove' item.product.pk %}" class="bg-red-500 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md">Remove</a>
-                        <a href="{% url 'product:show_detail' item.product.pk %}" class="bg-green-500 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md">View Product</a>
-                    </div>
+    {% if wishlist %}
+    <div class="text-center">
+        {% for item in wishlist %}
+            <div class="max-w-md w-full md:w-96 bg-white shadow-lg rounded-lg overflow-hidden m-5 mx-auto">
+                <img src="{{ item.product.image }}" class="w-full h-72 object-cover object-center" alt="{{ item.product.name }}">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2">{{ item.product.name }}</div>
+                    <p class="text-gray-700 text-base">Price: Rp {{ item.product.harga|floatformat:0 }}</p>
+                    <p class="text-gray-700 text-base">Merchant: {{ item.product.toko }}</p>
                 </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <p class="mt-12 text-3xl font-gabarito font-bold text-[#005b9c]">Your Wishlist is Empty 🥲</p>
-        <p class="mt-2 text-gray-700">Explore products and add them to your wishlist!</p>
-        {% endif %}
+                <div class="px-6 py-4 flex justify-between items-center">
+                    <a href="{% url 'wishlist:remove' item.product.pk %}" class="bg-red-500 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md">Remove</a>
+                    <a href="{% url 'product:show_detail' item.product.pk %}" class="bg-green-500 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md">View Product</a>
+                </div>
+            </div>
+        {% endfor %}
     </div>
+    {% else %}
+    <p class="mt-12 text-3xl font-bold text-[#005b9c]">Your Wishlist is Empty 🥲</p>
+    <p class="mt-2 text-gray-700">Explore products and add them to your wishlist!</p>
+    {% endif %}
+</div>
 </div>
 
 {% endblock content %}
