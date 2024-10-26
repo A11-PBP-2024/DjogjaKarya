@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 {% block content %}
@@ -6,6 +7,18 @@
 <div class="bg-gray-50 p-8">
     <h2 class="text-3xl font-bold mb-6">Produk Kerajinan</h2>
 </div>
+
+
+<!-- Tombol Add Product -->
+{% if user.is_authenticated and user.is_superuser %}
+<div class="flex justify-end px-8 mb-4">
+    <button id="add-product-button" class="bg-[#E8A04B] hover:bg-[#d68c37] text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-lg flex items-center space-x-2">
+        <i class="fas fa-plus"></i>
+        <span>Add Product</span>
+    </button>
+</div>
+{% endif %}
+
 
 <!-- Container Kategori -->
 <div id="category-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 px-2 md:px-4">
@@ -209,7 +222,7 @@
     {% else %}
         <div class="bg-gray-50 p-8">
             <h3 class="text-2xl font-semibold mb-4">{{ selected_kategori }}</h3>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-12">
+            <div id="product-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-12">
                 {% if products %}
                     {% for product in products %}
                         {% include 'product_card.html' %}
@@ -222,27 +235,173 @@
     {% endif %}
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Modal Add Product -->
+<div id="add-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-md w-96 relative">
+   
+        <button type="button" onclick="closeAddModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <h3 class="text-center text-xl font-bold mb-6">Add New Product</h3>
+
+        <form id="add-product-form">
+            {% csrf_token %}
+            
+            <div class="mb-4">
+                <label for="add-name" class="block text-sm font-medium mb-1">Nama Produk <span class="text-red-500">*</span></label>
+                <input type="text" id="add-name" name="name" required
+                    class="w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]">
+            </div>
+
+            <div class="mb-4">
+                <label for="add-kategori" class="block text-sm font-medium mb-1">Kategori <span class="text-red-500">*</span></label>
+                <select id="add-kategori" name="kategori" required
+                    class="w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]">
+                    <option value="">Pilih Kategori</option>
+                </select>
+            </div>
+
+            <!-- Harga -->
+            <div class="mb-4">
+                <label for="add-harga" class="block text-sm font-medium mb-1">Harga <span class="text-red-500">*</span></label>
+                <input type="number" id="add-harga" name="harga" required min="0"
+                    class="w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]">
+            </div>
+
+            <!-- Toko -->
+            <div class="mb-4">
+                <label for="add-toko" class="block text-sm font-medium mb-1">Toko <span class="text-red-500">*</span></label>
+                <select id="add-toko" name="toko" required
+                    class="w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]">
+                    <option value="">Pilih Toko</option>
+                </select>
+            </div>
+
+            <!-- URL Gambar -->
+            <div class="mb-4">
+                <label for="add-image" class="block text-sm font-medium mb-1">URL Gambar <span class="text-red-500">*</span></label>
+                <input type="url" id="add-image" name="image" required
+                    class="w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]">
+            </div>
+
+            <!-- Error Message -->
+            <div id="form-error" class="text-red-500 text-sm mb-4 text-center"></div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-center">
+                <button type="submit" 
+                    class="bg-[#E8A04B] hover:bg-[#d68c37] text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 hover:shadow-lg">
+                    Add Product
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
-    function getQueryParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
+   
+    function generateOptions(items) {
+        return items.map(item => `<option value="${item}">${item}</option>`).join('');
     }
-
-    function selectCategory(selectedCategory) {
-        document.querySelectorAll('.category-item').forEach(item => {
-            const label = item.querySelector('.category-label').innerText.trim().toLowerCase();
-            item.classList.toggle('opacity-50', label !== selectedCategory.toLowerCase());
-        });
+    
+    // Function to show error message
+    function showError(message) {
+        const errorDiv = document.getElementById('form-error');
+        errorDiv.textContent = message;
+        setTimeout(() => {
+            errorDiv.textContent = '';
+        }, 3000);
     }
-
-    document.querySelectorAll('.category-item a').forEach(item => {
-        item.addEventListener('click', event => {
-            selectCategory(item.innerText.trim());
+    
+    // Function to validate form
+    function validateForm() {
+        const name = document.getElementById('add-name').value.trim();
+        const kategori = document.getElementById('add-kategori').value;
+        const harga = document.getElementById('add-harga').value;
+        const toko = document.getElementById('add-toko').value;
+        const image = document.getElementById('add-image').value.trim();
+    
+        if (!name) {
+            showError('Product name must be filled');
+            return false;
+        }
+        if (!kategori) {
+            showError('Please select a category');
+            return false;
+        }
+        if (!harga || harga <= 0) {
+            showError('Price must be more than 0!');
+            return false;
+        }
+        if (!toko) {
+            showError('Please select a store!');
+            return false;
+        }
+        if (!image) {
+            showError('URL must be filled');
+            return false;
+        }
+    
+        return true;
+    }
+    
+  
+    document.getElementById('add-product-button').addEventListener('click', function() {
+        $.ajax({
+            url: "{% url 'product:get_form_data' %}",
+            type: 'GET',
+            success: function(response) {
+                document.getElementById('add-kategori').innerHTML = 
+                    '<option value="">Pilih Kategori</option>' + generateOptions(response.categories);
+                document.getElementById('add-toko').innerHTML = 
+                    '<option value="">Pilih Toko</option>' + generateOptions(response.stores);
+                document.getElementById('add-modal').classList.remove('hidden');
+            },
+            error: function(xhr) {
+                showError('Gagal mengambil data form');
+            }
         });
     });
+    
 
-    window.onload = () => selectCategory(getQueryParam('kategori') || 'all');
-</script>
+    function closeAddModal() {
+        document.getElementById('add-modal').classList.add('hidden');
+        document.getElementById('add-product-form').reset();
+        document.getElementById('form-error').textContent = '';
+    }
+    
+
+    document.getElementById('add-product-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (!validateForm()) {
+            return;
+        }
+    
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'product:add_product' %}",
+            data: $(this).serialize(),
+            success: function(response) {
+                showNotification('Produk berhasil ditambahkan!', 'success');
+                closeAddModal();
+                location.reload();
+            },
+            error: function(xhr) {
+                showError('Gagal menambahkan produk');
+            }
+        });
+    });
+    
+  
+    document.getElementById('add-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeAddModal();
+        }
+    });
+    </script>
 
 {% endblock content %}
