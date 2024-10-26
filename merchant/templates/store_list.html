@@ -1,9 +1,6 @@
-{% include 'navbar.html' %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
+
+{% block meta %}
     <title>Daftar Toko</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -11,7 +8,7 @@
         body {
             font-family: system-ui, -apple-system, sans-serif;
             color: #333;
-            background-color: #fef9f8;
+            background-color: #f9f9f9;
         }
         .store-images-container {
             display: grid;
@@ -40,7 +37,6 @@
             transform: scale(1.02);
         }
 
-        /* Style untuk tombol action */
         .action-button {
             display: inline-flex;
             align-items: center;
@@ -48,7 +44,7 @@
             border-radius: 999px; /* Bentuk oval */
             font-size: 0.875rem;
             font-weight: bold;
-            background-color: #34d399;
+            background-color: #834920;
             color: white;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
@@ -64,7 +60,6 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
-        /* Style untuk tombol dengan warna berbeda */
         .action-button-blue {
             background-color: #3b82f6;
         }
@@ -74,7 +69,7 @@
         }
 
         .action-button-green {
-            background-color: #10b981;
+            background-color: #6b3a1d;
         }
 
         .action-button-blue:hover {
@@ -95,16 +90,20 @@
             border-bottom: 1px solid #eee;
         }
     </style>
-</head>
-<body>
+{% endblock meta %}
+
+{% block content %}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {% for store in stores %}
         <div class="store-section">
-            <!-- Store Header -->
             <div class="flex flex-col lg:flex-row justify-between gap-12">
                 <div class="lg:w-2/3">
-                    <h2 class="text-4xl font-bold mb-6">{{ store.name }}</h2>
-                    <p class="text-gray-600 leading-relaxed mb-8">{{store.description}}</p>
+                    <h2 class="text-4xl font-bold mb-6">
+                        <a href="{% url 'merchant:store_products' %}?toko={{ store.name|urlencode }}" class="text-gray-600 hover:text-gray-800">
+                            {{ store.name }}
+                        </a>
+                    </h2>
+                    <p class="text-gray-600 leading-relaxed mb-8">{{ store.description }}</p>
                     
                     <div class="store-images-container">
                         {% if store.image1 %}
@@ -139,12 +138,12 @@
                             <a href="tel:{{ store.phone }}" class="text-gray-600">{{ store.phone }}</a>
                         </div>
                         
-                        <a href="{{ store.location_link }}" target="_blank" class="action-button action-button-green">
+                        <a href="{{ store.location_link }}" target="_blank" class="action-button action-button-[#6b3a1d]">
                             <i class="fas fa-map-marker-alt"></i> Lihat Lokasi
                         </a>
                     </div>
 
-                    <!-- Admin Actions -->
+                    {% if user.is_authenticated and user.is_superuser %}
                     <div class="flex gap-4 mt-4">
                         <a href="{% url 'merchant:edit_store' store.id %}" class="action-button action-button-blue">
                             <i class="fas fa-edit"></i> Edit
@@ -153,6 +152,7 @@
                             <i class="fas fa-trash-alt"></i> Delete
                         </a>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -160,13 +160,12 @@
         <p class="text-center text-gray-600">Tidak ada toko yang tersedia saat ini.</p>
         {% endfor %}
 
-        <!-- Add Store Button -->
+        {% if user.is_authenticated and user.is_superuser %}
         <div class="text-center mt-8">
             <a href="{% url 'merchant:add_store' %}" class="action-button action-button-green">
                 <i class="fas fa-plus"></i> Add Store
             </a>
         </div>
+        {% endif %}
     </div>
-</body>
-</html>
-{% include 'footer.html' %}
+{% endblock content %}

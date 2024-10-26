@@ -11,26 +11,19 @@
 
         {% if wishlist|length != 0 %}
         <div class="text-center">
-            {% for product in wishlist %}
-            <div class="max-w-md w-full md:w-96 lg:w-96 xl:w-96 bg-white shadow-lg rounded-lg overflow-hidden m-5 mx-auto">
-                <img src="{{ product.image }}" class="w-full h-72 object-cover object-center" alt="{{ product.name }}">
-                <div class="px-6 py-4">
-                    <div class="font-bold text-xl mb-2">{{ product.name }}</div>
-                    <p class="text-gray-700 text-base">Price: Rp {{ product.harga|floatformat:0 }}</p>
-                    <p class="text-gray-700 text-base">Merchant: {{ product.toko }}</p>
-
-       
-                    {% if product.merchant_id %}
-                    <a href="{% url 'merchant:detail' product.merchant_id %}" class="text-blue-600 hover:text-blue-800">View Store</a>
-                    {% else %}
-                    <span class="text-gray-500">Merchant details not available</span>
-                    {% endif %}
+            {% for item in wishlist %}
+                <div class="max-w-md w-full md:w-96 lg:w-96 xl:w-96 bg-white shadow-lg rounded-lg overflow-hidden m-5 mx-auto">
+                    <img src="{{ item.product.image }}" class="w-full h-72 object-cover object-center" alt="{{ item.product.name }}">
+                    <div class="px-6 py-4">
+                        <div class="font-bold text-xl mb-2">{{ item.product.name }}</div>
+                        <p class="text-gray-700 text-base">Price: Rp {{ item.product.harga|floatformat:0 }}</p>
+                        <p class="text-gray-700 text-base">Merchant: {{ item.product.toko }}</p>
+                    </div>
+                    <div class="px-6 py-4 flex justify-between items-center">
+                        <a href="{% url 'wishlist:remove' item.product.pk %}" class="bg-red-500 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md">Remove</a>
+                        <a href="{% url 'product:show_detail' item.product.pk %}" class="bg-green-500 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md">View Product</a>
+                    </div>
                 </div>
-                <div class="px-6 py-4 flex justify-between items-center">
-                    <a href="{% url 'wishlist:remove' product.pk %}" class="bg-red-500 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md">Remove</a>
-                    <a href="{% url 'product:detail' product.pk %}" class="bg-green-500 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md">View Product</a>
-                </div>
-            </div>
             {% endfor %}
         </div>
         {% else %}

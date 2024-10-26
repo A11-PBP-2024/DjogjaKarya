@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import Store
 from .forms import StoreForm
 from django.core import serializers
+from product.models import Product
 
 
 def store_list(request):
@@ -13,13 +14,10 @@ def store_list(request):
     }
     return render(request, 'store_list.html', context)
 
-def show_xml(request):
-    data = Store.objects.filter(user=request.user)
-    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
-
-def show_json(request):
-    data = Store.objects.filter(user=request.user)
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+def get_stores(request):
+    data = Store.objects.all()
+    return HttpResponse(serializers.serialize("json", data), 
+    content_type="application/json")
 
 def add_store(request):
     form = StoreForm(request.POST or None)
@@ -46,3 +44,12 @@ def delete_store(request, id):
     store = Store.objects.get(pk = id)
     store.delete()
     return HttpResponseRedirect(reverse('merchant:store_list'))
+
+def store_products(request):
+    store_name = request.GET.get('toko')
+    products = Product.objects.filter(toko=store_name)
+    context = {
+        'products': products,
+        'selected_store': store_name
+    }
+    return render(request, 'store_products.html', context)
