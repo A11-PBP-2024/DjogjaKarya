@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container p-8">
+    <!-- Judul Halaman -->
+    <h2 class="text-3xl font-semibold mb-6">Add a Review for {{ product.name }}</h2>
+
+    <!-- Formulir Tambah Ulasan -->
+    <form method="post" class="space-y-4 bg-gray-100 p-6 rounded-lg shadow-md">
+        {% csrf_token %}
+        
+        <!-- Rating -->
+        <div>
+            <label for="rating" class="block text-lg font-semibold mb-2">Rating (1-5)</label>
+            {{ form.rating }}
+        </div>
+        
+        <!-- Komentar -->
+        <div>
+            <label for="comment" class="block text-lg font-semibold mb-2">Your Review</label>
+            {{ form.comment }}
+        </div>
+
+        <!-- Tombol Kirim -->
+        <div class="mt-4">
+            <button type="submit" 
+                    class="bg-[#F3A73B] hover:bg-orange-500 text-white font-semibold py-2 px-6 rounded-full transition-transform duration-300 transform hover:scale-105">
+                Submit Review
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

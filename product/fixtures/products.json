@@ -1,0 +1,1102 @@
+[
+  {
+    "model": "product.Product",
+    "pk": 1,
+    "fields": {
+      "name": "Batik Tulis Sutra",
+      "kategori": "Batik",
+      "harga": 2500000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//103/MTA-66674524/tidak_ada_merk_kain_batik_tulis_sutra_atbm_baron_kemeja_batik_pria_tanmalaka-458_full02_21e822c3.jpg"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 2,
+    "fields": {
+      "name": "Batik Cap Katun",
+      "kategori": "Batik",
+      "harga": 450000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2023/9/24/76396531-8b3c-42dd-b99f-f19b98c1e101.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 3,
+    "fields": {
+      "name": "Batik Eco-print",
+      "kategori": "Batik",
+      "harga": 350000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://sibakuljogja.jogjaprov.go.id/blog/wp-content/uploads/2022/09/image-33.png"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 4,
+    "fields": {
+      "name": "Kain Batik Parang",
+      "kategori": "Batik",
+      "harga": 1075000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://static.cdntap.com/tap-assets-prod/wp-content/uploads/sites/24/2021/10/batik-parang-h-pinterest.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 5,
+    "fields": {
+      "name": "Kain Batik Kawung",
+      "kategori": "Batik",
+      "harga": 1075000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//117/MTA-39947859/bakung_radja_kain_batik_motif_kawung_full04_gkx5gb8d.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 6,
+    "fields": {
+      "name": "Kain Batik Truntum",
+      "kategori": "Batik",
+      "harga": 1350000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2022/10/5/d8e580d9-3f83-44b0-9846-2228922ad9a1.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 7,
+    "fields": {
+      "name": "Kain Batik Sekar Jagad",
+      "kategori": "Batik",
+      "harga": 1650000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://blog.knitto.co.id/wp-content/uploads/2024/01/Batik-Sekar-Jagad-Warna-Coklat-_-Sumber_-Freepik.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 8,
+    "fields": {
+      "name": "Sarung Batik",
+      "kategori": "Batik",
+      "harga": 400000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://margariabatik.id/wp-content/uploads/2024/03/d2.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 9,
+    "fields": {
+      "name": "Pakaian Batik Anak",
+      "kategori": "Batik",
+      "harga": 200000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://img.lazcdn.com/g/p/35430d3c5910610b4fc26a3c0d9eb9a1.jpg_720x720q80.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 10,
+    "fields": {
+      "name": "Gaun Batik Modern",
+      "kategori": "Batik",
+      "harga": 1250000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://dynamic.zacdn.com/zxfSVUUoi629TnNbFetsBPeyAH8=/filters:quality(70):format(webp)/https://static-id.zacdn.com/p/hadinata-batik-6559-7274893-1.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 11,
+    "fields": {
+      "name": "Kemeja Batik Pria",
+      "kategori": "Batik",
+      "harga": 575000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://dynamic.zacdn.com/MYxKB47VKvkjIHbKvHzqAwbaoDQ=/filters:quality(70):format(webp)/https://static-id.zacdn.com/p/abiroy-1327-1243323-1.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 12,
+    "fields": {
+      "name": "Blus Batik Wanita",
+      "kategori": "Batik",
+      "harga": 500000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://cdn0-production-images-kly.akamaized.net/gJQYxDKfWh24dUoAGR7T54YrsKk=/800x1066/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4785110/original/038146100_1711444336-Jual_Batik_Wanita_Wanita_Terbaik_Oktober_2023___ZALORA_Indonesia_____4_.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 13,
+    "fields": {
+      "name": "Dress Batik Lengan Panjang",
+      "kategori": "Batik",
+      "harga": 900000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://dynamic.zacdn.com/Uc8QhfRBD7lRe9p40x3yJ3Ewi7Y=/filters:quality(70):format(webp)/https://static-id.zacdn.com/p/krisna-batik-5412-1425483-1.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 14,
+    "fields": {
+      "name": "Celana Batik",
+      "kategori": "Batik",
+      "harga": 325000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//94/MTA-33723625/oem_celana_batik_wanita_modern-_batik_pants_-_lathi_gunungan_ayam_-_jahit_tutup_full06_c44y9uh.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 15,
+    "fields": {
+      "name": "Setelan Kebaya Batik",
+      "kategori": "Batik",
+      "harga": 1700000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//106/MTA-36559861/no_brand_kebata_set_setelan_kebaya_viscose_semi_sutera_premium_kebaya_batik_setelan_batik_full03_lqovlwtu.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 16,
+    "fields": {
+      "name": "Syal Batik Sutra",
+      "kategori": "Batik",
+      "harga": 850000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://batiksalma.com/wp-content/uploads/2023/07/Batik-Salma-Sarung-Selendang-Sutra-Bulu-4-scaled.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 17,
+    "fields": {
+      "name": "Tas Batik Kanvas",
+      "kategori": "Batik",
+      "harga": 250000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://thebatik.co.id/wp-content/uploads/2020/12/THEBATIK-TAS-TOTEBAG-KANVAS-BATIK-1B.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 18,
+    "fields": {
+      "name": "Dompet Batik Kulit",
+      "kategori": "Batik",
+      "harga": 475000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/catalog-image/103/MTA-155978130/brd-44261_dompet-pria-full-kulit-asli-motif-batik_full06-fc727cb8.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 19,
+    "fields": {
+      "name": "Sepatu Batik",
+      "kategori": "Batik",
+      "harga": 625000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://s0.bukalapak.com/img/56995338592/s-400-400/BJI_815___1.jpg.webp"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 20,
+    "fields": {
+      "name": "Ikat Kepala Batik (Blangkon)",
+      "kategori": "Batik",
+      "harga": 175000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://99ninetynine.com/wp-content/uploads/2022/12/blangkon-depan.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 21,
+    "fields": {
+      "name": "Tas Kulit Asli Yogyakarta",
+      "kategori": "Kerajinan Kulit",
+      "harga": 75000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/700/product-1/2019/3/26/173379/173379_19e0d9cf-4fc9-4c96-a80f-e9fd5d5a0e2e_1512_1512.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 22,
+    "fields": {
+      "name": "Dompet Kulit Pria",
+      "kategori": "Kerajinan Kulit",
+      "harga": 40500,
+      "toko": "Hamzah Batik",
+      "image": "https://down-id.img.susercontent.com/file/87c50942cbf1fbb7a25917cbc4999a60"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 23,
+    "fields": {
+      "name": "Sepatu Kulit Handmade",
+      "kategori": "Kerajinan Kulit",
+      "harga": 108000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/700/product-1/2020/2/29/66116737/66116737_9981b39a-11a9-407b-84d1-2c9e49d95577_569_1020.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 24,
+    "fields": {
+      "name": "Sandal Kulit Tradisional",
+      "kategori": "Kerajinan Kulit",
+      "harga": 29500,
+      "toko": "Hamzah Batik",
+      "image": "https://filebroker-cdn.lazada.co.id/kf/Sa600151d021a4897bef30b56eae2187cJ.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 25,
+    "fields": {
+      "name": "Ikat Pinggang Kulit",
+      "kategori": "Kerajinan Kulit",
+      "harga": 65000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2021/3/15/44d8faff-e88c-49ed-adac-b4798d10a708.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 26,
+    "fields": {
+      "name": "Jaket Kulit Custom",
+      "kategori": "Kerajinan Kulit",
+      "harga": 600000,
+      "toko": "Hamzah Batik",
+      "image": "https://media.karousell.com/media/photos/products/2023/5/18/jaket_kulit_domba_asli_manding_1684449753_badb4a5f_progressive.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 27,
+    "fields": {
+      "name": "Dompet Wanita Kulit",
+      "kategori": "Kerajinan Kulit",
+      "harga": 200000,
+      "toko": "Hamzah Batik",
+      "image": "https://genkzhi.com/wp-content/uploads/2018/12/Dompet-Wanita-Brown-GL-34-Kerajinan-kulit-asli-jogja-Genkzhi-Leather-247x296.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 28,
+    "fields": {
+      "name": "Aksesoris Gantungan Kunci Kulit",
+      "kategori": "Kerajinan Kulit",
+      "harga": 16800,
+      "toko": "Hamzah Batik",
+      "image": "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//catalog-image/100/MTA-141284079/brd-44261_gjs-aksesoris-gantungan-kunci-kulit-sapi-asli-premium-terlaris_full07-67c8b2fd.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 29,
+    "fields": {
+      "name": "Topi Kulit Khas Jogja",
+      "kategori": "Kerajinan Kulit",
+      "harga": 130000,
+      "toko": "Hamzah Batik",
+      "image": "https://down-id.img.susercontent.com/file/dfc7c2bca30cae1b3fd0725cef9709af"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 30,
+    "fields": {
+      "name": "Tas Selempang Kulit Wanita",
+      "kategori": "Kerajinan Kulit",
+      "harga": 300000,
+      "toko": "Hamzah Batik",
+      "image": "https://down-id.img.susercontent.com/file/1201c4664bc45d77617f1592ae83ed17"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 31,
+    "fields": {
+      "name": "Kalung Perak",
+      "kategori": "Perak Kotagede",
+      "harga": 300000,
+      "toko": "Kotagede Silver",
+      "image": "https://kotagedesilver.com/produk/produk_383_2okt2010-89_(14).jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 32,
+    "fields": {
+      "name": "Gelang Perak",
+      "kategori": "Perak Kotagede",
+      "harga": 235000,
+      "toko": "Kotagede Silver",
+      "image": "https://images.tokopedia.net/img/cache/100-square/product-1/2020/2/1/44542407/44542407_c9bebc61-3991-4e19-8125-37eeeebe5607_2048_2048?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 33,
+    "fields": {
+      "name": "Cincin Perak Ukir",
+      "kategori": "Perak Kotagede",
+      "harga": 350000,
+      "toko": "Kotagede Silver",
+      "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Ftokoperakjogja.com%2F2020%2F01%2F07%2Fcincin-kawin-perak-kotagede-kj-12%2F&psig=AOvVaw2qhfC0U7T1JcSjL8p6oQAL&ust=1728542720666000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCLCP38nZgIkDFQAAAAAdAAAAABAZ"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 34,
+    "fields": {
+      "name": "Tas Wanita Perak",
+      "kategori": "Perak Kotagede",
+      "harga": 375000,
+      "toko": "Kotagede Silver",
+      "image": "https://kotagedesilver.com/produk/produk_389_Silver_Filigree_bag3.png"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 35,
+    "fields": {
+      "name": "Bros Perak",
+      "kategori": "Perak Kotagede",
+      "harga": 385000,
+      "toko": "Kotagede Silver",
+      "image": "https://kotagedesilver.com/produk/produk_209_DSC_3807.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 36,
+    "fields": {
+      "name": "Patung Miniatur Perak",
+      "kategori": "Perak Kotagede",
+      "harga": 2000000,
+      "toko": "Kotagede Silver",
+      "image": "https://kotagedesilver.com/produk/produk_62_Ship5.png"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 37,
+    "fields": {
+      "name": "Teko Teh Perak",
+      "kategori": "Perak Kotagede",
+      "harga": 200000,
+      "toko": "Kotagede Silver",
+      "image": "https://kotagedesilver.com/produk/produk_338_teko_teh_gambar2.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 38,
+    "fields": {
+      "name": "Helm Ukir Perak",
+      "kategori": "Perak Kotagede",
+      "harga": 1500000,
+      "toko": "Kotagede Silver",
+      "image": "https://images.tokopedia.net/img/cache/100-square/attachment/2019/7/14/156311702405691/156311702405691_f9fc56c2-fe10-42e4-8e79-6b0d3efca226.png?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 39,
+    "fields": {
+      "name": "Hiasan Dinding Perak",
+      "kategori": "Perak Kotagede",
+      "harga": 950000,
+      "toko": "Kotagede Silver",
+      "image": "https://kotagedesilver.com/produk/produk_390_kapal_layar_silver_frame.png"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 40,
+    "fields": {
+      "name": "Liontin Perak",
+      "kategori": "Perak Kotagede",
+      "harga": 350000,
+      "toko": "Kotagede Silver",
+      "image": "https://images.tokopedia.net/img/cache/100-square/VqbcmM/2020/11/29/2d87b010-fa32-4522-ae02-01cb42e30e38.jpg?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 41,
+    "fields": {
+      "name": "Wayang Kulit Miniatur",
+      "kategori": "Kerajinan Wayang",
+      "harga": 70000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/product-1/2016/12/26/68039667/68039667_54eee975-5f1a-4a1f-b6c4-8af1c4bd6a27_2048_0.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 42,
+    "fields": {
+      "name": "Wayang Golek",
+      "kategori": "Kerajinan Wayang",
+      "harga": 56000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2021/8/10/9e7e7eae-a591-4a94-93aa-6faf766a2835.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 43,
+    "fields": {
+      "name": "Patung Wayang Kayu",
+      "kategori": "Kerajinan Wayang",
+      "harga": 1400000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/product-1/2020/3/15/7941417/7941417_252395eb-0ce7-4f94-9ff3-3ca0c8ef8c5f_1080_1080.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 44,
+    "fields": {
+      "name": "Wayang Kulit Tokoh Mahabharata",
+      "kategori": "Kerajinan Wayang",
+      "harga": 250000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2021/6/20/4fdf1fc3-c9b9-4e50-844c-008fe6f6fe42.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 45,
+    "fields": {
+      "name": "Wayang Kulit Tokoh Kresna Krisna",
+      "kategori": "Kerajinan Wayang",
+      "harga": 850000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2021/6/20/4fdf1fc3-c9b9-4e50-844c-008fe6f6fe42.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 46,
+    "fields": {
+      "name": "Hiasan Dinding Wayang Kulit",
+      "kategori": "Kerajinan Wayang",
+      "harga": 55000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/hDjmkQ/2024/1/13/0e78a0c4-5698-4e9e-87ab-e3c4c8e83907.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 47,
+    "fields": {
+      "name": "Pembatas Buku Wayang Kulit",
+      "kategori": "Kerajinan Wayang",
+      "harga": 9950,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2024/5/21/b6c32e91-2a22-4a0a-afc1-bc996bbf08fc.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 48,
+    "fields": {
+      "name": "Topeng Wayang Tradisional",
+      "kategori": "Kerajinan Wayang",
+      "harga": 90000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/product-1/2020/2/17/5768123/5768123_610658dd-c867-4692-9980-e8ace473be65_1224_1224.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 49,
+    "fields": {
+      "name": "Plakat Souvenir Topeng Wayang",
+      "kategori": "Kerajinan Wayang",
+      "harga": 350000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2023/6/12/cbf6a7b6-a704-4c85-8c2f-5ee4a25227f4.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 50,
+    "fields": {
+      "name": "Gantungan Kunci Wayang Kulit",
+      "kategori": "Kerajinan Wayang",
+      "harga": 8000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/product-1/2019/7/6/12115950/12115950_0cebee97-f561-4dfa-a1f8-bd2445f74e2c_1000_1000.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 51,
+    "fields": {
+      "name": "Patung Kayu Miniatur",
+      "kategori": "Kerajinan Kayu",
+      "harga": 82500,
+      "toko": "Jogja Pasaraya",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2024/4/25/ebbc3a2a-5271-473a-a106-5d27f691ac15.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 52,
+    "fields": {
+      "name": "Topeng Batik Kayu Tradisional",
+      "kategori": "Kerajinan Kayu",
+      "harga": 187000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2024/5/1/ee953646-94af-453e-9b80-80ddff6242bd.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 53,
+    "fields": {
+      "name": "Meja Kayu Jati Motif Ukiran Antik Jawa",
+      "kategori": "Kerajinan Kayu",
+      "harga": 1063000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://images.tokopedia.net/img/cache/200-square/hDjmkQ/2024/5/9/8428769d-3ecf-4765-9d46-cc2eea9a41e1.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 54,
+    "fields": {
+      "name": "Alat Musik Tradisional dari Kayu",
+      "kategori": "Kerajinan Kayu",
+      "harga": 343500,
+      "toko": "Jogja Pasaraya",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2023/10/25/19255191-218f-43b7-9657-28e8fa61994a.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 55,
+    "fields": {
+      "name": "Jam Dinding Kayu Ukir",
+      "kategori": "Kerajinan Kayu",
+      "harga": 291000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-XSBE7OLl1Fb0JD_MJurwDAYsyQ1M7tDOSQ&s"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 56,
+    "fields": {
+      "name": "Tempat Pena dari Kayu",
+      "kategori": "Kerajinan Kayu",
+      "harga": 50000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://images.tokopedia.net/img/cache/200-square/product-1/2020/6/12/46285763/46285763_8f39682d-05b3-477d-aade-dbd4fe13ea6e_1057_1057.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 57,
+    "fields": {
+      "name": "Handle Tas Kayu Khas Jogja",
+      "kategori": "Kerajinan Kayu",
+      "harga": 6750,
+      "toko": "Jogja Pasaraya",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2023/11/12/d7c29100-9614-4507-a677-fe663d24b096.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 58,
+    "fields": {
+      "name": "Mainan Kayu Tradisional",
+      "kategori": "Kerajinan Kayu",
+      "harga": 67000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2022/2/21/9a14cd2a-6fb5-4c8c-8922-e5bec53d3c45.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 59,
+    "fields": {
+      "name": "Kotak Perhiasan Kayu",
+      "kategori": "Kerajinan Kayu",
+      "harga": 2400000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://images.tokopedia.net/img/cache/200-square/product-1/2019/4/5/1608389/1608389_beee5b47-a947-4228-b27c-c79685b24dad_1500_1500.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 60,
+    "fields": {
+      "name": "Tempat Tisu Kayu",
+      "kategori": "Kerajinan Kayu",
+      "harga": 80000,
+      "toko": "Jogja Pasaraya",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2022/7/21/dcf6bf79-ec60-4afb-a8f1-caa3ea50a5ae.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 61,
+    "fields": {
+      "name": "Tas Anyaman Bambu",
+      "kategori": "Kerajinan Anyaman",
+      "harga": 60000,
+      "toko": "Hamzah Batik",
+      "image": "https://down-id.img.susercontent.com/file/d9896a7895ce3bf9a10e04ca257818bd"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 62,
+    "fields": {
+      "name": "Topi Anyaman Rotan",
+      "kategori": "Kerajinan Anyaman",
+      "harga": 100000,
+      "toko": "Hamzah Batik",
+      "image": "https://down-id.img.susercontent.com/file/405dd1d1c47d37f35b9d4819ae94e51c"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 63,
+    "fields": {
+      "name": "Keranjang Anyaman Pandan",
+      "kategori": "Kerajinan Anyaman",
+      "harga": 110000,
+      "toko": "Hamzah Batik",
+      "image": "https://down-id.img.susercontent.com/file/e329eabc6018faf68d4c01b808bb449a"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 64,
+    "fields": {
+      "name": "Vas Anyaman",
+      "kategori": "Kerajinan Anyaman",
+      "harga": 37500,
+      "toko": "Hamzah Batik",
+      "image": "https://th.bing.com/th/id/R.611ff0f172fbe63ef3d1b3d144b0abca?rik=oBlQHpwQ6wj60w&riu=http%3a%2f%2fwww.alyyartgallery.com%2fwp-content%2fuploads%2f2014%2f06%2fA-015.jpg&ehk=dlB6ICrVdk48DkYSDXQfaUqDtg1sd6eE0pOl6bpxRT4%3d&risl=&pid=ImgRaw&r=0"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 65,
+    "fields": {
+      "name": "Hiasan Dinding Anyaman Bambu",
+      "kategori": "Kerajinan Anyaman",
+      "harga": 45000,
+      "toko": "Hamzah Batik",
+      "image": "https://down-id.img.susercontent.com/file/be2973a54b77da10d6e0a2da0cad371f"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 66,
+    "fields": {
+      "name": "Taplak Meja Anyaman",
+      "kategori": "Kerajinan Anyaman",
+      "harga": 70000,
+      "toko": "Hamzah Batik",
+      "image": "https://down-id.img.susercontent.com/file/776b0c204def77507547dce4f55b3fd1"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 67,
+    "fields": {
+      "name": "Tikar Tradisional Anyaman",
+      "kategori": "Kerajinan Anyaman",
+      "harga": 84000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2021/8/11/c49ff226-6bc6-4555-9bf9-40a54e0e2473.jpg.webp?ect=3g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 68,
+    "fields": {
+      "name": "Sepatu Anyaman dari Daun Pandan",
+      "kategori": "Kerajinan Anyaman",
+      "harga": 11000,
+      "toko": "Hamzah Batik",
+      "image": "https://image.indonetwork.co.id/product/thumbs/350x350/2022/10/22/8f2f68ae-4f50-41d7-a980-1b5a2de1c98c.png"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 69,
+    "fields": {
+      "name": "Dompet Anyaman",
+      "kategori": "Kerajinan Anyaman",
+      "harga": 45000,
+      "toko": "Hamzah Batik",
+      "image": "https://th.bing.com/th/id/OIP.LuGgxYZ1Enm_EKa4PyCifgEsEs?rs=1&pid=ImgDetMain"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 70,
+    "fields": {
+      "name": "Tas Selempang Anyaman",
+      "kategori": "Kerajinan Anyaman",
+      "harga": 24000,
+      "toko": "Hamzah Batik",
+      "image": "https://www.keranjanganyam.com/wp-content/uploads/2022/02/photo16286009144-1024x1024.jpeg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 71,
+    "fields": {
+      "name": "Pot Bunga Gerabah",
+      "kategori": "Kerajinan Gerabah Kasongan",
+      "harga": 330000,
+      "toko": "Desa Wisata Kasongan",
+      "image": "https://lh6.ggpht.com/-hmw1QqgOamY/Ue3bKiTuFuI/AAAAAAAAAv8/_Be65O1xToU/s1600/IMG_20130705_141938.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 72,
+    "fields": {
+      "name": "Patung Gerabah Miniatur",
+      "kategori": "Kerajinan Gerabah Kasongan",
+      "harga": 20000,
+      "toko": "Desa Wisata Kasongan",
+      "image": "https://th.bing.com/th/id/OIP.RKTwTiiA5vVS0qQP0NB1DQHaE6?rs=1&pid=ImgDetMain"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 73,
+    "fields": {
+      "name": "Tempat Lilin Gerabah",
+      "kategori": "Kerajinan Gerabah Kasongan",
+      "harga": 5000,
+      "toko": "Desa Wisata Kasongan",
+      "image": "https://down-id.img.susercontent.com/file/id-11134207-7r98t-lr19abowipqlb5@resize_w450_nl.webp"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 74,
+    "fields": {
+      "name": "Vas Gerabah",
+      "kategori": "Kerajinan Gerabah Kasongan",
+      "harga": 60000,
+      "toko": "Desa Wisata Kasongan",
+      "image": "https://s0.bukalapak.com/img/55037317492/s-330-330/data.jpeg.webp"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 75,
+    "fields": {
+      "name": "Lampu Meja Gerabah",
+      "kategori": "Kerajinan Gerabah Kasongan",
+      "harga": 211000,
+      "toko": "Desa Wisata Kasongan",
+      "image": "https://i.etsystatic.com/26922959/r/il/4b9556/2788851154/il_1140xN.2788851154_lget.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 76,
+    "fields": {
+      "name": "Teko Gerabah",
+      "kategori": "Kerajinan Gerabah Kasongan",
+      "harga": 100000,
+      "toko": "Desa Wisata Kasongan",
+      "image": "https://th.bing.com/th/id/R.e6f0a1468ab127b33840bdf273aea2c6?rik=IboIf%2fzBnxIung&riu=http%3a%2f%2fhiasanjoglo.com%2fwp-content%2fuploads%2f2020%2f04%2fTeko-set-gerabah.jpeg&ehk=TO6s3xHF2c7auMfAdBHUiMy5YcWzQ2DNU5rtdVbqZt8%3d&risl=&pid=ImgRaw&r=0"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 77,
+    "fields": {
+      "name": "Guci Hias Gerabah",
+      "kategori": "Kerajinan Gerabah Kasongan",
+      "harga": 105000,
+      "toko": "Desa Wisata Kasongan",
+      "image": "https://ik.imagekit.io/carro/jualo/original/26405507/guci-gerabah-lukis-ka-kebutuhan-rumah-tangga-interior-dan-dinding-26405507.jpg?v=1592318980"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 78,
+    "fields": {
+      "name": "Asbak Gerabah",
+      "kategori": "Kerajinan Gerabah Kasongan",
+      "harga": 14500,
+      "toko": "Desa Wisata Kasongan",
+      "image": "https://down-id.img.susercontent.com/file/520eb2833f5faabe4bd303d261f21b21"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 79,
+    "fields": {
+      "name": "Tungku Gerabah",
+      "kategori": "Kerajinan Gerabah Kasongan",
+      "harga": 65000,
+      "toko": "Desa Wisata Kasongan",
+      "image": "https://www.bing.com/th?id=OIP.u9-m2JtosIrANqA1YBgDGQHaHa&w=150&h=150&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 80,
+    "fields": {
+      "name": "Tempayan Air Gerabah",
+      "kategori": "Kerajinan Gerabah Kasongan",
+      "harga": 1100000,
+      "toko": "Desa Wisata Kasongan",
+      "image": "https://images.tokopedia.net/img/cache/200-square/hDjmkQ/2024/7/10/391f0207-41e2-4feb-8bc5-ba70ddbd875c.jpg.webp?ect=3g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 81,
+    "fields": {
+      "name": "Lampu Gantung Bambu",
+      "kategori": "Kerajinan Bambu",
+      "harga": 200000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/hDjmkQ/2023/3/4/498d66f6-aaa9-420d-a2a3-5a344d5fcf4f.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 82,
+    "fields": {
+      "name": "Keranjang Buah Bambu",
+      "kategori": "Kerajinan Bambu",
+      "harga": 50000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2021/12/16/1e916183-9b61-42b8-8521-c8f00e085ff8.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 83,
+    "fields": {
+      "name": "Rantang Bulat Bambu",
+      "kategori": "Kerajinan Bambu",
+      "harga": 45000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2021/6/28/368f323c-3ae4-4f08-9845-cf6c391c0000.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 84,
+    "fields": {
+      "name": "Rak Hias Bambu",
+      "kategori": "Kerajinan Bambu",
+      "harga": 55000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/hDjmkQ/2024/9/30/0c149315-1bc4-45cd-8460-a2d804341d9d.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 85,
+    "fields": {
+      "name": "Vas Bunga Bambu",
+      "kategori": "Kerajinan Bambu",
+      "harga": 38000,
+      "toko": "Hamzah Batik",
+      "image": "https://img.lazcdn.com/g/ff/kf/S982558891f85478c9a9acff2d2e37bf8k.jpg_720x720q80.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 86,
+    "fields": {
+      "name": "Tas Keranjang Bambu",
+      "kategori": "Kerajinan Bambu",
+      "harga": 27000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/VqbcmM/2022/6/27/b92965d3-cf22-4752-84bf-b5f1edaa3840.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 87,
+    "fields": {
+      "name": "Meja Kecil Bambu",
+      "kategori": "Kerajinan Bambu",
+      "harga": 300000,
+      "toko": "Hamzah Batik",
+      "image": "https://img.gkbcdn.com/p/2021-02-25/Coffee-Table-Bamboo-90x50x45-cm-453581-0._w500_p1_.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 88,
+    "fields": {
+      "name": "Kursi Santai Bambu",
+      "kategori": "Kerajinan Bambu",
+      "harga": 350000,
+      "toko": "Hamzah Batik",
+      "image": "https://i.pinimg.com/originals/64/1d/55/641d552c2682e86317a382b2638decf1.png"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 89,
+    "fields": {
+      "name": "Cermin Bambu",
+      "kategori": "Kerajinan Bambu",
+      "harga": 85000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/200-square/hDjmkQ/2023/9/16/f1480a0c-cefe-4cbf-97d5-9a38a40f63fe.jpg.webp?ect=4g"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 90,
+    "fields": {
+      "name": "Hiasan Dinding Bambu",
+      "kategori": "Kerajinan Bambu",
+      "harga": 35000,
+      "toko": "Hamzah Batik",
+      "image": "https://images.tokopedia.net/img/cache/500-square/product-1/2019/7/28/48076656/48076656_53595ebf-da05-4f99-9693-71b18e7cc9a6_800_800"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 91,
+    "fields": {
+      "name": "Rok Lurik",
+      "kategori": "Kain Tenun Lurik",
+      "harga": 155000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//103/MTA-74154487/no_brand_rok_instan_rok_batik_wiru_bawahan_surjan_lurik_kebaya_lurik_full01_0fe8cc34.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 92,
+    "fields": {
+      "name": "Tas Tenun Lurik",
+      "kategori": "Kain Tenun Lurik",
+      "harga": 150000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//89/MTA-22434461/mlatiwangi_mlatiwangi_tas_piknik_lurik_pandan_hijau_full01_a5dc8583.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 93,
+    "fields": {
+      "name": "Pouch Tenun Lurik",
+      "kategori": "Kain Tenun Lurik",
+      "harga": 45000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2022/10/22/fb88a2ae-045b-48ee-bf28-dffd7c2862b6.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 94,
+    "fields": {
+      "name": "Ikat Pinggang Lurik",
+      "kategori": "Kain Tenun Lurik",
+      "harga": 95000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2022/10/18/7e837f08-354d-46cb-9e3e-e5f9110aa2a9.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 95,
+    "fields": {
+      "name": "Blus Tenun Lurik",
+      "kategori": "Kain Tenun Lurik",
+      "harga": 165000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//104/MTA-70687273/no-brand_no-brand_full06.jpg"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 96,
+    "fields": {
+      "name": "Kemeja Pria Tenun Lurik",
+      "kategori": "Kain Tenun Lurik",
+      "harga": 275000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://down-id.img.susercontent.com/file/944981bf17fec0b5eb06cbbf1e95623a"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 97,
+    "fields": {
+      "name": "Syal Tenun Lurik",
+      "kategori": "Kain Tenun Lurik",
+      "harga": 40000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://s3.bukalapak.com/img/31635506692/s-463-463/data.png.webp"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 98,
+    "fields": {
+      "name": "Peci Tenun Lurik",
+      "kategori": "Kain Tenun Lurik",
+      "harga": 70000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHmlDwB1pHTu5oIEaDyqtHo1CifRKUFFwamQ&s"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 99,
+    "fields": {
+      "name": "Jaket Tenun Lurik",
+      "kategori": "Kain Tenun Lurik",
+      "harga": 350000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://down-id.img.susercontent.com/file/a3382fa4afc60ab0b0360793046b0323"
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 100,
+    "fields": {
+      "name": "Dress Tenun lurik",
+      "kategori": "Kain Tenun Lurik",
+      "harga": 230000,
+      "toko": "Pasar Beringharjo",
+      "image": "https://down-id.img.susercontent.com/file/id-11134207-7qukx-lgyub6mabxpu40"
+    }
+  }
+]

@@ -1,0 +1,435 @@
+JANGAN GANTI YA INI CADANGAN KALO MISAL ILANG 
+
+
+// INI CARD 
+
+{% load humanize %}
+
+<div class="bg-white rounded-2xl shadow-lg p-4 w-56 h-80 flex flex-col justify-between relative transition-transform duration-300 transform hover:scale-105 hover:shadow-2xl overflow-hidden">
+    <!-- Gambar Produk -->
+    <div class="w-full h-36 overflow-hidden rounded-t-2xl">
+        <img 
+            src="{{ product.image }}" 
+            alt="{{ product.name }}" 
+            class="w-full h-full object-cover"
+        />
+    </div>
+
+    <!-- Ikon Love di Kanan Atas -->
+    <div class="absolute top-3 right-3">
+        <button 
+            class="focus:outline-none love-button transition-transform duration-300 transform hover:scale-110"
+            onclick="toggleLove(this)">
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                class="h-8 w-8 text-gray-400" 
+                viewBox="0 0 24 24" 
+                fill="currentColor">
+                <path 
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Informasi Produk -->
+    <div class="mt-2 flex-1 text-center">
+        <h3 class="text-md font-semibold truncate">{{ product.name }}</h3>
+        <p class="text-gray-500 text-sm mt-1">by {{ product.toko }}</p>
+    </div>
+
+    <!-- Harga Produk -->
+    <p class="text-gray-700 font-bold text-center mt-1 mb-2">
+        Price: Rp{{ product.harga|intcomma }}
+    </p>
+
+    <!-- Tombol Detail -->
+    <div class="mt-1">
+        <a href="{% url 'product:show_detail' product.id %}" class="w-full flex justify-center">
+            <button 
+                class="bg-[#834920] hover:bg-[#6b3a1d] text-white font-semibold py-2 px-4 rounded-full w-[90%] transition-transform duration-300 transform hover:scale-105">
+                Detail
+            </button>
+        </a>
+    </div>
+</div>
+
+<script>
+function toggleLove(button) {
+    const svg = button.querySelector('svg');
+    if (svg.classList.contains('text-red-500')) {
+        svg.classList.remove('text-red-500');
+        svg.classList.add('text-gray-400');
+    } else {
+        svg.classList.remove('text-gray-400');
+        svg.classList.add('text-red-500');
+    }
+}
+</script>
+
+// INI DETAIL
+
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+<div class="container p-8">
+
+    <!-- Tombol Back -->
+    <div class="mb-6">
+        <a href="{% url 'product:show_category' %}?kategori={{ product.kategori|urlencode }}" 
+           class="text-[#6B8273] text-lg font-semibold flex items-center gap-2 hover:underline">
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                 class="h-5 w-5" viewBox="0 0 24 24" 
+                 fill="none" stroke="currentColor" stroke-width="2" 
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6" />
+            </svg>
+            Product / {{ product.kategori }} / {{ product.name }} - {{ product.toko }}
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <!-- Gambar Produk -->
+        <div class="w-full">
+            <img 
+                src="{{ product.image }}" 
+                alt="{{ product.name }}" 
+                class="rounded-xl object-cover w-full h-80"
+            />
+        </div>
+
+        <!-- Detail Produk -->
+        <div class="flex flex-col justify-between space-y-6">
+            <div>
+                <h1 class="text-4xl font-bold">{{ product.name }}</h1>
+                <p class="text-xl font-bold text-[#834920] mt-2">
+                    Price: Rp{{ product.harga|intcomma }}
+                </p>
+            </div>
+
+            <!-- Informasi Toko -->
+            <div class="border-l-4 border-[#834920] pl-4 mt-2">
+                <p class="text-lg font-semibold">Available at:</p>
+                <p class="text-gray-700">{{ product.toko }}</p>
+            </div>
+
+            <!-- Tombol Wishlist dan Review -->
+            <div class="flex gap-4 mt-4">
+                <button 
+                    id="wishlist-button" 
+                    onclick="toggleWishlist(this)" 
+                    class="focus:outline-none border-2 border-gray-400 text-gray-400 text-md font-semibold py-2 px-4 rounded-full w-1/2 flex items-center justify-center transition-transform duration-300 transform hover:scale-105"
+                >
+                    <svg 
+                        id="wishlist-icon" 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        class="h-6 w-6 mr-2" 
+                        viewBox="0 0 24 24" 
+                        fill="currentColor">
+                        <path 
+                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                    Add to Wishlist
+                </button>
+
+                <button 
+                    class="bg-[#F3A73B] hover:bg-orange-500 text-white text-md font-semibold py-2 px-4 rounded-full w-1/2 transition-transform duration-300 transform hover:scale-105"
+                >
+                    Add Review
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Produk Terkait -->
+    <div class="mt-10">
+        <h3 class="text-2xl font-semibold mb-4">Similar Product</h3>
+        <div class="overflow-x-auto whitespace-nowrap">
+            <div class="inline-flex gap-4">
+                {% for product in similar_product %}
+                    {% include 'product_card.html' %}
+                {% empty %}
+                    <p class="text-center text-gray-500 w-full">Tidak ada produk terkait tersedia.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleWishlist(button) {
+    const svg = button.querySelector('svg');
+    const buttonText = button.querySelector('span') || button;
+
+    if (buttonText.innerText.trim() === "Add to Wishlist") {
+        button.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <span class="text-red-500">Added to Wishlist</span>
+        `;
+        button.classList.remove('border-gray-400', 'text-gray-400');
+        button.classList.add('border-red-500', 'text-red-500');
+    } else {
+        button.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <span class="text-gray-400">Add to Wishlist</span>
+        `;
+        button.classList.remove('border-red-500', 'text-red-500');
+        button.classList.add('border-gray-400', 'text-gray-400');
+    }
+}
+</script>
+{% endblock content %}
+
+// ini kategori
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Header Kategori -->
+<div class="bg-gray-50 p-8">
+    <h2 class="text-3xl font-bold mb-6">Produk Kerajinan</h2>
+</div>
+
+<!-- Container Kategori -->
+<div id="category-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 px-2 md:px-4">
+    <!-- Kategori Batik -->
+    <div class="relative rounded-md overflow-hidden shadow-sm category-item">
+        <img src="https://img.freepik.com/premium-vector/elegant-vector-javanese-ethnic-batik-pattern-template_1325579-615.jpg" 
+             alt="Batik" class="w-full h-24 object-cover">
+        <div class="absolute inset-0 flex justify-center items-center">
+            <a href="?kategori=Batik" 
+               class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
+                Batik
+            </a>
+        </div>
+    </div>
+
+    <!-- Kategori Kerajinan Kulit -->
+    <div class="relative rounded-md overflow-hidden shadow-sm category-item">
+        <img src="https://t3.ftcdn.net/jpg/02/26/92/86/360_F_226928653_CI7vW3087roWG6Ob9thI83Htd255aQyc.jpg" 
+             alt="Kerajinan Kulit" class="w-full h-24 object-cover">
+        <div class="absolute inset-0 flex justify-center items-center">
+            <a href="?kategori=Kerajinan Kulit" 
+               class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
+                Kerajinan Kulit
+            </a>
+        </div>
+    </div>
+
+    <!-- Kategori Perak Kotagede -->
+    <div class="relative rounded-md overflow-hidden shadow-sm category-item">
+        <img src="https://img.freepik.com/free-photo/silver-aesthetic-wallpaper-with-decorations_23-2149871747.jpg" 
+             alt="Perak Kotagede" class="w-full h-24 object-cover">
+        <div class="absolute inset-0 flex justify-center items-center">
+            <a href="?kategori=Perak Kotagede" 
+               class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
+                Perak Kotagede
+            </a>
+        </div>
+    </div>
+
+    <!-- Kategori Kerajinan Wayang -->
+    <div class="relative rounded-md overflow-hidden shadow-sm category-item">
+        <img src="https://img.freepik.com/free-vector/wayang-kulit-abstract-person-clouds_52683-46747.jpg" 
+             alt="Kerajinan Wayang" class="w-full h-24 object-cover">
+        <div class="absolute inset-0 flex justify-center items-center">
+            <a href="?kategori=Kerajinan Wayang" 
+               class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
+                Kerajinan Wayang
+            </a>
+        </div>
+    </div>
+
+    <!-- Kategori Kerajinan Kayu -->
+    <div class="relative rounded-md overflow-hidden shadow-sm category-item">
+        <img src="https://img.freepik.com/premium-photo/wooden-craft-floral-pattern-background-generative-aixa_174954-1884.jpg" 
+             alt="Kerajinan Kayu" class="w-full h-24 object-cover">
+        <div class="absolute inset-0 flex justify-center items-center">
+            <a href="?kategori=Kerajinan Kayu" 
+               class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
+                Kerajinan Kayu
+            </a>
+        </div>
+    </div>
+
+    <!-- Kategori Kerajinan Anyaman -->
+    <div class="relative rounded-md overflow-hidden shadow-sm category-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNBX7I8TQW7SHCcSoIDXQispwmhe36wFHm4w&s" 
+             alt="Kerajinan Anyaman" class="w-full h-24 object-cover">
+        <div class="absolute inset-0 flex justify-center items-center">
+            <a href="?kategori=Kerajinan Anyaman" 
+               class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
+                Kerajinan Anyaman
+            </a>
+        </div>
+    </div>
+
+    <!-- Kategori Kerajinan Gerabah -->
+    <div class="relative rounded-md overflow-hidden shadow-sm category-item">
+        <img src="https://cdn.shopify.com/s/files/1/0836/2769/files/hands-clay-pottery_600x600.jpg?v=1671439611" 
+             alt="Kerajinan Gerabah" class="w-full h-24 object-cover">
+        <div class="absolute inset-0 flex justify-center items-center">
+            <a href="?kategori=Kerajinan Gerabah" 
+               class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
+                Kerajinan Gerabah
+            </a>
+        </div>
+    </div>
+
+    <!-- Kategori Kerajinan Bambu -->
+    <div class="relative rounded-md overflow-hidden shadow-sm category-item">
+        <img src="https://d12oja0ew7x0i8.cloudfront.net/images/news/ImageForNews_59774_16606539847736385.jpg" 
+             alt="Kerajinan Bambu" class="w-full h-24 object-cover">
+        <div class="absolute inset-0 flex justify-center items-center">
+            <a href="?kategori=Kerajinan Bambu" 
+               class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
+                Kerajinan Bambu
+            </a>
+        </div>
+    </div>
+
+    <!-- Kategori Kain Tenun Lurik -->
+    <div class="relative rounded-md overflow-hidden shadow-sm category-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDcwgUoIOogHLV9-USwv2jhHe_qgthcjvxAQ&s" 
+             alt="Kain Tenun Lurik" class="w-full h-24 object-cover">
+        <div class="absolute inset-0 flex justify-center items-center">
+            <a href="?kategori=Kain Tenun Lurik" 
+               class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
+                Kain Tenun Lurik
+            </a>
+        </div>
+    </div>
+
+    <!-- Kategori All -->
+    <div class="relative rounded-md overflow-hidden shadow-sm category-item">
+        <img src="https://i.pinimg.com/originals/cb/13/9c/cb139cce577d1fde61b1e944f17a905a.jpg" 
+             alt="all" class="w-full h-24 object-cover">
+        <div class="absolute inset-0 flex justify-center items-center">
+            <a href="?kategori=all" 
+               class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
+                All
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Produk List -->
+<div class="produk-list">
+    {% if selected_kategori == 'all' %}
+        <div class="bg-gray-50 p-8">
+            <!-- Kain Batik -->
+            <h3 class="text-2xl font-semibold mb-4">Kain Batik</h3>
+            <div class="overflow-x-auto whitespace-nowrap mb-8">
+                <div class="inline-flex gap-6">
+                    {% for product in kainBatik %}
+                        {% include 'product_card.html' %}
+                    {% empty %}
+                        <p class="text-center text-gray-500 w-full">Tidak ada produk batik tersedia.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Kerajinan Kulit -->
+            <h3 class="text-2xl font-semibold mb-4">Kerajinan Kulit</h3>
+            <div class="overflow-x-auto whitespace-nowrap mb-8">
+                <div class="inline-flex gap-6">
+                    {% for product in kerajinanKulit %}
+                        {% include 'product_card.html' %}
+                    {% empty %}
+                        <p class="text-center text-gray-500 w-full">Tidak ada produk kerajinan kulit tersedia.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Kerajinan Perak -->
+            <h3 class="text-2xl font-semibold mb-4">Kerajinan Perak</h3>
+            <div class="overflow-x-auto whitespace-nowrap mb-8">
+                <div class="inline-flex gap-6">
+                    {% for product in kerajinanPerak %}
+                        {% include 'product_card.html' %}
+                    {% empty %}
+                        <p class="text-center text-gray-500 w-full">Tidak ada produk perak tersedia.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Kerajinan Wayang -->
+            <h3 class="text-2xl font-semibold mb-4">Kerajinan Wayang</h3>
+            <div class="overflow-x-auto whitespace-nowrap mb-8">
+                <div class="inline-flex gap-6">
+                    {% for product in kerajinanWayang %}
+                        {% include 'product_card.html' %}
+                    {% empty %}
+                        <p class="text-center text-gray-500 w-full">Tidak ada produk wayang tersedia.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Kerajinan Kayu -->
+            <h3 class="text-2xl font-semibold mb-4">Kerajinan Kayu</h3>
+            <div class="overflow-x-auto whitespace-nowrap mb-8">
+                <div class="inline-flex gap-6">
+                    {% for product in kerajinanKayu %}
+                        {% include 'product_card.html' %}
+                    {% empty %}
+                        <p class="text-center text-gray-500 w-full">Tidak ada produk kayu tersedia.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Kerajinan Anyaman -->
+            <h3 class="text-2xl font-semibold mb-4">Kerajinan Anyaman</h3>
+            <div class="overflow-x-auto whitespace-nowrap mb-8">
+                <div class="inline-flex gap-6">
+                    {% for product in kerajinanAnyaman %}
+                        {% include 'product_card.html' %}
+                    {% empty %}
+                        <p class="text-center text-gray-500 w-full">Tidak ada produk anyaman tersedia.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="bg-gray-50 p-8">
+            <h3 class="text-2xl font-semibold mb-4">{{ selected_kategori }}</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-12">
+                {% if products %}
+                    {% for product in products %}
+                        {% include 'product_card.html' %}
+                    {% endfor %}
+                {% else %}
+                    <p class="text-center text-gray-500 w-full">No product to be found.</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    function selectCategory(selectedCategory) {
+        document.querySelectorAll('.category-item').forEach(item => {
+            const label = item.querySelector('.category-label').innerText.trim().toLowerCase();
+            item.classList.toggle('opacity-50', label !== selectedCategory.toLowerCase());
+        });
+    }
+
+    document.querySelectorAll('.category-item a').forEach(item => {
+        item.addEventListener('click', event => {
+            selectCategory(item.innerText.trim());
+        });
+    });
+
+    window.onload = () => selectCategory(getQueryParam('kategori') || 'all');
+</script>
+
+{% endblock content %}
