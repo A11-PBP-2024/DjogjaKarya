@@ -1,35 +1,40 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import Store
 from .forms import StoreForm
 from django.core import serializers
-
+from product.models import Product
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 def store_list(request):
-    stores = Store.objects.all()
-    context = {
-        'stores': stores,
-    }
-    return render(request, 'store_list.html', context)
+    return render(request, 'store_list.html')
 
-def show_xml(request):
-    data = Store.objects.filter(user=request.user)
-    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+def get_stores(request):
+    data = Store.objects.all()
+    return HttpResponse(serializers.serialize("json", data), 
+    content_type="application/json")
 
-def show_json(request):
-    data = Store.objects.filter(user=request.user)
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-
+@csrf_exempt
 def add_store(request):
-    form = StoreForm(request.POST or None)
+    name = request.POST.get("name")
+    description = request.POST.get("description")
+    address = request.POST.get("address")
+    opening_days = request.POST.get("opening_days")
+    opening_hours = request.POST.get("opening_hours")
+    phone = request.POST.get("phone")
+    image1 = request.POST.get("image1")
+    image2 = request.POST.get("image2")
+    image3 = request.POST.get("image3")
+    location_link = request.POST.get("location_link")
 
-    if form.is_valid() and request.method == "POST":
-        form.save()
-        return redirect('merchant:store_list')
+    new_store = Store(name=name, description=description, address=address,
+                      opening_days=opening_days, opening_hours=opening_hours, phone=phone,
+                      image1=image1, image2=image2, image3=image3,location_link=location_link)
 
-    context = {'form': form}
-    return render(request, "add_store.html", context)
+    new_store.save()
+    return HttpResponse(b"CREATED", status=201)
 
 def edit_store(request, id):
     store = Store.objects.get(pk = id)
@@ -46,3 +51,12 @@ def delete_store(request, id):
     store = Store.objects.get(pk = id)
     store.delete()
     return HttpResponseRedirect(reverse('merchant:store_list'))
+
+def store_products(request):
+    store_name = request.GET.get('toko')
+    products = Product.objects.filter(toko=store_name)
+    context = {
+        'products': products,
+        'selected_store': store_name
+    }
+    return render(request, 'store_products.html', context)

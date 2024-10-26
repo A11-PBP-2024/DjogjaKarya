@@ -1,113 +1,196 @@
-# In book/views.py
-from django.shortcuts import render
+
+from django.shortcuts import get_object_or_404, render, redirect
 from product.models import Product, Category
-from django.http import JsonResponse
+from merchant.models import Store
+from django.http import JsonResponse, HttpResponseForbidden, HttpResponse, HttpResponseBadRequest
+import random
+from django.core import serializers
 
-def show_product(request):
 
-    product = Product.objects.all()
-    context = {
-    'name': request.user.username,
-    'name': 'Khayla Naura Ulya Luqyana',
-    'class': 'PBP A',
-    'npm': '2306275310',
-    'products': product,
-}
 
-    return render(request, "all.html", context)
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required, user_passes_test
 
-def show_category(request):
-    category = Category.objects.all().values("products")
-    all_products = Product.objects.all()
-    batik = Product.objects.filter(kategori__icontains="Batik")
-    kulit = Product.objects.filter(kategori__icontains="Kerajinan Kulit")
-    perak = Product.objects.filter(kategori__icontains="Perak Kotagede")
-    wayang = Product.objects.filter(kategori__icontains="Kerajinan Wayang")
-    kayu = Product.objects.filter(kategori__icontains="Kerajinan Kayu")
-    anyaman = Product.objects.filter(kategori__icontains="Kerajinan Anyaman")
-    gerabah = Product.objects.filter(kategori__icontains="Kerajinan Gerabah Kasongan")
-    bambu = Product.objects.filter(kategori__icontains="Kerajinan Bambu")
-    tenun = Product.objects.filter(kategori__icontains="Kain Tenun Lurik")
 
-    context = {
-        # 'name':,
-        'categories': category,
-        'books': all_products,
-        'kainBatik':batik,
-        'kerajinanKulit':kulit,
-        'kerajinanPerak':perak,
-        'kerajinanWayang': wayang,
-        'kerajinanKayu': kayu,
-        'kerajinanAnyaman': anyaman,
-        'kerajinanGerabah': gerabah,
-        'kerajinanBambu': bambu,
-        'kerajinanTenun': tenun,
-    }
+def is_admin(user):
+    return user.is_superuser  # Cek apakah user adalah superuser
 
-    return render(request, "capek.html", context)
+@csrf_exempt
+@user_passes_test(is_admin)  # Hanya admin yang bisa akses
+@user_passes_test(is_admin)
+def get_form_data(request):
+
+    try:
+        categories = [
+            'Batik', 'Kerajinan Kulit', 'Perak Kotagede', 'Kerajinan Wayang',
+            'Kerajinan Kayu', 'Kerajinan Anyaman', 'Kerajinan Gerabah',
+            'Kerajinan Bambu', 'Kain Tenun Lurik'
+        ]
+        stores = list(Store.objects.values_list('name', flat=True))
+        
+        return JsonResponse({
+            'categories': categories,
+            'stores': stores
+        })
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@csrf_exempt
+@login_required
+@user_passes_test(is_admin)
+def add_product(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
     
+    try:
+        # Validasi input
+        required_fields = ['name', 'kategori', 'harga', 'toko', 'image']
+        for field in required_fields:
+            if not request.POST.get(field):
+                return JsonResponse(
+                    {'error': f'Field {field} is required'}, 
+                    status=400
+                )
+        
+        # Create new product
+        product = Product.objects.create(
+            name=request.POST.get('name'),
+            kategori=request.POST.get('kategori'),
+            harga=request.POST.get('harga'),
+            toko=request.POST.get('toko'),
+            image=request.POST.get('image')
+        )
+        
+        return JsonResponse({
+            'message': 'Produk berhasil ditambahkan!',
+            'product': {
+                'id': product.id,
+                'name': product.name,
+                'kategori': product.kategori,
+                'harga': product.harga,
+                'toko': product.toko,
+                'image': product.image
+            }
+        }, status=201)
+        
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
-    
-def show_detail(request, id):
-    selected_product = Product.objects.get(pk=id)
-    kategori = selected_product.kategori
-    similar_products = Product.objects.filter(kategori__icontains=kategori).exclude(pk=id)[:6]
 
+@csrf_exempt
+@user_passes_test(is_admin)  
+@login_required
+def edit_product(request, id):
+    try:
+       
+        product = get_object_or_404(Product, id=id)
 
-    # book_reviews = Review.objects.filter(book=selected_book)
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            kategori = request.POST.get('kategori')
+            harga = request.POST.get('harga')
+            toko = request.POST.get('toko')
+            image = request.FILES.get('image')  
+            k
+            product.name = name
+            product.kategori = kategori
+            product.harga = harga
+            product.toko = toko
 
-    context = {
-        'product': selected_product,
-        # 'user': request.user.username if request.user.is_authenticated else "Guest",
-        'similar_product': similar_products,
-        'kategori': kategori,
-        # 'selected_genres': selected_genres,
-        # 'reviews': book_reviews  # Add this line
-    }
-    return render(request, "detail.html", context)
+            if image:
+                product.image = image
 
+            product.save()
 
+            return JsonResponse({'message': 'Produk berhasil diperbarui!', 'product_id': product.id}, status=200)
 
-def show_category2(request):
-    # Filter produk berdasarkan kategori
-    kainBatik = list(Product.objects.filter(kategori__icontains='Batik').values())
-    kerajinanKulit = list(Product.objects.filter(kategori__icontains='Kerajinan Kulit').values())
-    kerajinanPerak = list(Product.objects.filter(kategori__icontains='Perak').values())
-    kerajinanWayang = list(Product.objects.filter(kategori__icontains='Wayang').values())
-    kerajinanKayu = list(Product.objects.filter(kategori__icontains='Kayu').values())
-    kerajinanAnyaman = list(Product.objects.filter(kategori__icontains='Anyaman').values())
-    kerajinanGerabah = list(Product.objects.filter(kategori__icontains='Gerabah').values())
-    kerajinanBambu = list(Product.objects.filter(kategori__icontains='Bambu').values())
-    kerajinanTenun = list(Product.objects.filter(kategori__icontains='Tenun').values())
-
-    # Jika request AJAX, kembalikan JSON
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         data = {
-            'kainBatik': kainBatik,
-            'kerajinanKulit': kerajinanKulit,
-            'kerajinanPerak': kerajinanPerak,
-            'kerajinanWayang': kerajinanWayang,
-            'kerajinanKayu': kerajinanKayu,
-            'kerajinanAnyaman': kerajinanAnyaman,
-            'kerajinanGerabah': kerajinanGerabah,
-            'kerajinanBambu': kerajinanBambu,
-            'kerajinanTenun': kerajinanTenun,
+            'product': {
+                'id': product.id,
+                'name': product.name,
+                'kategori': product.kategori,
+                'harga': product.harga,
+                'toko': product.toko,
+                'image': product.image,
+            },
+            'categories': [
+                'Batik', 'Kerajinan Kulit', 'Perak Kotagede', 'Kerajinan Wayang',
+                'Kerajinan Kayu', 'Kerajinan Anyaman', 'Kerajinan Gerabah',
+                'Kerajinan Bambu', 'Kain Tenun Lurik'
+            ],
+            'stores': list(Store.objects.values_list('name', flat=True))
         }
         return JsonResponse(data)
 
-    # Jika bukan AJAX, render HTML biasa
+    except Product.DoesNotExist:
+        return JsonResponse({'error': 'Produk tidak ditemukan.'}, status=404)
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+
+@csrf_exempt
+@user_passes_test(is_admin) 
+@login_required
+@csrf_exempt
+@login_required
+@user_passes_test(is_admin)
+def delete_product(request, id):
+    try:
+       
+        product = get_object_or_404(Product, id=id)
+        
+        if request.user.is_superuser:
+            product.delete()
+            return JsonResponse({'message': 'Produk berhasil dihapus!'})
+        else:
+            return JsonResponse({'error': 'Unauthorized'}, status=403)
+            
+    except Product.DoesNotExist:
+        return JsonResponse({'error': 'Product not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+def get_product(request):
+
+    products = Product.objects.all()
+
+    return HttpResponse(serializers.serialize("json", products), content_type="application/json")
+
+
+def get_product_id(request, id):
+    try:
+        product = Product.objects.get(id=id)
+        product_data = {
+            'id': product.id,
+            'name': product.name,
+            'kategori': product.kategori,
+            'harga': product.harga,
+            'toko': product.toko,
+            'image': product.image,
+        }
+        return JsonResponse(product_data)
+    except Product.DoesNotExist:
+        return HttpResponseBadRequest('Produk tidak ditemukan!')
+
+ 
+def show_detail(request, id):
+    selected_product = Product.objects.get(pk=id)
+    kategori = selected_product.kategori
+    all_products = Product.objects.filter(kategori__icontains=kategori).exclude(pk=id)
+
+    if all_products.count() >= 3:
+        similar_products = random.sample(list(all_products), 3)
+    else:
+        similar_products = all_products
+
     context = {
-        'kainBatik': Product.objects.filter(kategori__icontains='Batik'),
-        'kerajinanKulit': Product.objects.filter(kategori__icontains='Kerajinan Kulit'),
-        'kerajinanPerak': Product.objects.filter(kategori__icontains='Perak'),
-        'kerajinanWayang': Product.objects.filter(kategori__icontains='Wayang'),
-        'kerajinanKayu': Product.objects.filter(kategori__icontains='Kayu'),
-        'kerajinanAnyaman': Product.objects.filter(kategori__icontains='Anyaman'),
-        'kerajinanGerabah': Product.objects.filter(kategori__icontains='Gerabah'),
-        'kerajinanBambu': Product.objects.filter(kategori__icontains='Bambu'),
-        'kerajinanTenun': Product.objects.filter(kategori__icontains='Tenun'),
+        'product': selected_product,
+        'similar_product': similar_products,
     }
-    return render(request, 'fix.html', context)
+
+    return render(request, "detail.html", context)
 
 def filter_category_ajax(request):
     kategori = request.GET.get('kategori', 'all')
@@ -130,26 +213,11 @@ def filter_category_ajax(request):
 
     return JsonResponse(data)
 
-# def show_coba(request):
-#     # Ambil kategori dari query string, default ke 'all' kalau tidak ada
-#     kategori = request.GET.get('kategori', 'all')
 
-#     if kategori == 'all':
-#         all_products = Product.objects.all()
-#     else:
-#         all_products = Product.objects.filter(kategori__icontains=kategori)
 
-#     context = {
-#         'books': all_products,  # Produk yang akan ditampilkan
-#         'selected_kategori': kategori,  # Untuk highlight kategori aktif
-#     }
-
-#     return render(request, "capek.html", context)
-
-def show_coba(request):
+def show_category(request):
     kategori = request.GET.get('kategori', 'all')
 
-    # Jika kategori adalah 'all', ambil semua produk per kategori
     if kategori == 'all':
         context = {
             'kainBatik': Product.objects.filter(kategori__icontains="Batik"),
@@ -164,11 +232,12 @@ def show_coba(request):
             'selected_kategori': 'all',  # Untuk highlight kategori aktif
         }
     else:
-        # Jika kategori spesifik dipilih, tampilkan hanya produk kategori tersebut
+
         products = Product.objects.filter(kategori__icontains=kategori)
         context = {
-            'books': products,
+            'products': products,
             'selected_kategori': kategori,
         }
 
-    return render(request, 'capek.html', context)
+    return render(request, 'category.html', context)
+
