@@ -1,97 +1,75 @@
-{% include 'navbar.html' %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Store</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100">
-    <div class="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-50 to-gray-100">
-        <div class="bg-white shadow-lg rounded-lg w-full max-w-5xl p-8 border border-gray-200">
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-2xl font-bold text-gray-800">Edit Store</h1>
-                <a href="{% url 'merchant:store_list' %}" class="text-gray-400 hover:text-gray-600 text-3xl font-semibold">&times;</a>
-            </div>
+{% extends "base.html" %}
 
-            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+{% block meta %}
+<title>Edit Store</title>
+{% endblock meta %}
+
+{% block content %}
+<div id="crudModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-50 bg-opacity-100 overflow-x-hidden overflow-y-auto transition-opacity duration-300 ease-out">
+    <div id="crudModalContent" class="relative bg-white rounded-lg shadow-lg w-5/6 sm:w-3/4 md:w-1/2 lg:w-1/2 mx-4 sm:mx-0 transform scale-95 opacity-100 transition-transform transition-opacity duration-300 ease-out">
+        <!-- Modal header -->
+        <div class="flex items-center justify-between p-4 border-b rounded-t">
+            <h3 class="text-xl font-semibold text-gray-900">Edit Store</h3>
+            <a href="{% url 'merchant:store_list' %}" class="text-gray-400 hover:text-gray-600 text-3xl font-semibold">&times;</a>
+        </div>
+        <!-- Modal body -->
+        <div class="px-6 py-4">
+            <form method="POST" action="{% url 'merchant:edit_store' store.id %}" enctype="multipart/form-data" id="storeForm" class="flex flex-wrap space-y-6">
                 {% csrf_token %}
 
-                <!-- Grid Layout -->
-                <div class="grid grid-cols-2 gap-6">
-
-                    <!-- Column 1 -->
-                    <div class="space-y-6">
-                        <!-- Store Name -->
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700">Store Name</label>
-                            <input type="text" id="name" name="name" value="{{ form.name.value }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm">
-                        </div>
-
-                        <!-- Description -->
-                        <div>
-                            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                            <textarea id="description" name="description" rows="4" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm">{{ form.description.value }}</textarea>
-                        </div>
-
-                        <!-- Address -->
-                        <div>
-                            <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
-                            <input type="text" id="address" name="address" value="{{ form.address.value }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm">
-                        </div>
-
-                        <!-- Opening Days -->
-                        <div>
-                            <label for="opening_days" class="block text-sm font-medium text-gray-700">Opening Days</label>
-                            <input type="text" id="opening_days" name="opening_days" value="{{ form.opening_days.value }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm">
-                        </div>
+                <!-- Kolom kiri -->
+                <div class="w-full sm:w-1/2 pr-2">
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700">Store Name</label>
+                        <input type="text" id="name" name="name" value="{{ form.name.value }}" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Enter store name" required>
                     </div>
-
-                    <!-- Column 2 -->
-                    <div class="space-y-6">
-                        <!-- Opening Hours -->
-                        <div>
-                            <label for="opening_hours" class="block text-sm font-medium text-gray-700">Opening Hours</label>
-                            <input type="text" id="opening_hours" name="opening_hours" value="{{ form.opening_hours.value }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm">
-                        </div>
-
-                        <!-- Phone -->
-                        <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
-                            <input type="text" id="phone" name="phone" value="{{ form.phone.value }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm">
-                        </div>
-
-                        <!-- Image URLs -->
-                        <div>
-                            <label for="image1" class="block text-sm font-medium text-gray-700">Image 1 URL</label>
-                            <input type="url" id="image1" name="image1" value="{{ form.image1.value }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm" placeholder="Enter image URL">
-                        </div>
-
-                        <div>
-                            <label for="image2" class="block text-sm font-medium text-gray-700">Image 2 URL</label>
-                            <input type="url" id="image2" name="image2" value="{{ form.image2.value }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm" placeholder="Enter image URL">
-                        </div>
-
-                        <div>
-                            <label for="image3" class="block text-sm font-medium text-gray-700">Image 3 URL</label>
-                            <input type="url" id="image3" name="image3" value="{{ form.image3.value }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm" placeholder="Enter image URL">
-                        </div>
+                    <div class="mb-4">
+                        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea id="description" name="description" rows="4" class="mt-1 block w-full h-52 resize-none border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Describe your store" required>{{ form.description.value }}</textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+                        <input type="text" id="address" name="address" value="{{ form.address.value }}" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Enter store address" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="opening_days" class="block text-sm font-medium text-gray-700">Opening Days</label>
+                        <input type="text" id="opening_days" name="opening_days" value="{{ form.opening_days.value }}" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Opening days" required>
                     </div>
                 </div>
 
-                <!-- Location Link -->
-                <div>
-                    <label for="location_link" class="block text-sm font-medium text-gray-700">Location Link</label>
-                    <input type="url" id="location_link" name="location_link" value="{{ form.location_link.value }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 sm:text-sm" placeholder="Enter location link">
+                <!-- Kolom kanan -->
+                <div class="w-full sm:w-1/2 pl-2">
+                    <div class="mb-4">
+                        <label for="opening_hours" class="block text-sm font-medium text-gray-700">Opening Hours</label>
+                        <input type="text" id="opening_hours" name="opening_hours" value="{{ form.opening_hours.value }}" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Opening hours" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                        <input type="text" id="phone" name="phone" value="{{ form.phone.value }}" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Enter store phone number" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="image1" class="block text-sm font-medium text-gray-700">Image 1 URL</label>
+                        <input type="url" id="image1" name="image1" value="{{ form.image1.value }}" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Enter image URL" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="image2" class="block text-sm font-medium text-gray-700">Image 2 URL</label>
+                        <input type="url" id="image2" name="image2" value="{{ form.image2.value }}" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Enter image URL" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="image3" class="block text-sm font-medium text-gray-700">Image 3 URL</label>
+                        <input type="url" id="image3" name="image3" value="{{ form.image3.value }}" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Enter image URL" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="location_link" class="block text-sm font-medium text-gray-700">Location Link</label>
+                        <input type="url" id="location_link" name="location_link" value="{{ form.location_link.value }}" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Enter location link" required>
+                    </div>
                 </div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="mt-6 w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 hover:shadow-md transition duration-300">
-                    Save Changes
-                </button>
             </form>
         </div>
+        <!-- Modal footer -->
+        <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2 p-6 border-t border-gray-200 rounded-b justify-center md:justify-end">
+            <button type="submit" id="submitStore" form="storeForm" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Save Changes</button>
+        </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock content %}
