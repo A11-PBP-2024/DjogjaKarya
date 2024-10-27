@@ -98,24 +98,23 @@ def add_article(request):
     return render(request, 'add_article.html', {'form': form})
 
 
-@csrf_exempt
 @login_required
 @user_passes_test(is_admin)
 def edit_article(request, article_id):
     article = get_object_or_404(Article, id=article_id)
 
     if request.method == 'POST':
+        # Update the article with the new data
         article.title = request.POST.get('title')
         article.description = request.POST.get('description')
         article.content = request.POST.get('content')
         article.save()
 
-        response_data = {
-            'title': article.title,
-            'description': article.description,
-            'content': article.content,
-        }
-        return JsonResponse(response_data)
+        # Redirect to a success page or back to the article list
+        return redirect('article:detail_blog', id=article.id)
+
+    # Render the template with the article's current data for editing
+    return render(request, 'edit_article.html', {'article': article})
 
 
 @csrf_exempt
