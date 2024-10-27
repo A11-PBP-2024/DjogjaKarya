@@ -58,7 +58,18 @@
                 Pre-order now </a>
         </div>
     </div>
-</section>
+
+    <!-- Carousel Controls -->
+    <button onclick="prevSlide()"
+        class="absolute top-1/2 left-2 transform -translate-y-1/2 text-4xl text-white bg-black bg-opacity-50 p-2 rounded-full">
+        &#10094;
+    </button>
+    <button onclick="nextSlide()"
+        class="absolute top-1/2 right-2 transform -translate-y-1/2 text-4xl text-white bg-black bg-opacity-50 p-2 rounded-full">
+        &#10095;
+    </button>
+</div>
+
 
 <!-- Section Heading -->
 <div class="text-center py-8">
@@ -77,10 +88,25 @@
             class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
             <a href="{% url 'product:show_category' %}?kategori=Batik"
                 class="bg-white text-black font-semibold py-2 px-4 rounded-full transform transition-transform duration-300 hover:scale-110">Batik</a>
+    <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
+        <img src="https://img.freepik.com/premium-vector/elegant-vector-javanese-ethnic-batik-pattern-template_1325579-615.jpg"
+            alt="Art & Craft" class="w-full h-48 object-cover">
+        <div
+            class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
+            <a href="{% url 'product:show_category' %}?kategori=Batik"
+                class="bg-white text-black font-semibold py-2 px-4 rounded-full transform transition-transform duration-300 hover:scale-110">Batik</a>
         </div>
     </div>
 
     <!-- Category Item 2 -->
+    <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
+        <img src="https://t3.ftcdn.net/jpg/02/26/92/86/360_F_226928653_CI7vW3087roWG6Ob9thI83Htd255aQyc.jpg"
+            alt="Accessories" class="w-full h-48 object-cover">
+        <div
+            class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
+            <a href="{% url 'product:show_category' %}?kategori=Kerajinan%20Kulit"
+                class="bg-white text-black font-semibold py-2 px-4 rounded-full transform transition-transform duration-300 hover:scale-110">Kerajinan
+                Kulit</a>
     <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
         <img src="https://t3.ftcdn.net/jpg/02/26/92/86/360_F_226928653_CI7vW3087roWG6Ob9thI83Htd255aQyc.jpg"
             alt="Accessories" class="w-full h-48 object-cover">
@@ -101,10 +127,26 @@
             <a href="{% url 'product:show_category' %}?kategori=Perak%20Kotagede"
                 class="bg-white text-black font-semibold py-2 px-4 rounded-full transform transition-transform duration-300 hover:scale-110">Perak
                 Kotagede</a>
+    <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
+        <img src="https://img.freepik.com/free-photo/silver-aesthetic-wallpaper-with-decorations_23-2149871747.jpg"
+            alt="Home Decor" class="w-full h-48 object-cover">
+        <div
+            class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
+            <a href="{% url 'product:show_category' %}?kategori=Perak%20Kotagede"
+                class="bg-white text-black font-semibold py-2 px-4 rounded-full transform transition-transform duration-300 hover:scale-110">Perak
+                Kotagede</a>
         </div>
     </div>
 
     <!-- Category Item 4 -->
+    <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
+        <img src="https://img.freepik.com/free-vector/wayang-kulit-abstract-person-clouds_52683-46747.jpg" alt="FnB"
+            class="w-full h-48 object-cover">
+        <div
+            class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
+            <a href="{% url 'product:show_category' %}?kategori=Kerajinan%20Wayang"
+                class="bg-white text-black font-semibold py-2 px-4 rounded-full transform transition-transform duration-300 hover:scale-110">Kerajinan
+                Wayang</a>
     <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
         <img src="https://img.freepik.com/free-vector/wayang-kulit-abstract-person-clouds_52683-46747.jpg" alt="FnB"
             class="w-full h-48 object-cover">
@@ -125,13 +167,28 @@
             <a href="{% url 'product:show_category' %}?kategori=Kerajinan%20Kayu"
                 class="bg-white text-black font-semibold py-2 px-4 rounded-full transform transition-transform duration-300 hover:scale-110">Kerajinan
                 Kayu</a>
+    <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
+        <img src="https://img.freepik.com/premium-photo/wooden-craft-floral-pattern-background-generative-aixa_174954-1884.jpg"
+            alt="Fashion" class="w-full h-48 object-cover">
+        <div
+            class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
+            <a href="{% url 'product:show_category' %}?kategori=Kerajinan%20Kayu"
+                class="bg-white text-black font-semibold py-2 px-4 rounded-full transform transition-transform duration-300 hover:scale-110">Kerajinan
+                Kayu</a>
         </div>
     </div>
 
     <!-- Category Item 6 -->
     <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
+    <!-- Category Item 6 -->
+    <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNBX7I8TQW7SHCcSoIDXQispwmhe36wFHm4w&s"
             alt="Fashion" class="w-full h-48 object-cover">
+        <div
+            class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
+            <a href="{% url 'product:show_category' %}?kategori=Kerajinan%20Anyaman"
+                class="bg-white text-black font-semibold py-2 px-4 rounded-full transform transition-transform duration-300 hover:scale-110">Kerajinan
+                Anyaman</a>
         <div
             class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
             <a href="{% url 'product:show_category' %}?kategori=Kerajinan%20Anyaman"
@@ -142,8 +199,15 @@
 
     <!-- Category Item 7 -->
     <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
+    <!-- Category Item 7 -->
+    <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
         <img src="https://cdn.shopify.com/s/files/1/0836/2769/files/hands-clay-pottery_600x600.jpg?v=1671439611"
             alt="Fashion" class="w-full h-48 object-cover">
+        <div
+            class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
+            <a href="{% url 'product:show_category' %}?kategori=Kerajinan%20Gerabah"
+                class="bg-white text-black font-semibold py-2 px-4 rounded-full transform transition-transform duration-300 hover:scale-110">Kerajinan
+                Gerabah</a>
         <div
             class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
             <a href="{% url 'product:show_category' %}?kategori=Kerajinan%20Gerabah"
@@ -154,8 +218,15 @@
 
     <!-- Category Item 8 -->
     <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
+    <!-- Category Item 8 -->
+    <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
         <img src="https://d12oja0ew7x0i8.cloudfront.net/images/news/ImageForNews_59774_16606539847736385.jpg"
             alt="Fashion" class="w-full h-48 object-cover">
+        <div
+            class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
+            <a href="{% url 'product:show_category' %}?kategori=Kerajinan%20Bambu"
+                class="bg-white text-black font-semibold py-2 px-4 rounded-full transform transition-transform duration-300 hover:scale-110">Kerajinan
+                Bambu</a>
         <div
             class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
             <a href="{% url 'product:show_category' %}?kategori=Kerajinan%20Bambu"
@@ -166,8 +237,15 @@
 
     <!-- Category Item 9 -->
     <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
+    <!-- Category Item 9 -->
+    <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDcwgUoIOogHLV9-USwv2jhHe_qgthcjvxAQ&s"
             alt="Fashion" class="w-full h-48 object-cover">
+        <div
+            class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
+            <a href="{% url 'product:show_category' %}?kategori=Kain%20Tenun%20Lurik"
+                class="bg-white text-black font-semibold py-2 px-4 rounded-full transform transition-transform duration-300 hover:scale-110">Kain
+                Tenun Lurik</a>
         <div
             class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
             <a href="{% url 'product:show_category' %}?kategori=Kain%20Tenun%20Lurik"
@@ -184,8 +262,17 @@
             class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
             <a href="{% url 'product:show_category' %}"
                 class="bg-white text-black font-semibold py-2 px-4 rounded-full transform transition-transform duration-300 hover:scale-110">All</a>
+    <!-- Category Item 10 -->
+    <div class="relative rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0RDWhfkc4VOE5553krxeJOL-dxLLw-1EFdw&s"
+            alt="Fashion" class="w-full h-48 object-cover">
+        <div
+            class="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
+            <a href="{% url 'product:show_category' %}"
+                class="bg-white text-black font-semibold py-2 px-4 rounded-full transform transition-transform duration-300 hover:scale-110">All</a>
         </div>
     </div>
+
 
 </div>
 
@@ -323,6 +410,29 @@
 {% endblock content %}
 {% block script %}
 <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll(".carousel-img");
+        const totalSlides = slides.length;
+        const carouselImages = document.getElementById("carousel-images");
+
+        function showSlide(index) {
+            carouselImages.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentIndex);
+        }
+
+        // Initialize the first slide
+        showSlide(currentIndex);
+
+
     document.addEventListener('DOMContentLoaded', () => {
         const carouselElement = document.getElementById('default-carousel');
 
@@ -374,5 +484,4 @@
     });
 
 </script>
-
 {% endblock script %}

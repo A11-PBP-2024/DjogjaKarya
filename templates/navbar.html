@@ -43,24 +43,33 @@
 <nav class="bg-[#E38E27] border-gray-200">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="{% url 'main:show_main' %}" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <a href="{% url 'main:show_main' %}" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="{% static 'image/logo.png' %}" class="h-16" alt="Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">DjogjaKarya</span>
             <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">DjogjaKarya</span>
         </a>
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
             <ul
                 class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-[#E38E27] md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-[#E38E27]">
+                class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-[#E38E27] md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-[#E38E27]">
                 <li>
+                    {% url 'main:show_main' as show_main_url %}
+                    <a href="{{ show_main_url }}"
+                        class="nav-link {% if request.path == show_main_url %}active{% endif %} block py-2 px-3 rounded">Home</a>
                     {% url 'main:show_main' as show_main_url %}
                     <a href="{{ show_main_url }}"
                         class="nav-link {% if request.path == show_main_url %}active{% endif %} block py-2 px-3 rounded">Home</a>
                 </li>
 
+
                 <li>
                     <a href="/product/"
+                        class="nav-link {% if request.path == '/product/' %}active{% endif %} block py-2 px-3 rounded">Product</a>
                         class="nav-link {% if request.path == '/product/' %}active{% endif %} block py-2 px-3 rounded">Product</a>
                 </li>
                 <li>
                     <a href="/merchant/"
+                        class="nav-link {% if request.path == '/merchant/' %}active{% endif %} block py-2 px-3 rounded">Merchant</a>
                         class="nav-link {% if request.path == '/merchant/' %}active{% endif %} block py-2 px-3 rounded">Merchant</a>
                 </li>
                 <li>
@@ -70,8 +79,11 @@
                 <li>
                     <a href="/wishlist/"
                         class="nav-link {% if request.path == '/wishlist/' %}active{% endif %} block py-2 px-3 rounded">Wishlist</a>
+                        class="nav-link {% if request.path == '/wishlist/' %}active{% endif %} block py-2 px-3 rounded">Wishlist</a>
                 </li>
                 {% if user.is_authenticated %}
+                <li class="greeting">
+                    <span>Hello, {{ user.username }} 👋🏻</span>
                 <li class="greeting">
                     <span>Hello, {{ user.username }} 👋🏻</span>
                 </li>
@@ -80,6 +92,7 @@
         </div>
 
         <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300"
             <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300"
                 id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                 data-dropdown-placement="bottom">
@@ -90,11 +103,14 @@
             </button>
             <!-- Dropdown menu -->
             <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
+            <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
                 id="user-dropdown">
                 <div class="px-4 py-3">
                     {% if user.is_authenticated %}
                     <span class="block text-sm text-gray-900">{{ user.username }}</span>
+                    <span class="block text-sm text-gray-900">{{ user.username }}</span>
                     {% else %}
+                    <span class="block text-sm text-gray-900">Guest</span>
                     <span class="block text-sm text-gray-900">Guest</span>
                     {% endif %}
                 </div>
@@ -104,7 +120,15 @@
                         <a href="/auth/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign
                             Out</a>
                     </li>
+                    <li>
+                        <a href="/auth/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign
+                            Out</a>
+                    </li>
                     {% else %}
+                    <li>
+                        <a href="/auth/login" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign
+                            In</a>
+                    </li>
                     <li>
                         <a href="/auth/login" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign
                             In</a>
@@ -113,6 +137,7 @@
                 </ul>
             </div>
             <button data-collapse-toggle="navbar-user" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                 class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                 aria-controls="navbar-user" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
