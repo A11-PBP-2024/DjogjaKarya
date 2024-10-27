@@ -19,7 +19,7 @@
                         {% if item.product.merchant %}
                             <a href="{% url 'merchant:detail' item.product.merchant.id %}" class="text-blue-600 hover:text-blue-800">View Store</a>
                         {% else %}
-                            <p class="text-red-500">Merchant not available</p>
+                            <p class="text-red-500"></p>
                         {% endif %}
                     </div>
                     <div class="px-6 py-4 flex justify-between items-center">
