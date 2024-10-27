@@ -1,32 +1,95 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
 from .models import Article
+from .forms import ArticleForm
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib import messages
+from .models import Article
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse
 
-# Create your views here.
+# Helper function to check if the user is a superuser
+def superuser_required(user):
+    return user.is_superuser
+
+
+def article_list(request):
+    articles = Article.objects.all()  # Fetch all articles
+    return render(request, 'blog.html', {'articles': articles})
+
 def show_article(request):
-    # Fetch all articles from the database
     all_articles = Article.objects.all()
 
-    # Example of filtering articles based on tags or content categories
-    technology_articles = Article.objects.filter(tags__icontains="technology")
-    science_articles = Article.objects.filter(tags__icontains="science")
-    politics_articles = Article.objects.filter(tags__icontains="politics")
-    health_articles = Article.objects.filter(tags__icontains="health")
-    sports_articles = Article.objects.filter(tags__icontains="sports")
+    # Filter articles based on Djogjakarya-specific categories
+    art_articles = Article.objects.filter(tags__icontains="art")
+    heritage_articles = Article.objects.filter(tags__icontains="heritage")
+    culture_articles = Article.objects.filter(tags__icontains="culture")
+    craft_articles = Article.objects.filter(tags__icontains="craft")
+    travel_articles = Article.objects.filter(tags__icontains="travel")
 
-    # Preparing context data to be sent to the template
     context = {
-        'name': request.user.username,  # User's username for personalization
-        'articles': all_articles,  # All articles
-        'technologyArticles': technology_articles,
-        'scienceArticles': science_articles,
-        'politicsArticles': politics_articles,
-        'healthArticles': health_articles,
-        'sportsArticles': sports_articles,
+        'name': request.user.username,
+        'articles': all_articles,
+        # Djogjakarya-specific categories
+        'artArticles': art_articles,
+        'heritageArticles': heritage_articles,
+        'cultureArticles': culture_articles,
+        'craftArticles': craft_articles,
+        'travelArticles': travel_articles,
     }
 
-    # Rendering the template with the context
     return render(request, "blog.html", context)
 
 
-def detail_blog(request):
-    return render(request, 'detail_blog.html')
+def detail_blog(request, id):
+    article = get_object_or_404(Article, id=id)
+    related_articles = Article.objects.exclude(id=id)[:5]  # Adjust the number as needed
+    # Adjusting for a CharField of comma-separated tags
+    tags = article.tags.split(',')
+
+    return render(request, 'detail_blog.html', {
+        'article': article,
+        'related_articles': related_articles,
+        'tags': tags,
+    })
+
+
+
+
+#@user_passes_test(superuser_required)
+
+@csrf_exempt
+def add_article(request):
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()  # This will now automatically set the publication_date to today's date in UTC+7
+            # Redirect to a success page or wherever you need
+            return redirect('success_url')
+    else:
+        form = ArticleForm()
+    return render(request, 'add_article.html', {'form': form})
+
+
+def edit_article(request, article_id):
+    article = get_object_or_404(Article, id=article_id)
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            form.save()
+            # Redirect to the article detail page
+            return redirect('article:detail_blog', article_id=article.id)
+    else:
+        form = ArticleForm(instance=article)
+    return render(request, 'edit_article.html', {'form': form, 'article': article})
+
+
+def delete_article(request, article_id):
+    article = get_object_or_404(Article, id=article_id)
+
+    if request.method == 'POST':
+        article.delete()
+        return redirect('article:show_article')  # Redirect to the article list
+    return render(request, 'confirm_delete.html', {'article': article})
