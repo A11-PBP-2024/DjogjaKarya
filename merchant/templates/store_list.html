@@ -74,15 +74,15 @@
                             </div>
                             <div class="mb-4">
                                 <label for="image1" class="block text-sm font-medium text-gray-700">Store Image 1</label>
-                                <input type="url" id="image1" name="image1" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Insert store image" required>
+                                <input type="url" id="image1" name="image1" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Enter image URL" required>
                             </div>
                             <div class="mb-4">
                                 <label for="image2" class="block text-sm font-medium text-gray-700">Store Image 2</label>
-                                <input type="url" id="image2" name="image2" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Insert store image" required>
+                                <input type="url" id="image2" name="image2" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Enter image URL" required>
                             </div>
                             <div class="mb-4">
                                 <label for="image3" class="block text-sm font-medium text-gray-700">Store Image 3</label>
-                                <input type="url" id="image3" name="image3" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Insert store image" required>
+                                <input type="url" id="image3" name="image3" class="mt-1 block w-full border border-gray-300 rounded-md p-2 hover:border-[#E8A04B]" placeholder="Enter image URL" required>
                             </div>
                             <div class="mb-4">
                                 <label for="location_link" class="block text-sm font-medium text-gray-700">Location</label>
@@ -93,8 +93,8 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2 p-6 border-t border-gray-200 rounded-b justify-center md:justify-end">
-                    <button type="button" class="bg-[#bca89f] hover:bg-[#a08679] text-white font-bold py-2 px-4 rounded-lg" id="cancelButton">Cancel</button>
-                    <button type="submit" id="submitStore" form="storeForm" class="bg-[#8b6c5c] hover:bg-[#765341] text-white font-bold py-2 px-4 rounded-lg">Save</button>
+                    <button type="button" class="bg-[#716969] hover:bg-[#716969] text-white font-bold py-2 px-4 rounded-lg" id="cancelButton">Cancel</button>
+                    <button type="submit" id="submitStore" form="storeForm" class="bg-[#2d2e2e] hover:bg-[#2d2e2e] text-white font-bold py-2 px-4 rounded-lg">Save</button>
                 </div>
             </div>
         </div>
@@ -194,7 +194,7 @@
                                             onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)';">
                                             <i class="fas fa-edit" style="font-size: 1rem;"></i> Edit
                                         </a>
-                                        <a href="/merchant/delete/${id}" style="display: inline-flex; align-items: center; padding: 0.75rem 1.5rem; border-radius: 999px; font-size: 0.875rem; font-weight: bold; background-color: #daa38f; color: white; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; gap: 0.5rem; cursor: pointer;"
+                                        <a href="/merchant/delete/${id}" style="display: inline-flex; align-items: center; padding: 0.75rem 1.5rem; border-radius: 999px; font-size: 0.875rem; font-weight: bold; background-color: #2d2e2e; color: white; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; gap: 0.5rem; cursor: pointer;"
                                             onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 12px rgba(0, 0, 0, 0.15)';"
                                             onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)';">
                                             <i class="fas fa-trash-alt" style="font-size: 1rem;"></i> Delete
@@ -276,8 +276,6 @@
 
             storeCards.forEach((card) => {
                 const storeName = card.querySelector('h2 a').textContent.toLowerCase();
-                
-                // Cari parent div terdekat yang memiliki class 'flex'
                 const cardContainer = card.closest('div[style*="border-bottom"]');
                 
                 if (storeName.includes(searchValue)) {
@@ -287,8 +285,6 @@
                 }
             });
         }
-
-        // Tambahkan event listener untuk input
         document.getElementById('searchInput').addEventListener('input', filterStores);
     </script>
 {% endblock content %}

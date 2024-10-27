@@ -11,7 +11,7 @@ class Article(models.Model):
     # Store only the date
     # You can set a specific timezone if needed
     publication_date = models.DateField(default=timezone.now)
-    image = models.ImageField(upload_to='images/', blank=True, null=True)
+    image = models.URLField()
     tags = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
