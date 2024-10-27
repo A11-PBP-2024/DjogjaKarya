@@ -34,9 +34,9 @@
 
         {% if not user.is_authenticated or not user.is_superuser %}
         <div class="absolute top-3 right-3">
-            <button 
+            <a
                 class="focus:outline-none love-button transition-transform duration-300 transform hover:scale-110"
-                onclick="toggleLove(this)">
+                onclick="toggleWishlist(this)" id="wishlist-button" href="{% url 'wishlist:add_to_wishlist' product.id %}" class="focus:outline-none border-2 border-gray-400 text-gray-400 text-md font-semibold py-2 px-4 rounded-full w-1/2 flex items-center justify-center transition-transform duration-300 transform hover:scale-105">>
                 <svg 
                     xmlns="http://www.w3.org/2000/svg" 
                     class="h-8 w-8 text-gray-400" 
@@ -46,7 +46,7 @@
                         d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
                     />
                 </svg>
-            </button>
+            </a>
         </div>
         {% endif %}
     
