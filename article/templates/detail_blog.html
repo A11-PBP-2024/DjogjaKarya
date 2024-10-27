@@ -11,7 +11,7 @@
 <style>
     .tag {
         background-color: #ebf8ff;
-        color: #3182ce;
+        color: #716969;
         text-decoration: none;
         font-size: 0.75rem;
         padding: 0.25rem 0.5rem;
@@ -20,7 +20,7 @@
     }
 
     .tag:hover {
-        background-color: #3182ce;
+        background-color: #2d2e2e;
         color: #ffffff;
         transform: scale(1.1);
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -104,7 +104,7 @@
                 <!-- Edit and Delete Buttons -->
                 <div class="mt-4">
                     <button id="openEditModal"
-                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-200">
+                        class="px-4 py-2 bg-[#E38e27] text-white rounded hover:bg-[#C7761B] transition duration-200">
                         Edit
                     </button>
                     <button id="openDeleteModal"
@@ -195,70 +195,85 @@
 
 {% block script %}
 <script>
-    function toggleModal() {
-            const modal = document.getElementById("deleteModal");
-            modal.classList.toggle("hidden");
+        // Function to toggle the visibility of the delete modal
+        function toggleDeleteModal() {
+            const deleteModal = document.getElementById("deleteModal");
+            deleteModal.classList.toggle("hidden");
         }
-// JavaScript to open and close the delete modal
-    const deleteButton = document.getElementById('openDeleteModal');
-    const deleteModal = document.getElementById('deleteModal');
-    const cancelDelete = document.getElementById('cancelDelete');
 
-    deleteButton.addEventListener('click', () => {
-        deleteModal.classList.remove('hidden');
-    });
+        // JavaScript to open and close the delete modal
+        const deleteButton = document.getElementById('openDeleteModal');
+        const deleteModal = document.getElementById('deleteModal');
+        const cancelDelete = document.getElementById('cancelDelete');
 
-    cancelDelete.addEventListener('click', () => {
-        deleteModal.classList.add('hidden');
-    });
-    document.addEventListener("DOMContentLoaded", function (event) {
-            document.getElementById('deleteButton').click();
-        });
-    document.addEventListener('DOMContentLoaded', function () {
-        const editModal = document.getElementById('editArticleModal');
-        const saveButton = document.getElementById('saveChanges');
-        const closeButton = document.getElementById('closeModal');
+        deleteButton.addEventListener('click', toggleDeleteModal);
+        cancelDelete.addEventListener('click', toggleDeleteModal);
 
-        // Open the modal when the edit button is clicked
-        document.getElementById('openEditModal').addEventListener('click', function () {
-            editModal.classList.remove('hidden');
-        });
+        // Event listener for the document's content loading
+     document.addEventListener("DOMContentLoaded", function () {
+            const editModal = document.getElementById('editArticleModal');
+            const saveButton = document.getElementById('saveChanges');
+            const closeButton = document.getElementById('closeModal');
+            const editButton = document.getElementById('openEditModal');
 
-        // Close the modal
-        closeButton.addEventListener('click', function () {
-            editModal.classList.add('hidden');
-        });
+            // Open the edit modal when the edit button is clicked
+            editButton.addEventListener('click', function () {
+                editModal.classList.remove('hidden'); // Show the edit modal
+            });
 
-        // Save changes via AJAX
-        saveButton.addEventListener('click', function () {
-            const formData = new FormData(document.getElementById('editArticleForm'));
+            // Close the edit modal when cancel is clicked
+            closeButton.addEventListener('click', function () {
+                editModal.classList.add('hidden'); // Hide the edit modal
+            });
 
-            fetch("{% url 'article:edit_article' article.id %}", {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
+            // Save changes via AJAX
+            saveButton.addEventListener('click', function () {
+                const formData = new FormData(document.getElementById('editArticleForm'));
+
+                fetch("{% url 'article:edit_article' article.id %}", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': getCookie('csrftoken') // Include CSRF token if necessary
                     }
-                    return response.json();
                 })
-                .then(data => {
-                    // Update the article details in the UI
-                    document.querySelector('.article-title').textContent = data.title;
-                    document.querySelector('.article-description').textContent = data.description;
-                    document.querySelector('.article-content').textContent = data.content;
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Update the article details in the UI
+                        document.querySelector('.article-title').textContent = data.title;
+                        document.querySelector('.article-description').textContent = data.description;
+                        document.querySelector('.article-content').textContent = data.content;
 
-                    editModal.classList.add('hidden'); // Close the modal
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
+                        editModal.classList.add('hidden'); // Close the edit modal
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                    });
+            });
+
+            // Helper function to get CSRF token
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Check if this cookie string begins with the name we want
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
         });
-    });
 </script>
 {% endblock script %}
 {% endblock content %}
