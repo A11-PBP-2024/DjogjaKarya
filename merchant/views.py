@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import Store
@@ -6,7 +6,11 @@ from .forms import StoreForm
 from django.core import serializers
 from product.models import Product
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+
+def is_admin(user):
+    return user.is_superuser  # Cek apakah user adalah superuser
 
 def store_list(request):
     return render(request, 'store_list.html')
@@ -17,6 +21,8 @@ def get_stores(request):
     content_type="application/json")
 
 @csrf_exempt
+@login_required
+@user_passes_test(is_admin)
 def add_store(request):
     name = request.POST.get("name")
     description = request.POST.get("description")
@@ -36,17 +42,29 @@ def add_store(request):
     new_store.save()
     return HttpResponse(b"CREATED", status=201)
 
+@csrf_exempt
+@user_passes_test(is_admin)  
+@login_required
 def edit_store(request, id):
-    store = Store.objects.get(pk = id)
-    form = StoreForm(request.POST or None, instance=store)
+    store = get_object_or_404(Store, id=id)
 
-    if form.is_valid() and request.method == "POST":
-        form.save()
-        return HttpResponseRedirect(reverse('merchant:store_list'))
+    if request.method == 'POST':
+        form = StoreForm(request.POST, instance=store)
+        if form.is_valid():
+            form.save()
+            return redirect('merchant:store_list')
+    else:
+        form = StoreForm(instance=store)
 
-    context = {'form': form}
-    return render(request, "edit_store.html", context)
+    context = {
+        'form': form,
+        'store': store
+    }
+    return render(request, 'edit_store.html', context)
 
+@csrf_exempt
+@login_required
+@user_passes_test(is_admin)  
 def delete_store(request, id):
     store = Store.objects.get(pk = id)
     store.delete()

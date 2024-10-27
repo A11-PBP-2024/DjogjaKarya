@@ -60,13 +60,6 @@
                     </svg>
                     Add to Wishlist
                 </button>
-
-                <a 
-                    href="{% url 'add_review' product.id %}" 
-                    class="bg-[#F3A73B] hover:bg-orange-500 text-white text-md font-semibold py-2 px-4 rounded-full w-1/2 transition-transform duration-300 transform hover:scale-105"
-                >
-                    Add Review
-                </a>
             </div>
         </div>
     </div>
@@ -85,23 +78,51 @@
         </div>
     </div>
 
-    <!-- Daftar Review -->
-    <div class="mt-10">
-        <h3 class="text-2xl font-semibold mb-4">Customer Reviews</h3>
+    <div class="container mx-auto p-6 space-y-8 bg-white rounded-xl shadow-lg border border-gray-200 mt-6">
+        <!-- Informasi Produk -->
+        <div class="text-center">
+            <h2 class="text-4xl font-semibold text-gray-900 mb-4">Reviews for {{ product.name }}</h2>
+            <p class="text-lg text-gray-500">Read what others have to say about this product!</p>
+        </div>
+    
         
-        {% if reviews %}
-            <ul class="space-y-4">
+        <!-- Daftar Review -->
+        <div class="space-y-8">
+            {% if reviews %}
                 {% for review in reviews %}
-                    <li class="border p-4 rounded-lg shadow-sm">
-                        <p class="font-semibold">{{ review.user }}</p>
-                        <p class="text-gray-500">Rating: {{ review.rating }}</p>
-                        <p>{{ review.comment }}</p>
-                    </li>
+                    <div class="p-6 bg-gray-50 rounded-lg shadow-sm border border-gray-200 transition duration-300 transform hover:scale-105">
+                        <div class="flex items-center justify-between mb-4">
+                            
+                            <!-- Rating dalam bentuk bintang -->
+                            <div class="flex items-center space-x-1 mb-2">
+                                {% for i in "12345" %}
+                                    <svg class="w-5 h-5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="{% if i <= review.rating|stringformat:"i" %}currentColor{% else %}none{% endif %}" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.4l2.88 5.843 6.44.936-4.67 4.549 1.1 6.423-5.75-3.021-5.75 3.021 1.1-6.423-4.67-4.549 6.44-.936L12 4.4z" />
+                                    </svg>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <!-- Komentar -->
+                        <p class="text-gray-700 mb-4 leading-relaxed">{{ review.comment }}</p>
+                        
+                        <!-- Tanggal dan Waktu Review -->
+                        <p class="text-sm text-gray-400">{{ review.created_at|date:"F j, Y, g:i a" }}</p>
+                    </div>
                 {% endfor %}
-            </ul>
-        {% else %}
-            <p class="text-gray-500">No reviews yet.</p>
-        {% endif %}
+            {% else %}
+                <p class="text-center text-gray-500">There are no reviews for this product yet. Be the first to leave one!</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    
+        <!-- Tombol Tambah Ulasan -->
+        <div class="mt-8 text-center">
+            <a href="{% url 'add_review' product.id %}" class="inline-block bg-[#F3A73B] hover:bg-orange-500 text-white font-semibold py-3 px-8 rounded-full transition-transform duration-300 transform hover:scale-105 shadow-md">
+                Add Your Review
+            </a>
+        </div>
     </div>
 </div>
 
