@@ -19,14 +19,6 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
             ],
         ),
-        migrations.RemoveField(
-            model_name='article',
-            name='is_published',
-        ),
-        migrations.RemoveField(
-            model_name='article',
-            name='last_modified',
-        ),
         migrations.AddField(
             model_name='article',
             name='description',
