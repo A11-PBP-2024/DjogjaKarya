@@ -7,7 +7,7 @@
         <p class="mt-2 text-gray-700">Check out your favorite products and consider purchasing them!</p>
 
         {% if wishlist %}
-            <div class="text-center">
+            <div class="w-full flex gap-2 flex-wrap">
                 {% for item in wishlist %}
                 <div class="max-w-md w-full md:w-96 lg:w-96 xl:w-96 bg-white shadow-lg rounded-lg overflow-hidden m-5 mx-auto">
                     <img src="{{ item.product.image }}" class="w-full h-72 object-cover object-center" alt="{{ item.product.name }}">
