@@ -20,6 +20,14 @@ def get_stores(request):
     return HttpResponse(serializers.serialize("json", data), 
     content_type="application/json")
 
+def store_detail(request, id):
+    store = get_object_or_404(Store, id=id)
+    context = {
+        'store': store
+    }
+    return render(request, 'store_detail.html', context)
+
+
 @csrf_exempt
 @login_required
 @user_passes_test(is_admin)

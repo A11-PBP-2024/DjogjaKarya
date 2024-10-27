@@ -5,6 +5,10 @@ from merchant.models import Store
 from django.http import JsonResponse, HttpResponseForbidden, HttpResponse, HttpResponseBadRequest
 import random
 from django.core import serializers
+from django.shortcuts import render, get_object_or_404
+from .models import Product
+from wishlist.models import Wishlist  # Mengimpor Wishlist dari aplikasi wishlist
+import random
 
 
 
@@ -185,12 +189,17 @@ def show_detail(request, id):
     else:
         similar_products = all_products
 
+    # Check if product is in wishlist
+    in_wishlist = Wishlist.objects.filter(user=request.user, product=selected_product).exists() if request.user.is_authenticated else False
+
     context = {
         'product': selected_product,
         'similar_product': similar_products,
+        'in_wishlist': in_wishlist,
     }
 
     return render(request, "detail.html", context)
+
 
 def filter_category_ajax(request):
     kategori = request.GET.get('kategori', 'all')

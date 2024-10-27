@@ -1,22 +1,18 @@
-
-from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Wishlist, Product  # Pastikan import yang benar
-from django.contrib.auth.decorators import login_required
+from .models import Wishlist
+from product.models import Product
 
-@login_required
-def wishlist_view(request):
-    wishlist_items = Wishlist.objects.filter(user=request.user)  # Sesuaikan dengan model User
-    return render(request, 'wishlist.html', {'wishlist': wishlist_items})
+def show_wishlist(request):
+    wishlist_items = Wishlist.objects.filter(user=request.user)
+    context = {"wishlist": wishlist_items}
+    return render(request, "wishlist.html", context)
 
-@login_required
 def add_to_wishlist(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     wishlist_item, created = Wishlist.objects.get_or_create(user=request.user, product=product)
-    return redirect('wishlist:wishlist_view')
+    return redirect('wishlist:show_wishlist')
 
-@login_required
 def remove_from_wishlist(request, product_id):
-    wishlist_item = get_object_or_404(Wishlist, product_id=product_id, user=request.user)
-    wishlist_item.delete()
-    return redirect('wishlist:wishlist_view')
+    product = get_object_or_404(Product, id=product_id)
+    Wishlist.objects.filter(user=request.user, product=product).delete()
+    return redirect('wishlist:show_wishlist')
