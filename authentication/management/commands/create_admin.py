@@ -14,4 +14,3 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS('Admin account created successfully.'))
         else:
             self.stdout.write('Admin account already exists.')
-$
