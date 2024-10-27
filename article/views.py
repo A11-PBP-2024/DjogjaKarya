@@ -9,10 +9,17 @@ from .models import Article
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
+from django.core import serializers
 
 def is_admin(user):
     return user.is_superuser
 
+
+@login_required
+def get_article(request):
+    data = Article.objects.all()
+    return HttpResponse(serializers.serialize("json", data),
+                        content_type="application/json")
 
 def article_list(request):
     articles = Article.objects.all()  # Fetch all articles
