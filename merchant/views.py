@@ -10,11 +10,13 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 
 def is_admin(user):
-    return user.is_superuser  # Cek apakah user adalah superuser
+    return user.is_superuser 
 
+@login_required
 def store_list(request):
     return render(request, 'store_list.html')
 
+@login_required
 def get_stores(request):
     data = Store.objects.all()
     return HttpResponse(serializers.serialize("json", data), 
@@ -43,8 +45,8 @@ def add_store(request):
     return HttpResponse(b"CREATED", status=201)
 
 @csrf_exempt
-@user_passes_test(is_admin)  
 @login_required
+@user_passes_test(is_admin)
 def edit_store(request, id):
     store = get_object_or_404(Store, id=id)
 

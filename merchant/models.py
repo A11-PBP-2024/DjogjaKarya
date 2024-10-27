@@ -12,4 +12,3 @@ class Store(models.Model):
     image2 = models.URLField()
     image3 = models.URLField()
     location_link = models.URLField(max_length=200)
-    products = models.ManyToManyField(Product, related_name='stores')
