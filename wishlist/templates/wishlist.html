@@ -3,7 +3,7 @@
 
 <div class="container mx-auto mt-20 flex flex-col items-center justify-center">
     <div class="w-full flex flex-col items-center bg-white font-inter">
-        <p class="mt-12 text-4xl font-gabarito font-bold text-[#005b9c]">Your Wishlist</p>
+        <p class="mt-12 text-4xl font-gabarito font-bold text-black">Your Wishlist</p>
         <p class="mt-2 text-gray-700">Check out your favorite products and consider purchasing them!</p>
 
         {% if wishlist %}
@@ -17,20 +17,20 @@
                         <p class="text-gray-700 text-base">Merchant: {{ item.product.toko }}</p>
 
                         {% if item.product.merchant %}
-                            <a href="{% url 'merchant:detail' item.product.merchant.id %}" class="text-blue-600 hover:text-blue-800">View Store</a>
+                            <a href="{% url 'merchant:detail' item.product.merchant.id %}" class="text-[#716969] hover:text-[#2d2e2e]">View Store</a>
                         {% else %}
                             <p class="text-red-500"></p>
                         {% endif %}
                     </div>
                     <div class="px-6 py-4 flex justify-between items-center">
                         <a href="{% url 'wishlist:remove_from_wishlist' item.product.pk %}" class="bg-red-500 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md">Remove</a>
-                        <a href="{% url 'product:show_detail' item.product.pk %}" class="bg-green-500 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md">View Product</a>
+                        <a href="{% url 'product:show_detail' item.product.pk %}" class="bg-[#716969] hover:bg-[#2d2e2e] text-white font-medium py-2 px-4 rounded-md">View Product</a>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         {% else %}
-            <p class="mt-12 text-3xl font-gabarito font-bold text-[#005b9c]">Your Wishlist is Empty 🥲</p>
+            <p class="mt-12 text-3xl font-gabarito font-bold text-black">Your Wishlist is Empty 🥲</p>
             <p class="mt-2 text-gray-700">Explore products and add them to your wishlist!</p>
         {% endif %}
     </div>
