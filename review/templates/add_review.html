@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mx-auto p-8">
+    <!-- Judul Halaman -->
+    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Add a Review for {{ product.name }}</h2>
+
+    <!-- Formulir Tambah Ulasan -->
+    <div class="bg-white shadow-lg rounded-lg max-w-2xl mx-auto p-8 space-y-6">
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+
+            <!-- Rating -->
+            <div>
+                <label for="rating" class="block text-lg font-semibold mb-2 text-gray-700">Rating (1-5)</label>
+                <div class="flex gap-1 justify-center" id="star-rating">
+                    {% for star in "12345" %}
+                        <input type="radio" name="rating" value="{{ star }}" id="star-{{ star }}" class="hidden" />
+                        <label for="star-{{ star }}" class="star text-gray-300 cursor-pointer text-3xl transition-colors duration-200">
+                            ★
+                        </label>
+                    {% endfor %}
+                </div>
+                <p class="text-sm text-gray-500 text-center mt-1">Choose your rating by selecting stars from 1 to 5</p>
+            </div>
+
+            <!-- Komentar -->
+            <div>
+                <label for="comment" class="block text-lg font-semibold mb-2 text-gray-700">Your Review</label>
+                <textarea name="comment" id="comment" rows="4"
+                          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-400 placeholder-gray-400 text-gray-700 resize-none transition-colors duration-200"
+                          placeholder="Write your review here...">{{ form.comment.value }}</textarea>
+            </div>
+
+            <!-- Tombol Kirim -->
+            <div class="flex justify-center mt-6">
+                <button type="submit" 
+                        class="bg-[#F3A73B] hover:bg-orange-500 text-white font-semibold py-2 px-8 rounded-full transition-transform duration-300 transform hover:scale-105 shadow-lg">
+                    Submit Review
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // JavaScript to handle star rating
+    document.querySelectorAll('#star-rating input[type="radio"]').forEach((input) => {
+        input.addEventListener('change', (event) => {
+            const rating = parseInt(event.target.value);
+            const stars = document.querySelectorAll('#star-rating .star');
+            
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('text-yellow-500');
+                    star.classList.remove('text-gray-300');
+                } else {
+                    star.classList.add('text-gray-300');
+                    star.classList.remove('text-yellow-500');
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock content %}

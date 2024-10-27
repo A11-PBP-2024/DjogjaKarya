@@ -2,9 +2,22 @@
 {% load humanize %}
 {% block content %}
 <div class="container p-8">
-    <h2 class="text-3xl font-bold mb-6">{{ product.name }}</h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    
+    <div class="mb-6">
+        <a href="{% url 'product:show_category' %}?kategori={{ product.kategori|urlencode }}" 
+           class="text-[#6B8273] text-lg font-semibold flex items-center gap-2 hover:underline">
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                 class="h-5 w-5" viewBox="0 0 24 24" 
+                 fill="none" stroke="currentColor" stroke-width="2" 
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6" />
+            </svg>
+            Product / {{ product.kategori }} / {{ product.name }} - {{ product.toko }}
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         <!-- Gambar Produk -->
         <div class="w-full">
             <img 
@@ -15,16 +28,37 @@
         </div>
 
         <!-- Detail Produk -->
-        <div class="flex flex-col justify-between">
+        <div class="flex flex-col justify-between space-y-6">
             <div>
-                <p class="text-lg font-semibold text-gray-700">Toko: {{ product.toko }}</p>
-                <p class="text-lg font-bold text-indigo-600">Harga: Rp{{ product.harga }}</p>
-                <!-- <p class="mt-4">{{ product.description }}</p> -->
+                <h1 class="text-4xl font-bold">{{ product.name }}</h1>
+                <p class="text-xl font-bold text-[#834920] mt-2">
+                    Price: Rp{{ product.harga|intcomma }}
+                </p>
             </div>
 
-            <div class="mt-4">
-                <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-500">
-                    ini nanti add to wishlist
+            <!-- Informasi Toko -->
+            <div class="border-l-4 border-[#834920] pl-4 mt-2">
+                <p class="text-lg font-semibold">Available at:</p>
+                <p class="text-gray-700">{{ product.toko }}</p>
+            </div>
+
+            <!-- Tombol Wishlist dan Review -->
+            <div class="flex gap-4 mt-4">
+                <button 
+                    id="wishlist-button" 
+                    onclick="toggleWishlist(this)" 
+                    class="focus:outline-none border-2 border-gray-400 text-gray-400 text-md font-semibold py-2 px-4 rounded-full w-1/2 flex items-center justify-center transition-transform duration-300 transform hover:scale-105"
+                >
+                    <svg 
+                        id="wishlist-icon" 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        class="h-6 w-6 mr-2" 
+                        viewBox="0 0 24 24" 
+                        fill="currentColor">
+                        <path 
+                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                    Add to Wishlist
                 </button>
             </div>
         </div>
@@ -32,7 +66,7 @@
 
     <!-- Produk Terkait -->
     <div class="mt-10">
-        <h3 class="text-2xl font-semibold mb-4">Produk Terkait</h3>
+        <h3 class="text-2xl font-semibold mb-4">Similar Product</h3>
         <div class="overflow-x-auto whitespace-nowrap">
             <div class="inline-flex gap-4">
                 {% for product in similar_product %}
@@ -43,5 +77,79 @@
             </div>
         </div>
     </div>
+
+    <div class="container mx-auto p-6 space-y-8 bg-white rounded-xl shadow-lg border border-gray-200 mt-6">
+        <!-- Informasi Produk -->
+        <div class="text-center">
+            <h2 class="text-4xl font-semibold text-gray-900 mb-4">Reviews for {{ product.name }}</h2>
+            <p class="text-lg text-gray-500">Read what others have to say about this product!</p>
+        </div>
+    
+        
+        <!-- Daftar Review -->
+        <div class="space-y-8">
+            {% if reviews %}
+                {% for review in reviews %}
+                    <div class="p-6 bg-gray-50 rounded-lg shadow-sm border border-gray-200 transition duration-300 transform hover:scale-105">
+                        <div class="flex items-center justify-between mb-4">
+                            
+                            <!-- Rating dalam bentuk bintang -->
+                            <div class="flex items-center space-x-1 mb-2">
+                                {% for i in "12345" %}
+                                    <svg class="w-5 h-5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="{% if i <= review.rating|stringformat:"i" %}currentColor{% else %}none{% endif %}" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.4l2.88 5.843 6.44.936-4.67 4.549 1.1 6.423-5.75-3.021-5.75 3.021 1.1-6.423-4.67-4.549 6.44-.936L12 4.4z" />
+                                    </svg>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <!-- Komentar -->
+                        <p class="text-gray-700 mb-4 leading-relaxed">{{ review.comment }}</p>
+                        
+                        <!-- Tanggal dan Waktu Review -->
+                        <p class="text-sm text-gray-400">{{ review.created_at|date:"F j, Y, g:i a" }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-center text-gray-500">There are no reviews for this product yet. Be the first to leave one!</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    
+        <!-- Tombol Tambah Ulasan -->
+        <div class="mt-8 text-center">
+            <a href="{% url 'add_review' product.id %}" class="inline-block bg-[#F3A73B] hover:bg-orange-500 text-white font-semibold py-3 px-8 rounded-full transition-transform duration-300 transform hover:scale-105 shadow-md">
+                Add Your Review
+            </a>
+        </div>
+    </div>
 </div>
+
+<script>
+function toggleWishlist(button) {
+    const svg = button.querySelector('svg');
+    const buttonText = button.querySelector('span') || button;
+
+    if (buttonText.innerText.trim() === "Add to Wishlist") {
+        button.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <span class="text-red-500">Added to Wishlist</span>
+        `;
+        button.classList.remove('border-gray-400', 'text-gray-400');
+        button.classList.add('border-red-500', 'text-red-500');
+    } else {
+        button.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <span class="text-gray-400">Add to Wishlist</span>
+        `;
+        button.classList.remove('border-red-500', 'text-red-500');
+        button.classList.add('border-gray-400', 'text-gray-400');
+    }
+}
+</script>
 {% endblock content %}

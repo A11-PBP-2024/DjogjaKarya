@@ -16,12 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
     path('product/',include('product.urls')),
-    path('', include('merchant.urls')),
+    path('merchant/', include('merchant.urls')),
     path('article/', include('article.urls')),
     path('auth/', include('authentication.urls')),
+    path('reviews/', include('review.urls')),
+    path('wishlist/', include('wishlist.urls')),
+    
+
 ]
