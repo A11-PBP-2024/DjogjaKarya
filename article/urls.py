@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.show_article, name='show_article'),
     path('detail/<int:id>/', views.detail_blog, name='detail_blog'),
     path('add/', views.add_article, name='add_article'),
-    path('<int:article_id>/edit/', views.edit_article, name='edit_article'),
-    path('<int:article_id>/delete/', views.delete_article, name='delete_article'),
+    path('edit/<int:article_id>/', views.edit_article, name='edit_article'),
+    path('delete/<int:article_id>/', views.delete_article, name='delete_article'),
     # Add more URL patterns here as needed
 ]

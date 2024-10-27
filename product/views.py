@@ -17,10 +17,9 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 
 def is_admin(user):
-    return user.is_superuser  # Cek apakah user adalah superuser
+    return user.is_superuser  # cek admin
 
 @csrf_exempt
-@user_passes_test(is_admin)  # Hanya admin yang bisa akses
 @user_passes_test(is_admin)
 def get_form_data(request):
 
@@ -47,7 +46,6 @@ def add_product(request):
         return JsonResponse({'error': 'Method not allowed'}, status=405)
     
     try:
-        # Validasi input
         required_fields = ['name', 'kategori', 'harga', 'toko', 'image']
         for field in required_fields:
             if not request.POST.get(field):
@@ -56,7 +54,7 @@ def add_product(request):
                     status=400
                 )
         
-        # Create new product
+        
         product = Product.objects.create(
             name=request.POST.get('name'),
             kategori=request.POST.get('kategori'),
@@ -178,7 +176,7 @@ def get_product_id(request, id):
     except Product.DoesNotExist:
         return HttpResponseBadRequest('Produk tidak ditemukan!')
 
- 
+@login_required
 def show_detail(request, id):
     selected_product = Product.objects.get(pk=id)
     kategori = selected_product.kategori
@@ -223,7 +221,7 @@ def filter_category_ajax(request):
     return JsonResponse(data)
 
 
-
+@login_required
 def show_category(request):
     kategori = request.GET.get('kategori', 'all')
 
