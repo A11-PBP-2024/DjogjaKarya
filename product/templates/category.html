@@ -3,22 +3,34 @@
 
 {% block content %}
 
-<!-- Header Kategori -->
-<div class="bg-gray-50 p-8">
-    <h2 class="text-3xl font-bold mb-6">Produk Kerajinan</h2>
+<div class="bg-gray-50 py-10">
+   
+    <div class="flex justify-between items-center px-8 mb-8">
+        <h2 class="text-3xl font-bold">Produk Kerajinan</h2>
+        {% if user.is_authenticated and user.is_superuser %}
+        <button id="add-product-button" 
+            class="bg-[#E8A04B] hover:bg-[#d68c37] text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-lg flex items-center space-x-2">
+            <i class="fas fa-plus"></i>
+            <span>Add Product</span>
+        </button>
+        {% endif %}
+    </div>
+
+    <!-- Search Bar -->
+    <div class="px-5 mb-6">
+        <div class="relative">
+            <input 
+                type="text" 
+                id="search-input"
+                placeholder="Searching for a product?" 
+                class="w-full pl-12 pr-4 py-4 bg-white border border-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-[#E8A04B] focus:border-transparent shadow-sm"
+            >
+            <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-<!-- Tombol Add Product -->
-{% if user.is_authenticated and user.is_superuser %}
-<div class="flex justify-end px-8 mb-4">
-    <button id="add-product-button" class="bg-[#E8A04B] hover:bg-[#d68c37] text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-lg flex items-center space-x-2">
-        <i class="fas fa-plus"></i>
-        <span>Add Product</span>
-    </button>
-</div>
-{% endif %}
-
 
 <!-- Container Kategori -->
 <div id="category-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 px-2 md:px-4">
@@ -26,7 +38,8 @@
     <div class="relative rounded-md overflow-hidden shadow-sm category-item">
         <img src="https://img.freepik.com/premium-vector/elegant-vector-javanese-ethnic-batik-pattern-template_1325579-615.jpg" 
              alt="Batik" class="w-full h-24 object-cover">
-        <div class="absolute inset-0 flex justify-center items-center">
+        <div class="category-overlay absolute inset-0 bg-black opacity-50 transition-all duration-300"></div>
+        <div class="absolute inset-0 flex justify-center items-center z-10">
             <a href="?kategori=Batik" 
                class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
                 Batik
@@ -38,7 +51,8 @@
     <div class="relative rounded-md overflow-hidden shadow-sm category-item">
         <img src="https://t3.ftcdn.net/jpg/02/26/92/86/360_F_226928653_CI7vW3087roWG6Ob9thI83Htd255aQyc.jpg" 
              alt="Kerajinan Kulit" class="w-full h-24 object-cover">
-        <div class="absolute inset-0 flex justify-center items-center">
+        <div class="category-overlay absolute inset-0 bg-black opacity-50 transition-all duration-300"></div>
+        <div class="absolute inset-0 flex justify-center items-center z-10">
             <a href="?kategori=Kerajinan Kulit" 
                class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
                 Kerajinan Kulit
@@ -50,7 +64,8 @@
     <div class="relative rounded-md overflow-hidden shadow-sm category-item">
         <img src="https://img.freepik.com/free-photo/silver-aesthetic-wallpaper-with-decorations_23-2149871747.jpg" 
              alt="Perak Kotagede" class="w-full h-24 object-cover">
-        <div class="absolute inset-0 flex justify-center items-center">
+        <div class="category-overlay absolute inset-0 bg-black opacity-50 transition-all duration-300"></div>
+        <div class="absolute inset-0 flex justify-center items-center z-10">
             <a href="?kategori=Perak Kotagede" 
                class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
                 Perak Kotagede
@@ -62,7 +77,8 @@
     <div class="relative rounded-md overflow-hidden shadow-sm category-item">
         <img src="https://img.freepik.com/free-vector/wayang-kulit-abstract-person-clouds_52683-46747.jpg" 
              alt="Kerajinan Wayang" class="w-full h-24 object-cover">
-        <div class="absolute inset-0 flex justify-center items-center">
+        <div class="category-overlay absolute inset-0 bg-black opacity-50 transition-all duration-300"></div>
+        <div class="absolute inset-0 flex justify-center items-center z-10">
             <a href="?kategori=Kerajinan Wayang" 
                class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
                 Kerajinan Wayang
@@ -74,7 +90,8 @@
     <div class="relative rounded-md overflow-hidden shadow-sm category-item">
         <img src="https://img.freepik.com/premium-photo/wooden-craft-floral-pattern-background-generative-aixa_174954-1884.jpg" 
              alt="Kerajinan Kayu" class="w-full h-24 object-cover">
-        <div class="absolute inset-0 flex justify-center items-center">
+        <div class="category-overlay absolute inset-0 bg-black opacity-50 transition-all duration-300"></div>
+        <div class="absolute inset-0 flex justify-center items-center z-10">
             <a href="?kategori=Kerajinan Kayu" 
                class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
                 Kerajinan Kayu
@@ -86,7 +103,8 @@
     <div class="relative rounded-md overflow-hidden shadow-sm category-item">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNBX7I8TQW7SHCcSoIDXQispwmhe36wFHm4w&s" 
              alt="Kerajinan Anyaman" class="w-full h-24 object-cover">
-        <div class="absolute inset-0 flex justify-center items-center">
+        <div class="category-overlay absolute inset-0 bg-black opacity-50 transition-all duration-300"></div>
+        <div class="absolute inset-0 flex justify-center items-center z-10">
             <a href="?kategori=Kerajinan Anyaman" 
                class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
                 Kerajinan Anyaman
@@ -98,7 +116,8 @@
     <div class="relative rounded-md overflow-hidden shadow-sm category-item">
         <img src="https://cdn.shopify.com/s/files/1/0836/2769/files/hands-clay-pottery_600x600.jpg?v=1671439611" 
              alt="Kerajinan Gerabah" class="w-full h-24 object-cover">
-        <div class="absolute inset-0 flex justify-center items-center">
+        <div class="category-overlay absolute inset-0 bg-black opacity-50 transition-all duration-300"></div>
+        <div class="absolute inset-0 flex justify-center items-center z-10">
             <a href="?kategori=Kerajinan Gerabah" 
                class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
                 Kerajinan Gerabah
@@ -110,7 +129,8 @@
     <div class="relative rounded-md overflow-hidden shadow-sm category-item">
         <img src="https://d12oja0ew7x0i8.cloudfront.net/images/news/ImageForNews_59774_16606539847736385.jpg" 
              alt="Kerajinan Bambu" class="w-full h-24 object-cover">
-        <div class="absolute inset-0 flex justify-center items-center">
+        <div class="category-overlay absolute inset-0 bg-black opacity-50 transition-all duration-300"></div>
+        <div class="absolute inset-0 flex justify-center items-center z-10">
             <a href="?kategori=Kerajinan Bambu" 
                class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
                 Kerajinan Bambu
@@ -122,7 +142,8 @@
     <div class="relative rounded-md overflow-hidden shadow-sm category-item">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDcwgUoIOogHLV9-USwv2jhHe_qgthcjvxAQ&s" 
              alt="Kain Tenun Lurik" class="w-full h-24 object-cover">
-        <div class="absolute inset-0 flex justify-center items-center">
+        <div class="category-overlay absolute inset-0 bg-black opacity-50 transition-all duration-300"></div>
+        <div class="absolute inset-0 flex justify-center items-center z-10">
             <a href="?kategori=Kain Tenun Lurik" 
                class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
                 Kain Tenun Lurik
@@ -134,7 +155,8 @@
     <div class="relative rounded-md overflow-hidden shadow-sm category-item">
         <img src="https://i.pinimg.com/originals/cb/13/9c/cb139cce577d1fde61b1e944f17a905a.jpg" 
              alt="all" class="w-full h-24 object-cover">
-        <div class="absolute inset-0 flex justify-center items-center">
+        <div class="category-overlay absolute inset-0 bg-black opacity-50 transition-all duration-300"></div>
+        <div class="absolute inset-0 flex justify-center items-center z-10">
             <a href="?kategori=all" 
                class="bg-white text-black text-sm font-semibold px-3 py-1 rounded-full shadow-md category-label">
                 All
@@ -154,7 +176,7 @@
                     {% for product in kainBatik %}
                         {% include 'product_card.html' %}
                     {% empty %}
-                        <p class="text-center text-gray-500 w-full">Tidak ada produk batik tersedia.</p>
+                        <p class="text-center text-gray-500 w-full">No product to be found.</p>
                     {% endfor %}
                 </div>
             </div>
@@ -166,7 +188,7 @@
                     {% for product in kerajinanKulit %}
                         {% include 'product_card.html' %}
                     {% empty %}
-                        <p class="text-center text-gray-500 w-full">Tidak ada produk kerajinan kulit tersedia.</p>
+                        <p class="text-center text-gray-500 w-full">No product to be found.</p>
                     {% endfor %}
                 </div>
             </div>
@@ -178,7 +200,7 @@
                     {% for product in kerajinanPerak %}
                         {% include 'product_card.html' %}
                     {% empty %}
-                        <p class="text-center text-gray-500 w-full">Tidak ada produk perak tersedia.</p>
+                        <p class="text-center text-gray-500 w-full">No product to be found.</p>
                     {% endfor %}
                 </div>
             </div>
@@ -190,7 +212,7 @@
                     {% for product in kerajinanWayang %}
                         {% include 'product_card.html' %}
                     {% empty %}
-                        <p class="text-center text-gray-500 w-full">Tidak ada produk wayang tersedia.</p>
+                        <p class="text-center text-gray-500 w-full">No product to be found.</p>
                     {% endfor %}
                 </div>
             </div>
@@ -202,7 +224,7 @@
                     {% for product in kerajinanKayu %}
                         {% include 'product_card.html' %}
                     {% empty %}
-                        <p class="text-center text-gray-500 w-full">Tidak ada produk kayu tersedia.</p>
+                        <p class="text-center text-gray-500 w-full">No product to be found.</p>
                     {% endfor %}
                 </div>
             </div>
@@ -214,7 +236,7 @@
                     {% for product in kerajinanAnyaman %}
                         {% include 'product_card.html' %}
                     {% empty %}
-                        <p class="text-center text-gray-500 w-full">Tidak ada produk anyaman tersedia.</p>
+                        <p class="text-center text-gray-500 w-full">No product to be found..</p>
                     {% endfor %}
                 </div>
             </div>
@@ -301,13 +323,62 @@
     </div>
 </div>
 
-<script>
-   
+<<script>
+    $(document).ready(function() {
+        
+        $('#search-input').on('input', function() {
+            const searchTerm = $(this).val().toLowerCase();
+            
+            $('.bg-white.rounded-2xl').each(function() {
+                const $card = $(this);
+                const productName = $card.find('h3').text().toLowerCase();
+                const tokoName = $card.find('p').first().text().toLowerCase();
+                
+                if (productName.includes(searchTerm) || tokoName.includes(searchTerm)) {
+                    $card.parent().show();
+                } else {
+                    $card.parent().hide();
+                }
+            });
+    
+            
+            const visibleProducts = $('.bg-white.rounded-2xl:visible').length;
+            $('.no-results-message').remove();
+            
+            if (visibleProducts === 0) {
+                $('#product-container').append(
+                    '<p class="text-center text-gray-500 py-4 no-results-message w-full">Tidak ada produk yang sesuai dengan pencarian.</p>'
+                );
+            }
+        });
+    
+        
+        function handleCategoryOverlays() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const activeCategory = urlParams.get('kategori') || 'all';
+    
+           
+            document.querySelectorAll('.category-item').forEach(item => {
+                const categoryName = item.querySelector('.category-label').textContent.trim();
+                const overlay = item.querySelector('.category-overlay');
+    
+                if (categoryName.toLowerCase() === activeCategory.toLowerCase()) {
+                    overlay.style.opacity = '0';  
+                } else {
+                    overlay.style.opacity = '0.5';  
+                }
+            });
+        }
+    
+        
+        handleCategoryOverlays();
+    });
+    
+ 
     function generateOptions(items) {
         return items.map(item => `<option value="${item}">${item}</option>`).join('');
     }
     
-    // Function to show error message
     function showError(message) {
         const errorDiv = document.getElementById('form-error');
         errorDiv.textContent = message;
@@ -316,7 +387,6 @@
         }, 3000);
     }
     
-    // Function to validate form
     function validateForm() {
         const name = document.getElementById('add-name').value.trim();
         const kategori = document.getElementById('add-kategori').value;
@@ -348,60 +418,31 @@
         return true;
     }
     
-  
-    document.getElementById('add-product-button').addEventListener('click', function() {
-        $.ajax({
-            url: "{% url 'product:get_form_data' %}",
-            type: 'GET',
-            success: function(response) {
-                document.getElementById('add-kategori').innerHTML = 
-                    '<option value="">Pilih Kategori</option>' + generateOptions(response.categories);
-                document.getElementById('add-toko').innerHTML = 
-                    '<option value="">Pilih Toko</option>' + generateOptions(response.stores);
-                document.getElementById('add-modal').classList.remove('hidden');
-            },
-            error: function(xhr) {
-                showError('Gagal mengambil data form');
-            }
-        });
-    });
     
-
+    if (document.getElementById('add-product-button')) {
+        document.getElementById('add-product-button').addEventListener('click', function() {
+            $.ajax({
+                url: "{% url 'product:get_form_data' %}",
+                type: 'GET',
+                success: function(response) {
+                    document.getElementById('add-kategori').innerHTML = 
+                        '<option value="">Pilih Kategori</option>' + generateOptions(response.categories);
+                    document.getElementById('add-toko').innerHTML = 
+                        '<option value="">Pilih Toko</option>' + generateOptions(response.stores);
+                    document.getElementById('add-modal').classList.remove('hidden');
+                },
+                error: function(xhr) {
+                    showError('Gagal mengambil data form');
+                }
+            });
+        });
+    }
+    
     function closeAddModal() {
         document.getElementById('add-modal').classList.add('hidden');
         document.getElementById('add-product-form').reset();
         document.getElementById('form-error').textContent = '';
     }
-    
-
-    document.getElementById('add-product-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        if (!validateForm()) {
-            return;
-        }
-    
-        $.ajax({
-            type: 'POST',
-            url: "{% url 'product:add_product' %}",
-            data: $(this).serialize(),
-            success: function(response) {
-                showNotification('Produk berhasil ditambahkan!', 'success');
-                closeAddModal();
-                location.reload();
-            },
-            error: function(xhr) {
-                showError('Gagal menambahkan produk');
-            }
-        });
-    });
-    
-  
-    document.getElementById('add-modal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeAddModal();
-        }
-    });
     </script>
 
 {% endblock content %}
