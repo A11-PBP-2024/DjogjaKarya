@@ -1,4 +1,6 @@
 # DjogjaKarya
+<img width="1710" alt="image" src="https://github.com/user-attachments/assets/61527e84-3cd4-46f7-8bed-e59ddaf265fb">
+
 
 # Anggota Kelompok 🙆🏻‍♂️
 - 2306275424	Fauzan Putra Sanjaya
