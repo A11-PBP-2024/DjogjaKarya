@@ -50,10 +50,12 @@ Fitur ini memungkinkan admin untuk mengelola semua informasi produk yang ada di 
 | **User**  | - Lihat detail produk               |
 |           | - Memberikan ulasan                |
 |           | - Wishlist                        |
-| **Guest** | - Lihat produk                     |
+|           | - Lihat Store                       |
+| **Guest** | - Lihat Artikel                    |
 | **Admin** | - Manajemen Toko                      |
 |           | - Manajemen Produk                   |
 |           | - Manajemen ulasan                   |
+|           | - Manajemen Artikel                  |
 
 ## 🔗 Link Deployemnet
 http://fauzan-putra31-djogjakarya.pbp.cs.ui.ac.id/
