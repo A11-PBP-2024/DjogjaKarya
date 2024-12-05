@@ -1,347 +1,395 @@
 {% load humanize %}
 
-<div>
-    <div class="bg-white rounded-2xl shadow-lg p-4 w-56 h-80 flex flex-col justify-between relative transition-transform duration-300 transform hover:scale-105 hover:shadow-2xl overflow-hidden">
-
-
-        {% if user.is_authenticated and user.is_superuser %}
-        <div class="absolute top-3 left-3 right-3 flex justify-between items-center space-x-2 z-20">
-            <button
-                class="flex items-center space-x-1 bg-[#E8A04B] text-white text-xs px-3 py-1.5 rounded-full font-semibold transition-all duration-300 hover:bg-[#d68c37] hover:shadow-lg edit-button group"
-                data-id="{{ product.id }}">
-                <i class="fas fa-edit group-hover:rotate-12 transition-transform duration-300"></i>
-
-            </button>
-            <button
-                class="flex items-center space-x-1 bg-red-500 text-white text-xs px-3 py-1.5 rounded-full font-semibold transition-all duration-300 hover:bg-red-600 hover:shadow-lg delete-button group"
-                data-id="{{ product.id }}">
-                <i class="fas fa-trash-alt group-hover:rotate-12 transition-transform duration-300"></i>
-
-            </button>
-        </div>
-        {% endif %}
-
-    
-   
-        <div class="w-full h-36 overflow-hidden rounded-xl relative group">
-            <img
-                src="{{ product.image }}"
-                alt="{{ product.name }}"
-                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-        </div>
-
-        {% if not user.is_authenticated or not user.is_superuser %}
-        <div class="absolute top-3 right-3">
-            <a
-                class="focus:outline-none love-button transition-transform duration-300 transform hover:scale-110"
-                onclick="toggleWishlist(this)" id="wishlist-button" href="{% url 'wishlist:add_to_wishlist' product.id %}" class="focus:outline-none border-2 border-gray-400 text-gray-400 text-md font-semibold py-2 px-4 rounded-full w-1/2 flex items-center justify-center transition-transform duration-300 transform hover:scale-105">
-                <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    class="h-8 w-8 text-gray-400" 
-                    viewBox="0 0 24 24" 
-                    fill="currentColor">
-                    <path 
-                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-                    />
-                </svg>
-            </a>
-        </div>
-        {% endif %}
-    
-
-        <div class="mt-2 flex-1 text-center">
-            <h3 class="text-md font-semibold truncate hover:text-[#834920] transition-colors duration-300">
-                {{ product.name }}
-            </h3>
-            <p class="text-gray-500 text-sm mt-1 group-hover:text-[#834920] transition-colors duration-300">
-                by {{ product.toko }}
-            </p>
-        </div>
-
-    
-
-        <div class="mt-1 mb-3 flex justify-center items-center">
-            <span class="bg-[#834920] bg-opacity-10 text-[#834920] px-3 py-1 rounded-full font-bold text-sm">
-                Rp{{ product.harga|intcomma }}
-            </span>
-        </div>
-    
-        
-        <div class="mt-2">
-            <a href="{% url 'product:show_detail' product.id %}" class="w-full flex justify-center">
-                <button
-                    class="bg-[#834920] hover:bg-[#6b3a1d] text-white font-semibold py-3 px-5 rounded-full w-[90%] flex items-center justify-center relative overflow-hidden group transition-all duration-300 hover:shadow-lg">
-                    <span class="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-full">
-                        Detail
-                    </span>
-                    <span class="absolute inset-0 flex items-center justify-center space-x-2 transition-transform duration-300 translate-y-full group-hover:translate-y-0">
-                        <i class="fas fa-eye"></i>
-                        <span>View</span>
-                    </span>
-                </button>
-            </a>
-        </div>
-    </div>
-</div>
-    
-   
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produk</title>
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    
-
-
-   <!-- MODAL EDIT PRODUK -->
-<div id="edit-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
-    <div class="bg-white p-6 rounded shadow-md w-96 relative">
-        
-
-        <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onclick="closeEditModal()">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
-
-       
-        <h3 class="text-center text-xl font-bold mb-6">Edit Product</h3>
-
-        <form id="edit-product-form" novalidate>
-            {% csrf_token %}
-            <input type="hidden" name="id" id="edit-id" />
-
-            
-            <div class="mb-4">
-                <label for="edit-name" class="block text-sm font-medium mb-1">
-                    Nama Produk <span class="text-red-500">*</span>
-                </label>
-                <input type="text" name="name" id="edit-name" 
-                    class="block w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]" 
-                    required minlength="1"
-                />
-                <div class="text-red-500 text-xs mt-1 hidden">Product name must be filled</div>
-            </div>
-
-            
-            <div class="mb-4">
-                <label for="edit-kategori" class="block text-sm font-medium mb-1">
-                    Kategori <span class="text-red-500">*</span>
-                </label>
-                <select name="kategori" id="edit-kategori" 
-                    class="block w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]" 
-                    required>
-                    <option value="">Select Kategori</option>
-                </select>
-                <div class="text-red-500 text-xs mt-1 hidden">Please select a category</div>
-            </div>
-
-            
-            <div class="mb-4">
-                <label for="edit-harga" class="block text-sm font-medium mb-1">
-                    Harga <span class="text-red-500">*</span>
-                </label>
-                <input type="number" name="harga" id="edit-harga" 
-                    class="block w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]" 
-                    required min="1"
-                />
-                <div class="text-red-500 text-xs mt-1 hidden">Price must be more than 0!/div>
-            </div>
-
-            <!-- Input Toko -->
-            <div class="mb-4">
-                <label for="edit-toko" class="block text-sm font-medium mb-1">
-                    Toko <span class="text-red-500">*</span>
-                </label>
-                <select name="toko" id="edit-toko" 
-                    class="block w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]" 
-                    required>
-                    <option value="">Select Toko</option>
-                </select>
-                <div class="text-red-500 text-xs mt-1 hidden">Please select a store</div>
-            </div>
-
-           
-            <div class="mb-4">
-                <label for="edit-image" class="block text-sm font-medium mb-1">
-                    URL Gambar <span class="text-red-500">*</span>
-                </label>
-                <input type="url" name="image" id="edit-image" 
-                    class="block w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]" 
-                    required pattern="https?://.+"
-                />
-                <div class="text-red-500 text-xs mt-1 hidden">URL must be filled</div>
-            </div>
-
-            
-            <div id="edit-form-error" class="text-red-500 text-sm mb-4 text-center"></div>
-
-            
-            <div class="flex justify-center">
-                <button type="submit" 
-                    class="bg-[#E8A04B] hover:bg-[#d68c37] text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 hover:shadow-lg">
-                    Save Changes
+    <!-- Tailwind CSS (pastikan Tailwind sudah di-include) -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <div class="bg-white rounded-2xl shadow-lg p-4 w-56 h-80 flex flex-col justify-between relative transition-transform duration-300 transform hover:scale-105 hover:shadow-2xl overflow-hidden">
+            {% if user.is_authenticated and user.is_superuser %}
+            <div class="absolute top-3 left-3 right-3 flex justify-between items-center space-x-2 z-20">
+                <button
+                    class="flex items-center space-x-1 bg-[#E8A04B] text-white text-xs px-3 py-1.5 rounded-full font-semibold transition-all duration-300 hover:bg-[#d68c37] hover:shadow-lg edit-button group"
+                    data-id="{{ product.id }}">
+                    <i class="fas fa-edit group-hover:rotate-12 transition-transform duration-300"></i>
+                </button>
+                <button
+                    class="flex items-center space-x-1 bg-red-500 text-white text-xs px-3 py-1.5 rounded-full font-semibold transition-all duration-300 hover:bg-red-600 hover:shadow-lg delete-button group"
+                    data-id="{{ product.id }}">
+                    <i class="fas fa-trash-alt group-hover:rotate-12 transition-transform duration-300"></i>
                 </button>
             </div>
-        </form>
-    </div>
-</div>
+            {% endif %}
+       
+            <div class="w-full h-36 overflow-hidden rounded-xl relative group">
+                <img
+                    src="{{ product.image }}"
+                    alt="{{ product.name }}"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+            </div>
 
-<!-- Modal Konfirmasi Hapus Produk -->
-<div id="delete-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-    <div class="bg-white p-8 rounded-lg shadow-xl w-[500px]">
-        <h3 class="text-2xl font-bold mb-6 text-center">Confirmation</h3>
-        <p class="text-center mb-8">Are you sure to delete this product?</p>
-
-
-        <div class="flex items-center border p-6 rounded-lg mb-8 space-x-6">
-            <img 
-                id="modal-product-image" 
-                src="" 
-                alt="Gambar Produk" 
-                class="w-32 h-32 rounded object-cover"
-            />
-            <div class="text-left">
-                <h4 class="text-xl font-semibold" id="modal-product-name"></h4>
-                <p class="text-gray-500" id="modal-product-toko"></p>
-                <p class="text-gray-700 font-bold mt-2">
-                    <span id="modal-product-price"></span>
+            {% if not user.is_authenticated or not user.is_superuser %}
+            <div class="absolute top-3 right-3">
+                <button 
+                    class="focus:outline-none love-button transition-transform duration-300 transform hover:scale-110"
+                    onclick="toggleLove(this)">
+                    <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        class="h-8 w-8 text-gray-400" 
+                        viewBox="0 0 24 24" 
+                        fill="currentColor">
+                        <path 
+                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                        />
+                    </svg>
+                </button>
+            </div>
+            {% endif %}
+        
+            <div class="mt-2 flex-1 text-center">
+                <h3 class="text-md font-semibold truncate hover:text-[#834920] transition-colors duration-300">
+                    {{ product.name }}
+                </h3>
+                <p class="text-gray-500 text-sm mt-1 group-hover:text-[#834920] transition-colors duration-300">
+                    by {{ product.toko }}
                 </p>
             </div>
-        </div>
-
-
-        <div class="flex justify-between">
-            <button 
-                id="confirm-delete" 
-                class="bg-red-500 hover:bg-red-700 text-white px-6 py-3 rounded-lg w-[48%]">
-                Yes
-            </button>
-            <button 
-                class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-3 rounded-lg w-[48%]" 
-                onclick="closeDeleteModal()">
-                No
-            </button>
+    
+            <div class="mt-1 mb-3 flex justify-center items-center">
+                <span class="bg-[#834920] bg-opacity-10 text-[#834920] px-3 py-1 rounded-full font-bold text-sm">
+                    Rp{{ product.harga|intcomma }}
+                </span>
+            </div>
+        
+            <div class="mt-2">
+                <a href="{% url 'product:show_detail' product.id %}" class="w-full flex justify-center">
+                    <button
+                        class="bg-[#834920] hover:bg-[#6b3a1d] text-white font-semibold py-3 px-5 rounded-full w-[90%] flex items-center justify-center relative overflow-hidden group transition-all duration-300 hover:shadow-lg">
+                        <span class="absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-full">
+                            Detail
+                        </span>
+                        <span class="absolute inset-0 flex items-center justify-center space-x-2 transition-transform duration-300 translate-y-full group-hover:translate-y-0">
+                            <i class="fas fa-eye"></i>
+                            <span>View</span>
+                        </span>
+                    </button>
+                </a>
+            </div>
         </div>
     </div>
-</div>
-
-
-
-</div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-function toggleLove(button) {
-    const svg = button.querySelector('svg');
-    if (svg.classList.contains('text-red-500')) {
-        svg.classList.remove('text-red-500');
-        svg.classList.add('text-gray-400');
-    } else {
-        svg.classList.remove('text-gray-400');
-        svg.classList.add('text-red-500');
-    }
-}
-$(document).ready(function () {
-    console.log('JavaScript ready!');
-
-   
-    $(document).off('click', '.edit-button').on('click', '.edit-button', function () {
-    const productId = $(this).data('id');
-    console.log(`Meminta data produk ID: ${productId}`); // Debug
-
-    $.ajax({
-        url: `{% url 'product:edit_product' id=0 %}`.replace('0', productId),
-        type: 'GET',
-        cache: false,
-        success: function (response) {
-            
-            $('#edit-id').val(response.product.id);
-            $('#edit-name').val(response.product.name);
-            $('#edit-harga').val(response.product.harga);
-            $('#edit-image').val(response.product.image);
-
-            
-            $('#edit-kategori').html(generateOptions(response.categories, response.product.kategori));
-            $('#edit-toko').html(generateOptions(response.stores, response.product.toko));
-
-            $('#edit-modal').removeClass('hidden'); 
-        },
-        error: function (xhr) {
-            console.error('Gagal mengambil data produk:', xhr.responseText);
+        
+    <!-- MODAL EDIT PRODUK -->
+    <div id="edit-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
+        <div class="bg-white p-6 rounded shadow-md w-96 relative">
+            <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onclick="closeEditModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+    
+            <h3 class="text-center text-xl font-bold mb-6">Edit Product</h3>
+    
+            <form id="edit-product-form" novalidate>
+                {% csrf_token %}
+                <input type="hidden" name="id" id="edit-id" />
+    
+                <div class="mb-4">
+                    <label for="edit-name" class="block text-sm font-medium mb-1">
+                        Nama Produk <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" name="name" id="edit-name" 
+                        class="block w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]" 
+                        required minlength="1"
+                    />
+                    <div class="text-red-500 text-xs mt-1 hidden">Product name must be filled</div>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="edit-kategori" class="block text-sm font-medium mb-1">
+                        Kategori <span class="text-red-500">*</span>
+                    </label>
+                    <select name="kategori" id="edit-kategori" 
+                        class="block w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]" 
+                        required>
+                        <option value="">Select Kategori</option>
+                        <!-- Tambahkan opsi kategori di sini -->
+                    </select>
+                    <div class="text-red-500 text-xs mt-1 hidden">Please select a category</div>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="edit-harga" class="block text-sm font-medium mb-1">
+                        Harga <span class="text-red-500">*</span>
+                    </label>
+                    <input type="number" name="harga" id="edit-harga" 
+                        class="block w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]" 
+                        required min="1"
+                    />
+                    <div class="text-red-500 text-xs mt-1 hidden">Price must be more than 0!</div>
+                </div>
+    
+                <!-- Input Toko -->
+                <div class="mb-4">
+                    <label for="edit-toko" class="block text-sm font-medium mb-1">
+                        Toko <span class="text-red-500">*</span>
+                    </label>
+                    <select name="toko" id="edit-toko" 
+                        class="block w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]" 
+                        required>
+                        <option value="">Select Toko</option>
+                        <!-- Tambahkan opsi toko di sini -->
+                    </select>
+                    <div class="text-red-500 text-xs mt-1 hidden">Please select a store</div>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="edit-image" class="block text-sm font-medium mb-1">
+                        URL Gambar <span class="text-red-500">*</span>
+                    </label>
+                    <input type="url" name="image" id="edit-image" 
+                        class="block w-full p-2 border rounded focus:ring-2 focus:ring-[#E8A04B] focus:border-[#E8A04B]" 
+                        required pattern="https?://.+"
+                    />
+                    <div class="text-red-500 text-xs mt-1 hidden">URL must be filled</div>
+                </div>
+    
+                <div id="edit-form-error" class="text-red-500 text-sm mb-4 text-center"></div>
+    
+                <div class="flex justify-center">
+                    <button type="submit" 
+                        class="bg-[#E8A04B] hover:bg-[#d68c37] text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 hover:shadow-lg">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal Konfirmasi Hapus Produk -->
+    <div id="delete-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-[500px]">
+            <h3 class="text-2xl font-bold mb-6 text-center">Confirmation</h3>
+            <p class="text-center mb-8">Are you sure to delete this product?</p>
+    
+            <div class="flex items-center border p-6 rounded-lg mb-8 space-x-6">
+                <img 
+                    id="modal-product-image" 
+                    src="" 
+                    alt="Gambar Produk" 
+                    class="w-32 h-32 rounded object-cover"
+                />
+                <div class="text-left">
+                    <h4 class="text-xl font-semibold" id="modal-product-name"></h4>
+                    <p class="text-gray-500" id="modal-product-toko"></p>
+                    <p class="text-gray-700 font-bold mt-2">
+                        <span id="modal-product-price"></span>
+                    </p>
+                </div>
+            </div>
+    
+            <div class="flex justify-between">
+                <button 
+                    id="confirm-delete" 
+                    class="bg-red-500 hover:bg-red-700 text-white px-6 py-3 rounded-lg w-[48%]">
+                    Yes
+                </button>
+                <button 
+                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-3 rounded-lg w-[48%]" 
+                    onclick="closeDeleteModal()">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+    function toggleLove(button) {
+        const svg = button.querySelector('svg');
+        if (svg.classList.contains('text-red-500')) {
+            svg.classList.remove('text-red-500');
+            svg.classList.add('text-gray-400');
+        } else {
+            svg.classList.remove('text-gray-400');
+            svg.classList.add('text-red-500');
         }
-    });
-});
+    }
 
-    });
+    $(document).ready(function () {
+        console.log('JavaScript ready!');
 
-   
-$('#edit-product-form').on('submit', function(e) {
-    e.preventDefault();
-    
-    
-    $(this).find('.text-red-500.text-xs').addClass('hidden');
-    $('#edit-form-error').text('');
-    
-   
-    let isValid = true;
-    
-    
-    const name = $('#edit-name').val().trim();
-    if (!name) {
-        $('#edit-name').next('.text-red-500').removeClass('hidden');
-        isValid = false;
-    }
-    
-    
-    const kategori = $('#edit-kategori').val();
-    if (!kategori || kategori === '') {
-        $('#edit-kategori').next('.text-red-500').removeClass('hidden');
-        isValid = false;
-    }
-    
-    
-    const harga = $('#edit-harga').val();
-    if (!harga || harga <= 0) {
-        $('#edit-harga').next('.text-red-500').removeClass('hidden');
-        isValid = false;
-    }
-    
-   
-    const toko = $('#edit-toko').val();
-    if (!toko || toko === '') {
-        $('#edit-toko').next('.text-red-500').removeClass('hidden');
-        isValid = false;
-    }
-    
+        // Handler untuk tombol Edit
+        $(document).off('click', '.edit-button').on('click', '.edit-button', function () {
+            const productId = $(this).data('id');
+            console.log(`Meminta data produk ID: ${productId}`); // Debug
 
-    const image = $('#edit-image').val().trim();
-    if (!image || !image.match(/^https?:\/\/.+/)) {
-        $('#edit-image').next('.text-red-500').removeClass('hidden');
-        isValid = false;
-    }
-    
-    if (!isValid) {
-        $('#edit-form-error').text('Please fill all of the fields');
-        return false;
-    }
-    
-    const id = $('#edit-id').val();
-    $.ajax({
-        type: 'POST',
-        url: `{% url 'product:edit_product' id=0 %}`.replace('0', id),
-        data: $(this).serialize(),
-        success: function(response) {
-            showNotification('Produk berhasil diupdate!', 'success');
-            closeEditModal();
-            location.reload();
-        },
-        error: function(xhr) {
-            showNotification('Gagal mengupdate produk!', 'error');
-            $('#edit-form-error').text('Terjadi kesalahan saat menyimpan data');
+            $.ajax({
+                url: `{% url 'product:edit_product' id=0 %}`.replace('0', productId),
+                type: 'GET',
+                cache: false,
+                success: function (response) {
+                    $('#edit-id').val(response.product.id);
+                    $('#edit-name').val(response.product.name);
+                    $('#edit-harga').val(response.product.harga);
+                    $('#edit-image').val(response.product.image);
+
+                    $('#edit-kategori').html(generateOptions(response.categories, response.product.kategori));
+                    $('#edit-toko').html(generateOptions(response.stores, response.product.toko));
+
+                    $('#edit-modal').removeClass('hidden'); 
+                },
+                error: function (xhr) {
+                    console.error('Gagal mengambil data produk:', xhr.responseText);
+                }
+            });
+        });
+
+        // Handler untuk tombol Hapus
+        let selectedProductId = null;
+        let selectedCard = null;
+
+        $(document).off('click', '.delete-button').on('click', '.delete-button', function () {
+            selectedProductId = $(this).data('id'); 
+            selectedCard = $(this).closest('.bg-white'); 
+
+            const productName = selectedCard.find('h3').text();
+            const productToko = selectedCard.find('p').first().text();
+            const productPrice = selectedCard.find('span.font-bold').text();
+            const productImage = selectedCard.find('img').attr('src');
+
+            $('#modal-product-name').text(productName);
+            $('#modal-product-toko').text(productToko);
+            $('#modal-product-price').text(productPrice);
+            $('#modal-product-image').attr('src', productImage);
+
+            $('#delete-modal').removeClass('hidden');
+        });
+
+        $('#confirm-delete').off('click').on('click', function () {
+            if (selectedProductId && selectedCard) {
+                $.ajax({
+                    type: 'POST',
+                    url: `{% url 'product:delete_product' id=0 %}`.replace('0', selectedProductId),
+                    data: {
+                        csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+                    },
+                    success: function () {
+                        // Hapus card dengan animasi
+                        selectedCard.fadeOut(300, function () {
+                            $(this).remove(); // Hapus card dari DOM
+                        });
+
+                        showNotification('Produk berhasil dihapus!', 'success');
+                        closeDeleteModal(); // Tutup modal setelah sukses
+                        // Optional: location.reload(); jika perlu reload halaman
+                    },
+                    error: function (xhr) {
+                        console.error('Gagal menghapus produk:', xhr.responseText);
+                        showNotification('Gagal menghapus produk! Coba lagi.', 'error');
+                        closeDeleteModal(); // Tutup modal meskipun gagal
+                    }
+                });
+            }
+        });
+
+        // Fungsi untuk menutup modal delete
+        window.closeDeleteModal = function() {
+            $('#delete-modal').addClass('hidden'); // Sembunyikan modal
+            selectedProductId = null; // Reset ID produk
+            selectedCard = null; // Reset referensi card
         }
-    });
-});
 
+        // Fungsi untuk menutup modal edit
+        window.closeEditModal = function() {
+            console.log('Menutup modal');
+            $('#edit-modal').addClass('hidden');
+        }
+
+        // Event handler untuk menutup modal edit saat klik di luar modal
+        $(window).on('click', function (e) {
+            if ($(e.target).is('#edit-modal')) {
+                closeEditModal();
+            }
+            if ($(e.target).is('#delete-modal')) {
+                closeDeleteModal();
+            }
+        });
+    });
+
+    // Validasi dan pengiriman form edit produk
+    $('#edit-product-form').on('submit', function(e) {
+        e.preventDefault();
+        
+        $(this).find('.text-red-500.text-xs').addClass('hidden');
+        $('#edit-form-error').text('');
+        
+        let isValid = true;
+        
+        const name = $('#edit-name').val().trim();
+        if (!name) {
+            $('#edit-name').next('.text-red-500').removeClass('hidden');
+            isValid = false;
+        }
+        
+        const kategori = $('#edit-kategori').val();
+        if (!kategori || kategori === '') {
+            $('#edit-kategori').next('.text-red-500').removeClass('hidden');
+            isValid = false;
+        }
+        
+        const harga = $('#edit-harga').val();
+        if (!harga || harga <= 0) {
+            $('#edit-harga').next('.text-red-500').removeClass('hidden');
+            isValid = false;
+        }
+        
+        const toko = $('#edit-toko').val();
+        if (!toko || toko === '') {
+            $('#edit-toko').next('.text-red-500').removeClass('hidden');
+            isValid = false;
+        }
+        
+        const image = $('#edit-image').val().trim();
+        if (!image || !image.match(/^https?:\/\/.+/)) {
+            $('#edit-image').next('.text-red-500').removeClass('hidden');
+            isValid = false;
+        }
+        
+        if (!isValid) {
+            $('#edit-form-error').text('Please fill all of the fields');
+            return false;
+        }
+        
+        const id = $('#edit-id').val();
+        $.ajax({
+            type: 'POST',
+            url: `{% url 'product:edit_product' id=0 %}`.replace('0', id),
+            data: $(this).serialize(),
+            success: function(response) {
+                showNotification('Produk berhasil diupdate!', 'success');
+                closeEditModal();
+                location.reload(); // Optional: reload halaman untuk menampilkan perubahan
+            },
+            error: function(xhr) {
+                showNotification('Gagal mengupdate produk!', 'error');
+                $('#edit-form-error').text('Terjadi kesalahan saat menyimpan data');
+            }
+        });
+    });
+
+    // Fungsi untuk menghasilkan opsi select
     function generateOptions(dataList, selectedValue) {
         let options = '<option value="">Select</option>';
         dataList.forEach(item => {
@@ -351,106 +399,7 @@ $('#edit-product-form').on('submit', function(e) {
         return options;
     }
 
-    $(window).on('click', function (e) {
-        if (e.target === $('#edit-modal')[0]) {
-            closeEditModal();
-        }
-    });
-
-
-function closeEditModal() {
-        console.log('Menutup modal');
-        $('#edit-modal').addClass('hidden');
-    }
-
-
-function openEditModal(product) {
-    document.getElementById('edit-id').value = product.id;
-    document.getElementById('edit-name').value = product.name;
-    document.getElementById('edit-kategori').value = product.kategori;
-    document.getElementById('edit-harga').value = product.harga;
-    document.getElementById('edit-toko').value = product.toko;
-    document.getElementById('edit-image').value = product.image;
-
-    document.getElementById('edit-modal').classList.remove('hidden');
-}
-
-$(document).ready(function () {
-    let selectedProductId = null;
-    let selectedCard = null;
-
-    
-    $(document).off('click', '.delete-button').on('click', '.delete-button', function () {
-        selectedProductId = $(this).data('id'); 
-        selectedCard = $(this).closest('.bg-white'); 
-
-  
-        const productName = selectedCard.find('h3').text();
-        const productToko = selectedCard.find('p').first().text();
-        const productPrice = selectedCard.find('span.font-bold').text();
-        const productImage = selectedCard.find('img').attr('src');
-
-        $('#modal-product-name').text(productName);
-        $('#modal-product-toko').text(productToko);
-        $('#modal-product-price').text(productPrice);
-        $('#modal-product-image').attr('src', productImage);
-
-       
-        $('#delete-modal').removeClass('hidden');
-    });
-
-    
-    $('#confirm-delete').off('click').on('click', function () {
-        if (selectedProductId && selectedCard) {
-            $.ajax({
-                type: 'POST',
-                url: `{% url 'product:delete_product' id=0 %}`.replace('0', selectedProductId),
-                data: {
-                    csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
-                },
-                success: function () {
-                    // Hapus card dengan animasi
-                    selectedCard.fadeOut(300, function () {
-                        $(this).remove(); // Hapus card dari DOM
-                       
-                    });
-
-                    showNotification('Produk berhasil dihapus!', 'success');
-                    closeDeleteModal(); // Tutup modal setelah sukses
-                    location.reload();
-                },
-                error: function (xhr) {
-                    console.error('Gagal menghapus produk:', xhr.responseText);
-                    showNotification('Gagal menghapus produk! Coba lagi.', 'error');
-                    closeDeleteModal(); // Tutup modal meskipun gagal
-                }
-            });
-        }
-    });
-
-
-    // Fungsi untuk menutup modal delete
-    function closeDeleteModal() {
-        $('#delete-modal').addClass('hidden'); // Sembunyikan modal
-        selectedProductId = null; // Reset ID produk
-        selectedCard = null; // Reset referensi card
-    }
-
-   
-});
-
-$(window).on('click', function (e) {
-        if (e.target === $('#delete-modal')[0]) {
-            closeDeleteModal();
-        }
-    });
-
-    function closeDeleteModal() {
-        $('#delete-modal').addClass('hidden'); // Sembunyikan modal
-        selectedProductId = null; // Reset ID produk
-        selectedCard = null; // Reset referensi card
-    }
-
+    // Fungsi untuk menampilkan notifikasi
     function showNotification(message, type) {
         const notificationClass = type === 'success' ? 'bg-green-500' : 'bg-red-500';
         
@@ -467,4 +416,6 @@ $(window).on('click', function (e) {
             });
         }, 3000);
     }
-</script>
+    </script>
+</body>
+</html>
