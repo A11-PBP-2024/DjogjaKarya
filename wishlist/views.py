@@ -1,4 +1,3 @@
-from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Wishlist
 from product.models import Product
@@ -6,18 +5,9 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def show_wishlist(request):
-    wishlist_items = Wishlist.objects.filter(user=request.user).select_related('product')
-    wishlist_data = []
-    
-    for item in wishlist_items:
-        wishlist_data.append({
-            'product_name': item.product.name,
-            'product_image': item.product.image.url,  # Pastikan ini sesuai dengan URL gambar
-            'product_price': item.product.harga,
-            'product_id': item.product.id,
-        })
-    
-    return JsonResponse({'wishlist': wishlist_data})
+    wishlist_items = Wishlist.objects.filter(user=request.user)
+    context = {"wishlist": wishlist_items}
+    return render(request, "wishlist.html", context)
 
 @login_required
 def add_to_wishlist(request, product_id):

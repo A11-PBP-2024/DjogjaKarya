@@ -30,8 +30,4 @@ urlpatterns = [
     path('auth/', include('authentication.urls')),
     path('reviews/', include('review.urls')),
     path('wishlist/', include('wishlist.urls')),
-<<<<<<< HEAD
-=======
-
->>>>>>> wishlist/rama
 ]
