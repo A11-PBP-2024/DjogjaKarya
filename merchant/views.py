@@ -7,7 +7,73 @@ from django.core import serializers
 from product.models import Product
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import JsonResponse
 
+@csrf_exempt
+def create_store_flutter(request):
+    if request.method == 'POST':
+
+        data = json.loads(request.body)
+        new_store = Store.objects.create(
+            # user=request.user,
+            name=data["name"],
+            description=data["description"],
+            address=data["address"],
+            opening_days=data["opening_days"],
+            opening_hours=data["opening_hours"],
+            phone=data["phone"],
+            image1=data["image1"],
+            image2=data["image2"],
+            image3=data["image3"],
+            location_link=data["location_link"],
+        )
+        new_store.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+
+@csrf_exempt
+def edit_store_flutter(request, id):
+    if request.method == 'POST':
+        try:
+            store = Store.objects.get(pk=id)
+            data = json.loads(request.body)
+
+            store.name = data["name"]
+            store.description = data["description"]
+            store.address = data["address"]
+            store.opening_days = data["opening_days"]
+            store.opening_hours = data["opening_hours"]
+            store.phone = data["phone"]
+            store.image1 = data["image1"]
+            store.image2 = data["image2"]
+            store.image3 = data["image3"]
+            store.location_link = data["location_link"]
+            store.save()
+
+            return JsonResponse({"status": "success"}, status=200)
+        except Store.DoesNotExist:
+            return JsonResponse({"status": "error", "message": "Store not found"}, status=404)
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)}, status=400)
+    else:
+        return JsonResponse({"status": "error", "message": "Invalid method"}, status=401)
+
+@csrf_exempt
+def delete_store_flutter(request, id):
+   if request.method == 'POST':
+       try:
+           store = Store.objects.get(pk=id)
+           store.delete()
+           return JsonResponse({"status": "success"}, status=200)
+       except Store.DoesNotExist:
+           return JsonResponse({"status": "error", "message": "Store not found"}, status=404)
+       except Exception as e:
+           return JsonResponse({"status": "error", "message": str(e)}, status=400)
+   return JsonResponse({"status": "error", "message": "Invalid method"}, status=401)
 
 def is_admin(user):
     return user.is_superuser 
@@ -16,7 +82,7 @@ def is_admin(user):
 def store_list(request):
     return render(request, 'store_list.html')
 
-@login_required
+# @login_required
 def get_stores(request):
     data = Store.objects.all()
     return HttpResponse(serializers.serialize("json", data), 
