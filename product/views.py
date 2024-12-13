@@ -10,6 +10,12 @@ from .models import Product
 from wishlist.models import Wishlist  # Mengimpor Wishlist dari aplikasi wishlist
 import random
 
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required, user_passes_test
+import json
+from .models import Product
 
 
 from django.views.decorators.csrf import csrf_exempt
@@ -20,7 +26,7 @@ def is_admin(user):
     return user.is_superuser  # cek admin
 
 @csrf_exempt
-@user_passes_test(is_admin)
+# @user_passes_test(is_admin)
 def get_form_data(request):
 
     try:
@@ -248,3 +254,71 @@ def show_category(request):
 
     return render(request, 'category.html', context)
 
+
+
+
+@csrf_exempt
+# @login_required
+# @user_passes_test(is_admin)
+def add_product_flutter(request):
+   if request.method == 'POST':
+       try:
+           product = Product.objects.create(
+               name=request.POST['name'],
+               kategori=request.POST['kategori'],
+               harga=int(request.POST['harga']),
+               toko=request.POST['toko'],
+               image=request.POST['image']
+           )
+           return JsonResponse({
+               'status': 'success',
+               'message': 'Product added successfully',
+               'product_id': product.id
+           })
+       except Exception as e:
+           return JsonResponse({
+               'status': 'error',
+               'message': str(e)
+           }, status=500)
+   return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=400)
+
+@csrf_exempt
+@csrf_exempt
+# @login_required
+# @user_passes_test(is_admin)
+def edit_product_flutter(request, id):
+    if request.method == 'POST':
+        try:
+            product = Product.objects.get(id=id)
+            product.name = request.POST['name']
+            product.kategori = request.POST['kategori']
+            product.harga = int(request.POST['harga'])
+            product.toko = request.POST['toko']
+            product.image = request.POST['image']
+            product.save()
+            
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Product updated successfully'
+            })
+        except Product.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Product not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+            
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=400)
+@csrf_exempt
+# @login_required
+# @user_passes_test(is_admin)
+def delete_product_flutter(request, id):
+    try:
+        product = get_object_or_404(Product, id=id)
+        product.delete()
+        return JsonResponse({
+            'status': 'success',
+            'message': 'Product deleted successfully'
+        })
+    except Product.DoesNotExist:
+        return JsonResponse({'error': 'Product not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
