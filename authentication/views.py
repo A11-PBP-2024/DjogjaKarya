@@ -55,6 +55,7 @@ def login_view(request):
                 "status": "success",
                 "message": "Successfully logged in!",
                 "username": user.username,
+                 "is_admin": user.is_superuser,
             })
         else:
             return JsonResponse({
