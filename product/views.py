@@ -26,7 +26,7 @@ def is_admin(user):
     return user.is_superuser  # cek admin
 
 @csrf_exempt
-# @user_passes_test(is_admin)
+@user_passes_test(is_admin)
 def get_form_data(request):
 
     try:
@@ -258,8 +258,8 @@ def show_category(request):
 
 
 @csrf_exempt
-# @login_required
-# @user_passes_test(is_admin)
+@login_required
+@user_passes_test(is_admin)
 def add_product_flutter(request):
    if request.method == 'POST':
        try:
@@ -283,9 +283,8 @@ def add_product_flutter(request):
    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=400)
 
 @csrf_exempt
-@csrf_exempt
-# @login_required
-# @user_passes_test(is_admin)
+@login_required
+@user_passes_test(is_admin)
 def edit_product_flutter(request, id):
     if request.method == 'POST':
         try:
@@ -307,18 +306,22 @@ def edit_product_flutter(request, id):
             return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
             
     return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=400)
+
+
+
 @csrf_exempt
-# @login_required
-# @user_passes_test(is_admin)
+@login_required
+@user_passes_test(is_admin)
+
 def delete_product_flutter(request, id):
-    try:
-        product = get_object_or_404(Product, id=id)
-        product.delete()
-        return JsonResponse({
-            'status': 'success',
-            'message': 'Product deleted successfully'
-        })
-    except Product.DoesNotExist:
-        return JsonResponse({'error': 'Product not found'}, status=404)
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
+    if request.method == 'POST':  # Kita handle POST request sebagai DELETE
+        try:
+            if request.user.is_superuser:
+                product = get_object_or_404(Product, id=id)
+                product.delete()
+                return JsonResponse({'message': 'Produk berhasil dihapus!'})
+        except Product.DoesNotExist:
+            return JsonResponse({'error': 'Product not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
