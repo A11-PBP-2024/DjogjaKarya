@@ -1,5 +1,5 @@
 from django.urls import path
-from merchant.views import store_list, add_store, edit_store, delete_store, get_stores,store_products, store_detail, create_store_flutter, edit_store_flutter, delete_store_flutter
+from merchant.views import store_list, add_store, edit_store, delete_store, get_stores,store_products, store_detail, create_store_flutter, edit_store_flutter, delete_store_flutter, store_products_flutter, get_user_status
 
 app_name = 'merchant'
 
@@ -14,4 +14,7 @@ urlpatterns = [
     path('create-flutter/', create_store_flutter, name='create_store_flutter'),
     path('edit-flutter/<int:id>/', edit_store_flutter, name='edit_store_flutter'),
     path('delete-flutter/<int:id>/', delete_store_flutter, name='delete_store_flutter'),
+    path('products-flutter/', store_products_flutter, name='store_products_flutter'),
+    path('get-user-status/', get_user_status, name='get-user-status'),
+
 ]
