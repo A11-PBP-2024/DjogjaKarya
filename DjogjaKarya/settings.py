@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'review',
     'article',
     'wishlist',
-    'corsheaders'
+    'corsheaders',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
