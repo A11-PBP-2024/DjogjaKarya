@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container mx-auto p-8">
     <!-- Judul Halaman -->
-    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Add a Review for {{ product.name }}</h2>
+    <h2 class="text-3xl font-bold text-gray-800 mt-12 mb-12 text-center">Add a Review for {{ product.name }}</h2>
 
     <!-- Formulir Tambah Ulasan -->
     <div class="bg-white shadow-lg rounded-lg max-w-2xl mx-auto p-8 space-y-6">
@@ -12,7 +12,7 @@
             <!-- Rating -->
             <div>
                 <label for="rating" class="block text-lg font-semibold mb-2 text-gray-700">Rating (1-5)</label>
-                <div class="flex gap-1 justify-center" id="star-rating">
+                <div class="flex gap-2 justify-center" id="star-rating">
                     {% for star in "12345" %}
                         <input type="radio" name="rating" value="{{ star }}" id="star-{{ star }}" class="hidden" />
                         <label for="star-{{ star }}" class="star text-gray-300 cursor-pointer text-3xl transition-colors duration-200">
@@ -28,7 +28,7 @@
                 <label for="comment" class="block text-lg font-semibold mb-2 text-gray-700">Your Review</label>
                 <textarea name="comment" id="comment" rows="4"
                           class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-400 placeholder-gray-400 text-gray-700 resize-none transition-colors duration-200"
-                          placeholder="Write your review here...">{{ form.comment.value }}</textarea>
+                          placeholder="Write your review here..."></textarea>
             </div>
 
             <!-- Tombol Kirim -->
@@ -43,7 +43,7 @@
 </div>
 
 <script>
-    // JavaScript to handle star rating
+    // JavaScript untuk interaksi bintang rating
     document.querySelectorAll('#star-rating input[type="radio"]').forEach((input) => {
         input.addEventListener('change', (event) => {
             const rating = parseInt(event.target.value);
