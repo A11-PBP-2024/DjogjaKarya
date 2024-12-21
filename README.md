@@ -1,4 +1,6 @@
 # DjogjaKarya
+<img width="1710" alt="image" src="https://github.com/user-attachments/assets/61527e84-3cd4-46f7-8bed-e59ddaf265fb">
+
 
 # Anggota Kelompok 🙆🏻‍♂️
 - 2306275424	Fauzan Putra Sanjaya
@@ -50,10 +52,12 @@ Fitur ini memungkinkan admin untuk mengelola semua informasi produk yang ada di 
 | **User**  | - Lihat detail produk               |
 |           | - Memberikan ulasan                |
 |           | - Wishlist                        |
-| **Guest** | - Lihat produk                     |
+|           | - Lihat Store                       |
+| **Guest** | - Lihat Artikel                    |
 | **Admin** | - Manajemen Toko                      |
 |           | - Manajemen Produk                   |
 |           | - Manajemen ulasan                   |
+|           | - Manajemen Artikel                  |
 
 ## 🔗 Link Deployemnet
 http://fauzan-putra31-djogjakarya.pbp.cs.ui.ac.id/

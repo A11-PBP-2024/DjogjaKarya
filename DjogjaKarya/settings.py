@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-dsg#5*8bs4qc4yau2od4k_6#u79x8oqq2cjh2z25_@rr819z=4
 DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1",
-                 "fauzan-putra31-djogjakarya.pbp.cs.ui.ac.id", "djogja-karya.vercel.app",]
+                 "fauzan-putra31-djogjakarya.pbp.cs.ui.ac.id", "djogja-karya.vercel.app", "10.0.2.2"]
 
 
 # Application definition
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'review',
     'article',
     'wishlist',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
 
 ROOT_URLCONF = 'DjogjaKarya.urls'
 
@@ -140,3 +149,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/auth/login/'
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'

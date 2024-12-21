@@ -322,63 +322,84 @@
         </form>
     </div>
 </div>
+<!-- Sertakan jQuery jika belum disertakan -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<<script>
+<script>
     $(document).ready(function() {
         
-        $('#search-input').on('input', function() {
-            const searchTerm = $(this).val().toLowerCase();
-            
-            $('.bg-white.rounded-2xl').each(function() {
-                const $card = $(this);
-                const productName = $card.find('h3').text().toLowerCase();
-                const tokoName = $card.find('p').first().text().toLowerCase();
-                
-                if (productName.includes(searchTerm) || tokoName.includes(searchTerm)) {
-                    $card.parent().show();
-                } else {
-                    $card.parent().hide();
+        // Setup AJAX untuk mengirim CSRF token di header
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
                 }
-            });
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie('csrftoken');
     
-            
-            const visibleProducts = $('.bg-white.rounded-2xl:visible').length;
-            $('.no-results-message').remove();
-            
-            if (visibleProducts === 0) {
-                $('#product-container').append(
-                    '<p class="text-center text-gray-500 py-4 no-results-message w-full">Tidak ada produk yang sesuai dengan pencarian.</p>'
-                );
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!(/^GET|HEAD|OPTIONS|TRACE$/i.test(settings.type)) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
             }
         });
-    
         
-        function handleCategoryOverlays() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const activeCategory = urlParams.get('kategori') || 'all';
-    
-           
-            document.querySelectorAll('.category-item').forEach(item => {
-                const categoryName = item.querySelector('.category-label').textContent.trim();
-                const overlay = item.querySelector('.category-overlay');
-    
-                if (categoryName.toLowerCase() === activeCategory.toLowerCase()) {
-                    overlay.style.opacity = '0';  
-                } else {
-                    overlay.style.opacity = '0.5';  
+        // Handler untuk Submit Form Add Product
+        $('#add-product-form').on('submit', function(e) {
+            e.preventDefault(); // Mencegah form melakukan submit secara default
+
+            if (!validateForm()) {
+                return false;
+            }
+
+            $.ajax({
+                url: "{% url 'product:add_product' %}", // Pastikan URL ini benar dan sesuai di urls.py
+                type: 'POST',
+                data: $(this).serialize(), // Mengambil semua data dari form termasuk CSRF token
+                success: function(response) {
+                    showNotification('Produk berhasil ditambahkan!', 'success');
+                    closeAddModal();
+                    location.reload(); // Memuat ulang halaman untuk menampilkan produk baru
+                },
+                error: function(xhr) {
+                    showError(xhr.responseJSON.error || 'Terjadi kesalahan saat menambahkan produk');
                 }
             });
-        }
-    
-        
-        handleCategoryOverlays();
+        });
+
+        // Handler untuk Tombol Add Product
+        $('#add-product-button').on('click', function() {
+            $.ajax({
+                url: "{% url 'product:get_form_data' %}", // Endpoint untuk mendapatkan data form (kategori dan toko)
+                type: 'GET',
+                success: function(response) {
+                    $('#add-kategori').html('<option value="">Pilih Kategori</option>' + generateOptions(response.categories));
+                    $('#add-toko').html('<option value="">Pilih Toko</option>' + generateOptions(response.stores));
+                    $('#add-modal').removeClass('hidden');
+                },
+                error: function(xhr) {
+                    showError('Gagal mengambil data form');
+                }
+            });
+        });
+
     });
-    
- 
+
+    // Fungsi untuk Menghasilkan Opsi Dropdown
     function generateOptions(items) {
         return items.map(item => `<option value="${item}">${item}</option>`).join('');
     }
-    
+
+    // Fungsi untuk Menampilkan Pesan Error
     function showError(message) {
         const errorDiv = document.getElementById('form-error');
         errorDiv.textContent = message;
@@ -386,63 +407,63 @@
             errorDiv.textContent = '';
         }, 3000);
     }
-    
+
+    // Fungsi Validasi Form
     function validateForm() {
         const name = document.getElementById('add-name').value.trim();
         const kategori = document.getElementById('add-kategori').value;
         const harga = document.getElementById('add-harga').value;
         const toko = document.getElementById('add-toko').value;
         const image = document.getElementById('add-image').value.trim();
-    
+
         if (!name) {
-            showError('Product name must be filled');
+            showError('Nama Produk harus diisi.');
             return false;
         }
         if (!kategori) {
-            showError('Please select a category');
+            showError('Silakan pilih kategori.');
             return false;
         }
         if (!harga || harga <= 0) {
-            showError('Price must be more than 0!');
+            showError('Harga harus lebih dari 0!');
             return false;
         }
         if (!toko) {
-            showError('Please select a store!');
+            showError('Silakan pilih toko.');
             return false;
         }
         if (!image) {
-            showError('URL must be filled');
+            showError('URL Gambar harus diisi.');
             return false;
         }
-    
+
         return true;
     }
-    
-    
-    if (document.getElementById('add-product-button')) {
-        document.getElementById('add-product-button').addEventListener('click', function() {
-            $.ajax({
-                url: "{% url 'product:get_form_data' %}",
-                type: 'GET',
-                success: function(response) {
-                    document.getElementById('add-kategori').innerHTML = 
-                        '<option value="">Pilih Kategori</option>' + generateOptions(response.categories);
-                    document.getElementById('add-toko').innerHTML = 
-                        '<option value="">Pilih Toko</option>' + generateOptions(response.stores);
-                    document.getElementById('add-modal').classList.remove('hidden');
-                },
-                error: function(xhr) {
-                    showError('Gagal mengambil data form');
-                }
-            });
-        });
-    }
-    
+
+    // Fungsi untuk Menutup Modal Add Product
     function closeAddModal() {
-        document.getElementById('add-modal').classList.add('hidden');
-        document.getElementById('add-product-form').reset();
-        document.getElementById('form-error').textContent = '';
+        $('#add-modal').addClass('hidden');
+        $('#add-product-form')[0].reset();
+        $('#form-error').text('');
     }
-    </script>
+
+    // Fungsi untuk Menampilkan Notifikasi
+    function showNotification(message, type) {
+        const notificationClass = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+        
+        const notification = $(`
+            <div class="fixed top-4 right-4 ${notificationClass} text-white px-6 py-3 rounded shadow-lg transition-opacity duration-300 z-50">
+                ${message}
+            </div>
+        `).appendTo('body');
+
+        // Fade out dan hapus notifikasi setelah 3 detik
+        setTimeout(() => {
+            notification.fadeOut(300, function() {
+                $(this).remove();
+            });
+        }, 3000);
+    }
+</script>
 
 {% endblock content %}

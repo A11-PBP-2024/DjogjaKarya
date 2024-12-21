@@ -196,9 +196,6 @@
 
 {% block script %}
 <script>
-          async function getArticles() {
-                return fetch("{% url 'article:get_article' %}").then((res) => res.json())
-            }
         // Function to toggle the visibility of the delete modal
         function toggleDeleteModal() {
             const deleteModal = document.getElementById("deleteModal");
