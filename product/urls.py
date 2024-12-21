@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from django.contrib import admin
 from product.views import show_category, show_detail, filter_category_ajax, add_product,get_product, edit_product, delete_product, get_product_id, get_form_data, add_product_flutter, edit_product_flutter, delete_product_flutter
 
 app_name = 'product'
@@ -17,5 +18,7 @@ urlpatterns = [
     path('add-product-flutter/', add_product_flutter, name='add_product_flutter'),
     path('edit-product-flutter/<int:id>/', edit_product_flutter, name='edit_product_flutter'),
     path('delete-product-flutter/<int:id>/', delete_product_flutter, name='delete_product_flutter'),
+     path('admin/', admin.site.urls),
+    path('reviews/api/', include('review.urls')),
 ]
 
