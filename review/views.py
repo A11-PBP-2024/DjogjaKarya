@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.http import HttpResponseForbidden
 from .models import Review
 from product.models import Product
 from django.views.decorators.csrf import csrf_exempt
@@ -8,6 +10,26 @@ from django.db.models import Avg
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import ReviewSerializer
+
+def is_admin(user):
+    return user.is_superuser
+
+@login_required
+@user_passes_test(is_admin)
+def delete_review(request, product_id, review_id):
+    """
+    Web endpoint for deleting a review (admin only)
+    """
+    if request.method == 'POST':
+        try:
+            review = get_object_or_404(Review, id=review_id)
+            review.delete()
+            messages.success(request, "Review has been deleted successfully.")
+            return redirect('review:review_list', product_id=product_id)
+        except Review.DoesNotExist:
+            messages.error(request, "Review not found.")
+        return redirect('review:review_list', product_id=product_id)
+    return HttpResponseForbidden()
 
 @api_view(['GET'])
 def get_reviews(request):
@@ -34,6 +56,7 @@ def add_review_api(request):
     return Response(serializer.errors, status=400)
 
 @csrf_exempt
+@login_required
 def add_review(request, product_id):
     """
     Web endpoint for adding a review for a specific product
@@ -56,7 +79,6 @@ def add_review(request, product_id):
                     product=product, 
                     rating=rating, 
                     comment=comment,
-                    user=request.user
                 )
                 messages.success(request, "Your review has been submitted successfully.")
                 return redirect(reverse('review:review_list', args=[product.id]))
@@ -65,6 +87,7 @@ def add_review(request, product_id):
 
     return render(request, 'add_review.html', {'product': product})
 
+@login_required
 def review_list(request, product_id):
     """
     Web endpoint to display list of reviews for a specific product
@@ -97,3 +120,20 @@ def review_list(request, product_id):
         'fractional_part': int(fractional_part * 100),  # Convert to percentage
     }
     return render(request, 'review_list.html', context)
+
+# API Endpoint untuk delete review
+@csrf_exempt
+@api_view(['DELETE'])
+@user_passes_test(is_admin)
+def delete_review_api(request, review_id):
+    """
+    API endpoint untuk menghapus review (admin only)
+    """
+    try:
+        review = get_object_or_404(Review, id=review_id)
+        review.delete()
+        return Response({"message": "Review deleted successfully"}, status=200)
+    except Review.DoesNotExist:
+        return Response({"error": "Review not found"}, status=404)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
