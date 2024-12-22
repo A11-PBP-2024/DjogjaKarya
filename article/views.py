@@ -211,8 +211,8 @@ def edit_article_flutter(request, article_id):
 
 # Menghapus artikel dari Flutter
 @csrf_exempt
-@login_required
-@user_passes_test(is_admin)
+#@login_required
+#@user_passes_test(is_admin)
 def delete_article_flutter(request, article_id):
     if request.method == 'POST':
         try:
