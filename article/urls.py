@@ -15,5 +15,7 @@ urlpatterns = [
          views.edit_article_flutter, name='edit_article_flutter'),
     path('delete-article-flutter/<int:article_id>/',
          views.delete_article_flutter, name='delete_article_flutter'),
+    path('get-user-status/', views.get_user_status, name='get_user_status'),
+    path('get-articles/', views.get_article, name='get_articles'),
     # Add more URL patterns here as needed
 ]

@@ -21,6 +21,10 @@ def is_admin(user):
 
 
 @login_required
+def get_user_status(request):
+    return JsonResponse({'is_admin': request.user.is_superuser})
+
+@login_required
 def get_article(request):
     data = Article.objects.all()
     return HttpResponse(serializers.serialize("json", data),
@@ -144,8 +148,8 @@ def delete_article(request, article_id):
 
 
 @csrf_exempt
-@login_required
-@user_passes_test(is_admin)
+#@login_required
+#@user_passes_test(is_admin)
 def add_article_flutter(request):
     if request.method == 'POST':
         try:
@@ -173,9 +177,15 @@ def add_article_flutter(request):
 
 # Mengedit artikel dari Flutter
 @csrf_exempt
-@login_required
-@user_passes_test(is_admin)
+#@login_required
+#@user_passes_test(is_admin)
 def edit_article_flutter(request, article_id):
+    print(request.user)  # Apakah user terdeteksi?
+    print(request.user.is_authenticated)
+    if request.user.is_authenticated:
+        print("User is authenticated")
+    else:
+        print("User is NOT authenticated")
     if request.method == 'POST':
         try:
             data = json.loads(request.body.decode('utf-8'))
