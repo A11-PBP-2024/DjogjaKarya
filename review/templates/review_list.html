@@ -1,100 +1,126 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mx-auto p-8">
-    <h1 class="text-3xl font-bold text-gray-800 text-center mb-8">Customer Reviews & Ratings</h1>
-    
-    <!-- Rangkuman Rating -->
-    <section class="py-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Average Rating -->
-            <div class="flex flex-col items-center">
-                <h2 class="text-5xl font-bold text-gray-800">{{ average_rating|default:"0.0" }}</h2>
-                <p class="text-gray-500">{{ total_reviews|default:"0" }} Ratings</p>
-                <div class="flex mt-2">
-                    {% for i in rating_range %}
-                        {% if i <= average_rating %}
-                            <!-- Bintang penuh -->
-                            <svg class="w-6 h-6 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927a1 1 0 011.902 0l1.7 5.245h5.514a1 1 0 01.588 1.81l-4.458 3.24 1.7 5.245a1 1 0 01-1.538 1.13L10 14.348l-4.457 3.24a1 1 0 01-1.538-1.13l1.7-5.244-4.458-3.24a1 1 0 01.588-1.81h5.514l1.7-5.245z" />
-                            </svg>
-                        {% elif i == average_rating|floatformat:0|add:1 %}
-                            <!-- Bintang setengah -->
-                            <svg class="w-6 h-6 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <defs>
-                                    <linearGradient id="halfStar">
-                                        <stop offset="50%" stop-color="currentColor"></stop>
-                                        <stop offset="50%" stop-color="transparent"></stop>
-                                    </linearGradient>
-                                </defs>
-                                <path fill="url(#halfStar)" d="M9.049 2.927a1 1 0 011.902 0l1.7 5.245h5.514a1 1 0 01.588 1.81l-4.458 3.24 1.7 5.245a1 1 0 01-1.538 1.13L10 14.348l-4.457 3.24a1 1 0 01-1.538-1.13l1.7-5.244-4.458-3.24a1 1 0 01.588-1.81h5.514l1.7-5.245z" />
-                            </svg>
-                        {% else %}
-                            <!-- Bintang kosong -->
-                            <svg class="w-6 h-6 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927a1 1 0 011.902 0l1.7 5.245h5.514a1 1 0 01.588 1.81l-4.458 3.24 1.7 5.245a1 1 0 01-1.538 1.13L10 14.348l-4.457 3.24a1 1 0 01-1.538-1.13l1.7-5.244-4.458-3.24a1 1 0 01.588-1.81h5.514l1.7-5.245z" />
-                            </svg>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
+   <h1 class="text-3xl font-bold text-gray-800 text-center mb-8">Customer Reviews & Ratings</h1>
+   
+   <!-- Rangkuman Rating -->
+   <section class="py-8">
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+           <!-- Average Rating -->
+           <div class="flex flex-col items-center">
+               <h2 class="text-5xl font-bold text-gray-800">{{ average_rating|default:"0.0" }}</h2>
+               <p class="text-gray-500">{{ total_reviews|default:"0" }} Ratings</p>
+               <div class="flex mt-2">
+                   {% for i in rating_range %}
+                       {% if i <= average_rating %}
+                           <!-- Bintang penuh -->
+                           <svg class="w-6 h-6 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                               <path d="M9.049 2.927a1 1 0 011.902 0l1.7 5.245h5.514a1 1 0 01.588 1.81l-4.458 3.24 1.7 5.245a1 1 0 01-1.538 1.13L10 14.348l-4.457 3.24a1 1 0 01-1.538-1.13l1.7-5.244-4.458-3.24a1 1 0 01.588-1.81h5.514l1.7-5.245z" />
+                           </svg>
+                       {% elif i == average_rating|floatformat:0|add:1 %}
+                           <!-- Bintang setengah -->
+                           <svg class="w-6 h-6 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                               <defs>
+                                   <linearGradient id="halfStar">
+                                       <stop offset="50%" stop-color="currentColor"></stop>
+                                       <stop offset="50%" stop-color="transparent"></stop>
+                                   </linearGradient>
+                               </defs>
+                               <path fill="url(#halfStar)" d="M9.049 2.927a1 1 0 011.902 0l1.7 5.245h5.514a1 1 0 01.588 1.81l-4.458 3.24 1.7 5.245a1 1 0 01-1.538 1.13L10 14.348l-4.457 3.24a1 1 0 01-1.538-1.13l1.7-5.244-4.458-3.24a1 1 0 01.588-1.81h5.514l1.7-5.245z" />
+                           </svg>
+                       {% else %}
+                           <!-- Bintang kosong -->
+                           <svg class="w-6 h-6 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                               <path d="M9.049 2.927a1 1 0 011.902 0l1.7 5.245h5.514a1 1 0 01.588 1.81l-4.458 3.24 1.7 5.245a1 1 0 01-1.538 1.13L10 14.348l-4.457 3.24a1 1 0 01-1.538-1.13l1.7-5.244-4.458-3.24a1 1 0 01.588-1.81h5.514l1.7-5.245z" />
+                           </svg>
+                       {% endif %}
+                   {% endfor %}
+               </div>
+           </div>
 
-            <!-- Summary -->
-            <div class="col-span-2">
-                <h3 class="text-xl font-semibold mb-4">Summary</h3>
-                {% for summary in star_summary %}
-                    <div class="flex items-center mb-2">
-                        <span class="text-sm font-medium w-6">{{ summary.star }}</span>
-                        <svg class="w-5 h-5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9.049 2.927a1 1 0 011.902 0l1.7 5.245h5.514a1 1 0 01.588 1.81l-4.458 3.24 1.7 5.245a1 1 0 01-1.538 1.13L10 14.348l-4.457 3.24a1 1 0 01-1.538-1.13l1.7-5.244-4.458-3.24a1 1 0 01.588-1.81h5.514l1.7-5.245z" />
-                        </svg>
-                        <div class="w-full h-4 bg-gray-200 ml-4 rounded">
-                            <div class="h-full bg-[#F3A73B] rounded" style="width: {{ summary.percentage }}%;"></div>
-                        </div>
-                        <span class="ml-4 text-sm">{{ summary.count }}</span>
-                    </div>
-                {% endfor %}
-            </div>            
-        </div>
-    </section>
+           <!-- Summary -->
+           <div class="col-span-2">
+               <h3 class="text-xl font-semibold mb-4">Summary</h3>
+               {% for summary in star_summary %}
+                   <div class="flex items-center mb-2">
+                       <span class="text-sm font-medium w-6">{{ summary.star }}</span>
+                       <svg class="w-5 h-5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                           <path d="M9.049 2.927a1 1 0 011.902 0l1.7 5.245h5.514a1 1 0 01.588 1.81l-4.458 3.24 1.7 5.245a1 1 0 01-1.538 1.13L10 14.348l-4.457 3.24a1 1 0 01-1.538-1.13l1.7-5.244-4.458-3.24a1 1 0 01.588-1.81h5.514l1.7-5.245z" />
+                       </svg>
+                       <div class="w-full h-4 bg-gray-200 ml-4 rounded">
+                           <div class="h-full bg-[#F3A73B] rounded" style="width: {{ summary.percentage }}%;"></div>
+                       </div>
+                       <span class="ml-4 text-sm">{{ summary.count }}</span>
+                   </div>
+               {% endfor %}
+           </div>            
+       </div>
+   </section>
 
-    <!-- Daftar Ulasan Individu -->
-    <section class="mt-12">
-        <h2 class="text-2xl font-bold mb-6">Customer Reviews</h2>
-        {% if reviews %}
-            <div class="space-y-6">
-                {% for review in reviews %}
-                    <div class="p-4 bg-white shadow rounded-lg">
-                        <div class="flex items-center mb-2">
-                            <div class="flex items-center">
-                                {% for i in rating_range %}
-                                    {% if i <= review.rating %}
-                                        <svg class="w-5 h-5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M9.049 2.927a1 1 0 011.902 0l1.7 5.245h5.514a1 1 0 01.588 1.81l-4.458 3.24 1.7 5.245a1 1 0 01-1.538 1.13L10 14.348l-4.457 3.24a1 1 0 01-1.538-1.13l1.7-5.244-4.458-3.24a1 1 0 01.588-1.81h5.514l1.7-5.245z" />
-                                        </svg>
-                                    {% else %}
-                                        <svg class="w-5 h-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M9.049 2.927a1 1 0 011.902 0l1.7 5.245h5.514a1 1 0 01.588 1.81l-4.458 3.24 1.7 5.245a1 1 0 01-1.538 1.13L10 14.348l-4.457 3.24a1 1 0 01-1.538-1.13l1.7-5.244-4.458-3.24a1 1 0 01.588-1.81h5.514l1.7-5.245z" />
-                                        </svg>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <p class="ml-4 text-sm text-gray-500">{{ review.created_at|date:"M d, Y" }}</p>
-                        </div>
-                        <p class="text-gray-700">{{ review.comment }}</p>
-                    </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p class="text-center text-gray-500">There are no reviews for this product.</p>
-        {% endif %}
-    </section>
+   <!-- Daftar Ulasan Individu -->
+   <section class="mt-12">
+       <h2 class="text-2xl font-bold mb-6">Customer Reviews</h2>
+       {% if reviews %}
+           <div class="space-y-6">
+               {% for review in reviews %}
+                   <div class="p-4 bg-white shadow rounded-lg">
+                       <div class="flex justify-between items-start">
+                           <div>
+                               <div class="flex items-center mb-2">
+                                   {% for i in rating_range %}
+                                       {% if i <= review.rating %}
+                                           <svg class="w-5 h-5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                               <path d="M9.049 2.927a1 1 0 011.902 0l1.7 5.245h5.514a1 1 0 01.588 1.81l-4.458 3.24 1.7 5.245a1 1 0 01-1.538 1.13L10 14.348l-4.457 3.24a1 1 0 01-1.538-1.13l1.7-5.244-4.458-3.24a1 1 0 01.588-1.81h5.514l1.7-5.245z" />
+                                           </svg>
+                                       {% else %}
+                                           <svg class="w-5 h-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                               <path d="M9.049 2.927a1 1 0 011.902 0l1.7 5.245h5.514a1 1 0 01.588 1.81l-4.458 3.24 1.7 5.245a1 1 0 01-1.538 1.13L10 14.348l-4.457 3.24a1 1 0 01-1.538-1.13l1.7-5.244-4.458-3.24a1 1 0 01.588-1.81h5.514l1.7-5.245z" />
+                                           </svg>
+                                       {% endif %}
+                                   {% endfor %}
+                                   <p class="ml-4 text-sm text-gray-500">{{ review.created_at|date:"M d, Y" }}</p>
+                               </div>
+                               <p class="text-gray-700">{{ review.comment }}</p>
+                           </div>
+                           {% if user.is_superuser %}
+                               <form method="post" action="{% url 'review:delete_review' product.id review.id %}" class="ml-4">
+                                   {% csrf_token %}
+                                   <button type="submit" 
+                                           class="text-red-500 hover:text-red-700 transition-colors duration-200"
+                                           onclick="return confirm('Are you sure you want to delete this review?');">
+                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                       </svg>
+                                   </button>
+                               </form>
+                           {% endif %}
+                       </div>
+                   </div>
+               {% endfor %}
+           </div>
+       {% else %}
+           <p class="text-center text-gray-500">There are no reviews for this product.</p>
+       {% endif %}
+   </section>
 
-    <!-- Tombol Add Review -->
-    <div class="flex justify-center mt-6">
-        <a href="{% url 'review:add_review' product.id %}" 
-            class="bg-[#F3A73B] hover:bg-orange-500 text-white font-semibold py-2 px-8 rounded-full transition-transform duration-300 transform hover:scale-105 shadow-lg">
-            Add Review
-        </a>
-    </div>
+   <!-- Tombol Add Review -->
+   <div class="flex justify-center mt-6">
+       <a href="{% url 'review:add_review' product.id %}" 
+           class="bg-[#F3A73B] hover:bg-orange-500 text-white font-semibold py-2 px-8 rounded-full transition-transform duration-300 transform hover:scale-105 shadow-lg">
+           Add Review
+       </a>
+   </div>
 </div>
+
+<!-- Flash Messages -->
+{% if messages %}
+   <div class="fixed bottom-4 right-4">
+       {% for message in messages %}
+           <div class="mb-2 p-4 rounded shadow-lg {% if message.tags == 'success' %}bg-green-500{% elif message.tags == 'error' %}bg-red-500{% else %}bg-blue-500{% endif %} text-white">
+               {{ message }}
+           </div>
+       {% endfor %}
+   </div>
+{% endif %}
+
 {% endblock content %}
