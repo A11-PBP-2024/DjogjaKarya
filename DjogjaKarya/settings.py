@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-dsg#5*8bs4qc4yau2od4k_6#u79x8oqq2cjh2z25_@rr819z=4
 DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1",
-                 "fauzan-putra31-djogjakarya.pbp.cs.ui.ac.id", "djogja-karya.vercel.app", "10.0.2.2"]
+                 "fauzan-putra31-djogjakarya.pbp.cs.ui.ac.id", "djogja-karya.vercel.app", "10.0.2.2", "fauzan-putra31-djogjakarya1.pbp.cs.ui.ac.id"]
 
 
 # Application definition
