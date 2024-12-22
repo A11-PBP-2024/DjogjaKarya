@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Article
@@ -10,6 +11,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.utils.timezone import now
 
 def is_admin(user):
     return user.is_superuser
@@ -134,3 +139,78 @@ def delete_article(request, article_id):
         article.delete()
         return redirect('article:show_article')  # Redirect to the article list
     return render(request, 'confirm_delete.html', {'article': article})
+
+# Menambahkan artikel dari Flutter
+
+
+@csrf_exempt
+@login_required
+@user_passes_test(is_admin)
+def add_article_flutter(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            article = Article.objects.create(
+                title=data['title'],
+                description=data['description'],
+                content=data.get('content', ''),
+                author=request.user,
+                tags=data.get('tags', 'Uncategorized'),
+                publication_date=now(),
+            )
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Article successfully added',
+                'article_id': article.id
+            })
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=500)
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=400)
+
+
+# Mengedit artikel dari Flutter
+@csrf_exempt
+@login_required
+@user_passes_test(is_admin)
+def edit_article_flutter(request, article_id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            article = get_object_or_404(Article, id=article_id)
+
+            article.title = data.get('title', article.title)
+            article.description = data.get('description', article.description)
+            article.content = data.get('content', article.content)
+            article.tags = data.get('tags', article.tags)
+            article.save()
+
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Article successfully updated'
+            })
+        except Article.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Article not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=400)
+
+
+# Menghapus artikel dari Flutter
+@csrf_exempt
+@login_required
+@user_passes_test(is_admin)
+def delete_article_flutter(request, article_id):
+    if request.method == 'POST':
+        try:
+            article = get_object_or_404(Article, id=article_id)
+            article.delete()
+            return JsonResponse({'message': 'Article successfully deleted'})
+        except Article.DoesNotExist:
+            return JsonResponse({'error': 'Article not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
