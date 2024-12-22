@@ -144,6 +144,9 @@ else:
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://fauzan-putra31-djogjakarya1.pbp.cs.ui.ac.id'
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
